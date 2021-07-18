@@ -78,7 +78,7 @@ const Ordering = () => {
           </Toolbar>
         </AppBar>
         <Paper className={classes.tableOrders}>
-          <Card className={[classes.orderSummary, classes.Ready]}>
+          <Card className={classes.orderSummary + ' ' + classes.Ready}>
             <Box
               width="100%"
               display="inline-flex"
@@ -156,7 +156,7 @@ const Ordering = () => {
               </Box>
             </Box>
           </Card>
-          <Card className={[classes.orderSummary, classes.Ordered]}>
+          <Card className={classes.orderSummary + ' ' + classes.Ordered}>
             <Box
               width="100%"
               display="inline-flex"
@@ -244,7 +244,7 @@ const Ordering = () => {
           </Toolbar>
         </AppBar>
         <Paper className={classes.tableOrders}>
-          <Card className={[classes.orderSummary, classes.New]}>
+          <Card className={classes.orderSummary + ' ' + classes.New}>
             <Box
               width="100%"
               display="inline-flex"
@@ -318,7 +318,7 @@ const Ordering = () => {
               <Box minWidth="48px" minHeight="48px"></Box>
             </Box>
           </Card>
-          <Card className={[classes.orderSummary, classes.Delivered]}>
+          <Card className={classes.orderSummary + ' ' + classes.Delivered}>
             <Box
               width="100%"
               display="inline-flex"
