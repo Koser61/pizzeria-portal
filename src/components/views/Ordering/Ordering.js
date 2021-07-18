@@ -1,5 +1,5 @@
 import React from 'react';
-//import {Link, Switch, Route} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container'
@@ -66,8 +66,10 @@ const Ordering = () => {
 
   return (
     <Container>
+      <Link to={process.env.PUBLIC_URL + '/ordering/new'}>New Order</Link>
+      <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>Order 123abc</Link>
       <article className={classes.tableArticle}>
-        <AppBar position="relative">
+        <AppBar position="relative" elevation={3}>
           <Toolbar variant="dense">
             <Typography variant="h6" className={classes.title}>
               Table 1
@@ -78,7 +80,7 @@ const Ordering = () => {
           </Toolbar>
         </AppBar>
         <Paper className={classes.tableOrders}>
-          <Card className={classes.orderSummary + ' ' + classes.Ready}>
+          <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ready}>
             <Box
               width="100%"
               display="inline-flex"
@@ -156,7 +158,7 @@ const Ordering = () => {
               </Box>
             </Box>
           </Card>
-          <Card className={classes.orderSummary + ' ' + classes.Ordered}>
+          <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ordered}>
             <Box
               width="100%"
               display="inline-flex"
@@ -233,7 +235,7 @@ const Ordering = () => {
         </Paper>
       </article>
       <article className={classes.tableArticle}>
-        <AppBar position="relative">
+        <AppBar position="relative" elevation={3}>
           <Toolbar variant="dense">
             <Typography variant="h6" className={classes.title}>
               Table 2
@@ -244,7 +246,7 @@ const Ordering = () => {
           </Toolbar>
         </AppBar>
         <Paper className={classes.tableOrders}>
-          <Card className={classes.orderSummary + ' ' + classes.New}>
+          <Card elevation={2} className={classes.orderSummary + ' ' + classes.New}>
             <Box
               width="100%"
               display="inline-flex"
@@ -318,7 +320,7 @@ const Ordering = () => {
               <Box minWidth="48px" minHeight="48px"></Box>
             </Box>
           </Card>
-          <Card className={classes.orderSummary + ' ' + classes.Delivered}>
+          <Card elevation={2} className={classes.orderSummary + ' ' + classes.Delivered}>
             <Box
               width="100%"
               display="inline-flex"
@@ -394,15 +396,6 @@ const Ordering = () => {
           </Card>
         </Paper>
       </article>
-      {/*
-        <Link to={process.env.PUBLIC_URL + '/ordering/new'} activeClassName='active'>New Order</Link>
-        <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'} activeClassName='active'>Order 123abc</Link>
-        <div>
-          <Switch>
-            <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={Order} />
-            <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Order} />
-          </Switch>
-        </div>*/}
     </Container>
   );
 };

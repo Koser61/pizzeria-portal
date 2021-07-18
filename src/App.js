@@ -23,7 +23,7 @@ function App() {
 
           <Route exact path={process.env.PUBLIC_URL + '/login'} component={Login} />
 
-          <Route path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
+          <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
           <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={Order} />
           <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Order} />
 
