@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from './NewOrder.scss';
+import styles from './Order.scss';
 
-const NewOrder = (props) => (
+const Order = (props) => (
   <div className={styles.component}>
       <h2>{props.match.params.id}</h2>
   </div>
 );
 
-export default NewOrder;
+export default Order;

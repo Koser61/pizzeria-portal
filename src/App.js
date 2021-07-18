@@ -8,9 +8,11 @@ import Ordering from './components/views/Ordering/Ordering';
 import Tables from './components/views/Tables/Tables';
 import Kitchen from './components/views/Kitchen/Kitchen';
 
-import NewOrder from './components/features/NewOrder/NewOrder';
+import Order from './components/features/Order/Order';
 import Event from './components/features/Event/Event';
 import Booking from './components/features/Booking/Booking';
+
+import './styles/global.scss'
 
 function App() {
   return (
@@ -22,8 +24,8 @@ function App() {
           <Route exact path={process.env.PUBLIC_URL + '/login'} component={Login} />
 
           <Route path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
-          <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={NewOrder} />
-          <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Event} />
+          <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={Order} />
+          <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Order} />
 
           <Route path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
           <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
