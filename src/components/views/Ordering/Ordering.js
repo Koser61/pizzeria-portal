@@ -18,26 +18,28 @@ import CheckIcon from '@material-ui/icons/Check';
 import DoneIcon from '@material-ui/icons/Done';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
-import DoneAllIcon from '@material-ui/icons/DoneAll';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import {lightGreen, teal, yellow, orange, grey} from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   tableArticle: {
-    margin: 12,
+    margin: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
   },
   tableOrders: {
-    padding: 12,
+    padding: theme.spacing(1),
   },
   orderSummary: {
-    padding: 12,
-    margin: '6px 0',
+    padding: theme.spacing(2),
+    margin: theme.spacing(1),
+    borderWidth: 1,
+    borderStyle: 'solid',
   },
   singleSummaryInfo: {
-    marginLeft: 6,
+    marginLeft: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
@@ -48,15 +50,19 @@ const useStyles = makeStyles((theme) => ({
   },
   New: {
     backgroundColor: orange[200],
+    borderColor: orange[300],
   },
   Ordered: {
     backgroundColor: yellow[200],
+    borderColor: yellow[300],
   },
   Ready: {
     backgroundColor: teal[200],
+    borderColor: teal[300],
   },
   Delivered: {
     backgroundColor: lightGreen[200],
+    borderColor: lightGreen[300],
   },
 }));
 
@@ -79,7 +85,7 @@ const Ordering = () => {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Paper className={classes.tableOrders}>
+        <Paper elevation={1} className={classes.tableOrders}>
           <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ready}>
             <Box
               width="100%"
@@ -90,7 +96,7 @@ const Ordering = () => {
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
-                  <DoneIcon />
+                  <FastfoodIcon />
                 </Avatar>
               </Box>
               <Box
@@ -168,7 +174,7 @@ const Ordering = () => {
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
-                  <FastfoodIcon />
+                  <ReceiptIcon />
                 </Avatar>
               </Box>
               <Box
@@ -245,7 +251,7 @@ const Ordering = () => {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Paper className={classes.tableOrders}>
+        <Paper elevation={1} className={classes.tableOrders}>
           <Card elevation={2} className={classes.orderSummary + ' ' + classes.New}>
             <Box
               width="100%"
@@ -330,7 +336,7 @@ const Ordering = () => {
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
-                  <DoneAllIcon />
+                  <DoneIcon />
                 </Avatar>
               </Box>
               <Box
