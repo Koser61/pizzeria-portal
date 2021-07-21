@@ -67,6 +67,16 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 30,
     maxWidth: 35,
   },
+  cartProductOptions: {
+    marginInline: theme.spacing(1),
+  },
+  cartProductTitle: {
+    marginBottom: theme.spacing(2),
+  },
+  cartProductPrice: {
+    minWidth: 55,
+    maxWidth: 80,
+  }
 }));
 
 const Order = () => {
@@ -518,7 +528,20 @@ const Order = () => {
             <Card elevation={5} className={classes.orderCard}>
               <Grid fluid>
                 <Row>
-                  <Col xs={1}>
+                  <Col xs={10} sm={12}>
+                    <Box
+                      display="flex"
+                      width="100%"
+                      height="100%"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Typography variant="h6" className={classes.cartProductTitle}>
+                        Nonna Alba's Pizza
+                      </Typography>
+                    </Box>
+                  </Col>
+                  <Col xs={2} sm={1}>
                     <Box
                       display="flex"
                       width="100%"
@@ -529,18 +552,14 @@ const Order = () => {
                       <Input value="1" />
                     </Box>
                   </Col>
-                  <Col xs={8}>
+                  <Col xs={9} sm={8}>
                     <Box
                       display="flex"
                       width="100%"
                       height="100%"
-                      //justifyContent="center"
-                      //alignItems="center"
                       flexDirection="column"
-                      paddingLeft={8}
-                      paddingRight={8}
+                      className={classes.cartProductOptions}
                     >
-                      <Typography variant="h6">Nonna Alba's Pizza</Typography>
                       <Typography component="p" variant="subtitle1">
                         <strong>sauce: </strong>tomato
                       </Typography>
@@ -552,7 +571,7 @@ const Order = () => {
                         </Typography>
                     </Box>
                   </Col>
-                  <Col xs={3}>
+                  <Col xs={3} sm={3}>
                     <Box
                       display="flex"
                       width="100%"
@@ -568,7 +587,7 @@ const Order = () => {
                         flexDirection="row"
                         className={classes.blockMargin}
                       >
-                        <Input value="$20" />
+                        <Input value="$20" className={classes.cartProductPrice}/>
                         <IconButton>
                           <DeleteForeverIcon />
                         </IconButton>
