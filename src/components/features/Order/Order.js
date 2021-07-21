@@ -23,9 +23,11 @@ import Radio from '@material-ui/core/Radio';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const useStyles = makeStyles((theme) => ({
   orderArticle: {
@@ -64,9 +66,6 @@ const useStyles = makeStyles((theme) => ({
   numberInput: {
     minWidth: 30,
     maxWidth: 35,
-  },
-  noteTextField: {
-    width: '100%',
   },
 }));
 
@@ -220,11 +219,11 @@ const Order = () => {
                 <Row>
                   <Col xs={9} sm={10}>
                     <Box
-                    display="flex"
-                    width="100%"
-                    height="100%"
-                    justifyContent="center"
-                    alignItems="center"
+                      display="flex"
+                      width="100%"
+                      height="100%"
+                      justifyContent="center"
+                      alignItems="center"
                     >
                       <Typography variant="h5" className={classes.productTitle + ' ' + classes.blockMargin}>
                         Zia Giulia's Breakfast
@@ -513,11 +512,71 @@ const Order = () => {
                 multiline
                 rows={6}
                 variant="outlined"
-                className={classes.noteTextField}
+                fullWidth
               />
             </Card>
-            <Card elevation={2} className={classes.orderCard}>
-              
+            <Card elevation={5} className={classes.orderCard}>
+              <Grid fluid>
+                <Row>
+                  <Col xs={1}>
+                    <Box
+                      display="flex"
+                      width="100%"
+                      height="100%"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Input value="1" />
+                    </Box>
+                  </Col>
+                  <Col xs={8}>
+                    <Box
+                      display="flex"
+                      width="100%"
+                      height="100%"
+                      //justifyContent="center"
+                      //alignItems="center"
+                      flexDirection="column"
+                      paddingLeft={8}
+                      paddingRight={8}
+                    >
+                      <Typography variant="h6">Nonna Alba's Pizza</Typography>
+                      <Typography component="p" variant="subtitle1">
+                        <strong>sauce: </strong>tomato
+                      </Typography>
+                      <Typography component="p" variant="subtitle1">
+                        <strong>toppings: </strong>olives, red peppers, green peppers, mushrooms, fresh basil
+                      </Typography>
+                      <Typography component="p" variant="subtitle1">
+                        <strong>pizza crust: </strong>standard
+                        </Typography>
+                    </Box>
+                  </Col>
+                  <Col xs={3}>
+                    <Box
+                      display="flex"
+                      width="100%"
+                      height="100%"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box
+                        display="flex"
+                        height="fit-content"
+                        width="fit-content"
+                        alignItems="center"
+                        flexDirection="row"
+                        className={classes.blockMargin}
+                      >
+                        <Input value="$20" />
+                        <IconButton>
+                          <DeleteForeverIcon />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  </Col>
+                </Row>
+              </Grid>
             </Card>
           </form>
         </Paper>
