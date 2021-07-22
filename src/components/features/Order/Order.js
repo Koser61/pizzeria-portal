@@ -23,7 +23,6 @@ import Radio from '@material-ui/core/Radio';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -71,11 +70,15 @@ const useStyles = makeStyles((theme) => ({
     marginInline: theme.spacing(1),
   },
   cartProductTitle: {
-    marginBottom: theme.spacing(2),
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
   },
   cartProductPrice: {
     minWidth: 55,
     maxWidth: 80,
+  },
+  cartTotal: {
+    marginInline: theme.spacing(2),
   }
 }));
 
@@ -525,9 +528,9 @@ const Order = () => {
                 fullWidth
               />
             </Card>
-            <Card elevation={5} className={classes.orderCard}>
-              <Grid fluid>
-                <Row>
+            <Card raised className={classes.orderCard}>
+              <Grid fluid className={classes.cartGrid}>
+                <Row >
                   <Col xs={10} sm={12}>
                     <Box
                       display="flex"
@@ -535,6 +538,7 @@ const Order = () => {
                       height="100%"
                       justifyContent="center"
                       alignItems="center"
+                      marginBottom={2}
                     >
                       <Typography variant="h6" className={classes.cartProductTitle}>
                         Nonna Alba's Pizza
@@ -549,7 +553,9 @@ const Order = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Input value="1" />
+                      <Typography variant="button" display="block">
+                        1
+                      </Typography>
                     </Box>
                   </Col>
                   <Col xs={9} sm={8}>
@@ -560,13 +566,13 @@ const Order = () => {
                       flexDirection="column"
                       className={classes.cartProductOptions}
                     >
-                      <Typography component="p" variant="subtitle1">
+                      <Typography component="p" variant="body2">
                         <strong>sauce: </strong>tomato
                       </Typography>
-                      <Typography component="p" variant="subtitle1">
+                      <Typography component="p" variant="body2">
                         <strong>toppings: </strong>olives, red peppers, green peppers, mushrooms, fresh basil
                       </Typography>
-                      <Typography component="p" variant="subtitle1">
+                      <Typography component="p" variant="body2">
                         <strong>pizza crust: </strong>standard
                         </Typography>
                     </Box>
@@ -579,23 +585,22 @@ const Order = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box
-                        display="flex"
-                        height="fit-content"
-                        width="fit-content"
-                        alignItems="center"
-                        flexDirection="row"
-                        className={classes.blockMargin}
-                      >
-                        <Input value="$20" className={classes.cartProductPrice}/>
-                        <IconButton>
-                          <DeleteForeverIcon />
-                        </IconButton>
-                      </Box>
+                      <Typography variant="button" display="block">
+                        $<span>20</span>
+                      </Typography>
+                      <IconButton>
+                        <DeleteForeverIcon />
+                      </IconButton>
                     </Box>
                   </Col>
                 </Row>
               </Grid>
+              <Divider className={classes.menuDivider} />
+              <Box display="inline-flex" width="100%" justifyContent="flex-end">
+                <Typography variant="h5" className={classes.cartTotal}>
+                  Total: <span>$20</span>
+                  </Typography>
+              </Box>
             </Card>
           </form>
         </Paper>
