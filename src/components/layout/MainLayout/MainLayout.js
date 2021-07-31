@@ -1,10 +1,10 @@
 import React from 'react';
 
-import PageNav from '../PageNav/PageNav'
+import NavBar from '../NavBar/NavBar'
 
 const MainLayout = (props) => (
   <main>
-    <PageNav />
+    <NavBar />
     {props.children}
   </main>
 );

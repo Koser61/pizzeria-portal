@@ -9,8 +9,8 @@ import styles from './Tables.scss';
 const Tables = () => (
   <div className={styles.component}>
     <h2>Tables view</h2>
-    <Link to={process.env.PUBLIC_URL + '/tables/booking/123abc'} activeClassName='active'>Booking</Link>
-    <Link to={process.env.PUBLIC_URL + '/tables/event/321abc'} activeClassName='active'>Event</Link>
+    <Link to={process.env.PUBLIC_URL + '/tables/booking/123abc'}>Booking</Link>
+    <Link to={process.env.PUBLIC_URL + '/tables/event/321abc'}>Event</Link>
     <div>
       <Switch>
         <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
