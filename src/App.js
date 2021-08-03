@@ -22,9 +22,9 @@ const App = () => {
       <BrowserRouter>
         <MainLayout>
           <Switch>
-            <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
+            <Route exact path={process.env.PUBLIC_URL + '/'} component={Login} />
 
-            <Route path={process.env.PUBLIC_URL + '/login'} component={Login} />
+            <Route path={process.env.PUBLIC_URL + '/dashboard'} component={HomePage} />
 
             <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
             <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={Order} />

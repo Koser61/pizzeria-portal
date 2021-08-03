@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -67,7 +66,6 @@ const NavBar = ({anchor}) => {
           <Typography variant="h6" className={classes.title}>
             Pizzeria Portal
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -82,7 +80,7 @@ const NavBar = ({anchor}) => {
           onKeyDown={toggleDrawer(anchor, false)}
         >
           <List>
-            <NavLink to={process.env.PUBLIC_URL + "/"}>
+            <NavLink to={process.env.PUBLIC_URL + "/dashboard"}>
               <ListItem button>
                 <ListItemIcon>
                   <HomeIcon />
