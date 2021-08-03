@@ -16,15 +16,15 @@ import Booking from './components/features/Booking/Booking';
 
 import './styles/global.scss'
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter basename={'/panel'}>
+      <BrowserRouter>
         <MainLayout>
           <Switch>
             <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
 
-            <Route exact path={process.env.PUBLIC_URL + '/login'} component={Login} />
+            <Route path={process.env.PUBLIC_URL + '/login'} component={Login} />
 
             <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
             <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={Order} />

@@ -67,9 +67,7 @@ const NavBar = ({anchor}) => {
           <Typography variant="h6" className={classes.title}>
             Pizzeria Portal
           </Typography>
-          <NavLink to={process.env.PUBLIC_URL + "/login"}>
-            <Button color="inherit">Login</Button>
-          </NavLink>
+          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -84,7 +82,7 @@ const NavBar = ({anchor}) => {
           onKeyDown={toggleDrawer(anchor, false)}
         >
           <List>
-            <NavLink exact to={process.env.PUBLIC_URL + "/"}>
+            <NavLink to={process.env.PUBLIC_URL + "/"}>
               <ListItem button>
                 <ListItemIcon>
                   <HomeIcon />

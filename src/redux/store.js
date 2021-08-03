@@ -6,6 +6,9 @@ import productReducer from './productRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
+  login: {
+    loggedIn: false,
+  },
   products: {
     loading: {
       active: false,
