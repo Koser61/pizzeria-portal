@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-/*
+
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +28,7 @@ import Select from '@material-ui/core/Select';
 import CheckIcon from '@material-ui/icons/Check';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
+/*
 const useStyles = makeStyles((theme) => ({
   orderArticle: {
     margin: theme.spacing(1),
@@ -100,35 +100,28 @@ class Order extends React.Component {
   render() {
     const { loading: { active, error }, products } = this.props;
 
-    const Wrapper = props => (
-      <div>
-        <h2>NewOrder view</h2>
-        {props.children}
-      </div>
-    );
-
     if(active || !products.length){
       return (
-        <Wrapper>
+        <Container>
           <p>Loading...</p>
-        </Wrapper>
+        </Container>
       );
     } else if(error) {
       return (
-        <Wrapper>
+        <Container>
           <p>Error! Details:</p>
           <pre>{error}</pre>
-        </Wrapper>
+        </Container>
       );
     } else {
       return (
-        <Wrapper>
+        <Container>
           <ul>
             {products.map(({id, name, price}) => (
               <li key={id}>{name}, {price}</li>
             ))}
           </ul>
-        </Wrapper>
+        </Container>
       );
     }
   }
