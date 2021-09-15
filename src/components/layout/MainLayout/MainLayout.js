@@ -1,12 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../NavBar/NavBarContainer';
 
-const MainLayout = (props) => (
+const MainLayout = ({children}) => (
   <main>
     <NavBar />
-    {props.children}
+    {children}
   </main>
 );
+
+MainLayout.propTypes = {
+  children: PropTypes.node,
+};
 
 export default MainLayout;

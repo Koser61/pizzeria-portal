@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container'
+import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -28,7 +28,7 @@ import Select from '@material-ui/core/Select';
 import CheckIcon from '@material-ui/icons/Check';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-/*
+
 const useStyles = makeStyles((theme) => ({
   orderArticle: {
     margin: theme.spacing(1),
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     marginInline: theme.spacing(2),
   }
 }));
-*/
+
 class Order extends React.Component {
   static propTypes = {
     fetchProducts: PropTypes.func,
@@ -121,12 +121,13 @@ class Order extends React.Component {
               <li key={id}>{name}, {price}</li>
             ))}
           </ul>
+          <NewOrder />
         </Container>
       );
     }
   }
 }
-/*
+
 const NewOrder = () => {
   const classes = useStyles();
   const [coffee, setCoffee] = React.useState('latte');
@@ -653,5 +654,5 @@ const NewOrder = () => {
     </Container>
   );
 };
-*/
+
 export default Order;

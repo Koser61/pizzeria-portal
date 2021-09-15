@@ -75,12 +75,12 @@ const Ordering = () => {
       <Link to={process.env.PUBLIC_URL + '/ordering/new'}>New Order</Link>
       <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>Order 123abc</Link>
       <article className={classes.tableArticle}>
-        <AppBar position="relative" elevation={3}>
-          <Toolbar variant="dense">
-            <Typography variant="h6" className={classes.title}>
+        <AppBar position='relative' elevation={3}>
+          <Toolbar variant='dense'>
+            <Typography variant='h6' className={classes.title}>
               Table 1
             </Typography>
-            <IconButton edge="end" color="inherit" aria-label="Add">
+            <IconButton edge='end' color='inherit' aria-label='Add'>
               <AddIcon />
             </IconButton>
           </Toolbar>
@@ -88,11 +88,11 @@ const Ordering = () => {
         <Paper elevation={1} className={classes.tableOrders}>
           <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ready}>
             <Box
-              width="100%"
-              display="inline-flex"
-              flexWrap="nowrap"
-              alignItems="center"
-              justifyContent="space-between"
+              width='100%'
+              display='inline-flex'
+              flexWrap='nowrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
@@ -100,65 +100,65 @@ const Ordering = () => {
                 </Avatar>
               </Box>
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-around"
-                width="100%"
+                display='flex'
+                alignItems='center'
+                justifyContent='space-around'
+                width='100%'
               >
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Status:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>ready</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Order Time:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>2021-07-17 15:30:00</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Total:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>$120</span>
                     </Typography>
                   </Box>
                 </Box>
               </Box>
-              <Box minWidth="48px" minHeight="48px">
-                <IconButton aria-label="deliver">
+              <Box minWidth='48px' minHeight='48px'>
+                <IconButton aria-label='deliver'>
                   <CheckIcon />
                 </IconButton>
               </Box>
@@ -166,11 +166,11 @@ const Ordering = () => {
           </Card>
           <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ordered}>
             <Box
-              width="100%"
-              display="inline-flex"
-              flexWrap="nowrap"
-              alignItems="center"
-              justifyContent="space-between"
+              width='100%'
+              display='inline-flex'
+              flexWrap='nowrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
@@ -178,75 +178,75 @@ const Ordering = () => {
                 </Avatar>
               </Box>
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-around"
-                width="100%"
+                display='flex'
+                alignItems='center'
+                justifyContent='space-around'
+                width='100%'
               >
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Status:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>ordered</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Order Time:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>2021-07-17 15:30:00</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Total:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>$120</span>
                     </Typography>
                   </Box>
                 </Box>
               </Box>
-              <Box minWidth="48px" minHeight="48px"></Box>
+              <Box minWidth='48px' minHeight='48px'></Box>
             </Box>
           </Card>
         </Paper>
       </article>
       <article className={classes.tableArticle}>
-        <AppBar position="relative" elevation={3}>
-          <Toolbar variant="dense">
-            <Typography variant="h6" className={classes.title}>
+        <AppBar position='relative' elevation={3}>
+          <Toolbar variant='dense'>
+            <Typography variant='h6' className={classes.title}>
               Table 2
             </Typography>
-            <IconButton edge="end" color="inherit" aria-label="Add">
+            <IconButton edge='end' color='inherit' aria-label='Add'>
               <AddIcon />
             </IconButton>
           </Toolbar>
@@ -254,11 +254,11 @@ const Ordering = () => {
         <Paper elevation={1} className={classes.tableOrders}>
           <Card elevation={2} className={classes.orderSummary + ' ' + classes.New}>
             <Box
-              width="100%"
-              display="inline-flex"
-              flexWrap="nowrap"
-              alignItems="center"
-              justifyContent="space-between"
+              width='100%'
+              display='inline-flex'
+              flexWrap='nowrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
@@ -266,73 +266,73 @@ const Ordering = () => {
                 </Avatar>
               </Box>
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-around"
-                width="100%"
+                display='flex'
+                alignItems='center'
+                justifyContent='space-around'
+                width='100%'
               >
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Status:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>new</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Order Time:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>2021-07-17 15:30:00</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Total:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>$120</span>
                     </Typography>
                   </Box>
                 </Box>
               </Box>
-              <Box minWidth="48px" minHeight="48px"></Box>
+              <Box minWidth='48px' minHeight='48px'></Box>
             </Box>
           </Card>
           <Card elevation={2} className={classes.orderSummary + ' ' + classes.Delivered}>
             <Box
-              width="100%"
-              display="inline-flex"
-              flexWrap="nowrap"
-              alignItems="center"
-              justifyContent="space-between"
+              width='100%'
+              display='inline-flex'
+              flexWrap='nowrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Box>
                 <Avatar className={classes.statusIcon}>
@@ -340,64 +340,64 @@ const Ordering = () => {
                 </Avatar>
               </Box>
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-around"
-                width="100%"
+                display='flex'
+                alignItems='center'
+                justifyContent='space-around'
+                width='100%'
               >
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Status:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>delivered</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Order Time:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>2021-07-17 15:30:00</span>
                     </Typography>
                   </Box>
                 </Box>
                 <Box 
-                  display="flex" 
-                  justifyContent="center" 
-                  flexDirection="row"
+                  display='flex' 
+                  justifyContent='center' 
+                  flexDirection='row'
                   className={classes.singleSummaryInfo}
                 >
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <strong>Total:&nbsp;</strong>
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="body1">
+                    <Typography variant='body1'>
                       <span>$120</span>
                     </Typography>
                   </Box>
                 </Box>
               </Box>
-              <Box minWidth="48px" minHeight="48px"></Box>
+              <Box minWidth='48px' minHeight='48px'></Box>
             </Box>
           </Card>
         </Paper>
