@@ -1,92 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container'
-import Paper from '@material-ui/core/Paper'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Card from '@material-ui/core/Card'
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar'
+import Container from '@mui/material/Container'
+import Paper from '@mui/material/Paper'
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import Card from '@mui/material/Card'
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar'
 
-import AddIcon from '@material-ui/icons/Add';
-import CheckIcon from '@material-ui/icons/Check';
+import AddIcon from '@mui/icons-material/Add';
+import CheckIcon from '@mui/icons-material/Check';
 
-import DoneIcon from '@material-ui/icons/Done';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-
-import {lightGreen, teal, yellow, orange, grey} from '@material-ui/core/colors';
-
-const useStyles = makeStyles((theme) => ({
-  tableArticle: {
-    margin: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  tableOrders: {
-    padding: theme.spacing(1),
-  },
-  orderSummary: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(1),
-    borderWidth: 1,
-    borderStyle: 'solid',
-  },
-  singleSummaryInfo: {
-    marginLeft: theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },
-  },
-  statusIcon: {
-    backgroundColor: 'white',
-    color: grey[600],
-  },
-  New: {
-    backgroundColor: orange[200],
-    borderColor: orange[300],
-  },
-  Ordered: {
-    backgroundColor: yellow[200],
-    borderColor: yellow[300],
-  },
-  Ready: {
-    backgroundColor: teal[200],
-    borderColor: teal[300],
-  },
-  Delivered: {
-    backgroundColor: lightGreen[200],
-    borderColor: lightGreen[300],
-  },
-}));
+import DoneIcon from '@mui/icons-material/Done';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 
 const Ordering = () => {
-  const classes = useStyles();
-
   return (
     <Container>
       <Link to={process.env.PUBLIC_URL + '/ordering/new'}>New Order</Link>
       <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>Order 123abc</Link>
-      <article className={classes.tableArticle}>
+      <article>
         <AppBar position='relative' elevation={3}>
           <Toolbar variant='dense'>
-            <Typography variant='h6' className={classes.title}>
+            <Typography variant='h6'>
               Table 1
             </Typography>
-            <IconButton edge='end' color='inherit' aria-label='Add'>
+            <IconButton edge='end' color='inherit' aria-label='Add' size="large">
               <AddIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Paper elevation={1} className={classes.tableOrders}>
-          <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ready}>
+        <Paper elevation={1}>
+          <Card elevation={2}>
             <Box
               width='100%'
               display='inline-flex'
@@ -95,7 +46,7 @@ const Ordering = () => {
               justifyContent='space-between'
             >
               <Box>
-                <Avatar className={classes.statusIcon}>
+                <Avatar>
                   <FastfoodIcon />
                 </Avatar>
               </Box>
@@ -109,7 +60,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -126,7 +76,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -143,7 +92,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -158,13 +106,13 @@ const Ordering = () => {
                 </Box>
               </Box>
               <Box minWidth='48px' minHeight='48px'>
-                <IconButton aria-label='deliver'>
+                <IconButton aria-label='deliver' size="large">
                   <CheckIcon />
                 </IconButton>
               </Box>
             </Box>
           </Card>
-          <Card elevation={2} className={classes.orderSummary + ' ' + classes.Ordered}>
+          <Card elevation={2}>
             <Box
               width='100%'
               display='inline-flex'
@@ -173,7 +121,7 @@ const Ordering = () => {
               justifyContent='space-between'
             >
               <Box>
-                <Avatar className={classes.statusIcon}>
+                <Avatar>
                   <ReceiptIcon />
                 </Avatar>
               </Box>
@@ -187,7 +135,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -204,7 +151,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -221,7 +167,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -240,19 +185,19 @@ const Ordering = () => {
           </Card>
         </Paper>
       </article>
-      <article className={classes.tableArticle}>
+      <article>
         <AppBar position='relative' elevation={3}>
           <Toolbar variant='dense'>
-            <Typography variant='h6' className={classes.title}>
+            <Typography variant='h6'>
               Table 2
             </Typography>
-            <IconButton edge='end' color='inherit' aria-label='Add'>
+            <IconButton edge='end' color='inherit' aria-label='Add' size="large">
               <AddIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Paper elevation={1} className={classes.tableOrders}>
-          <Card elevation={2} className={classes.orderSummary + ' ' + classes.New}>
+        <Paper elevation={1}>
+          <Card elevation={2}>
             <Box
               width='100%'
               display='inline-flex'
@@ -261,7 +206,7 @@ const Ordering = () => {
               justifyContent='space-between'
             >
               <Box>
-                <Avatar className={classes.statusIcon}>
+                <Avatar>
                   <PriorityHighIcon />
                 </Avatar>
               </Box>
@@ -275,7 +220,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -292,7 +236,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -309,7 +252,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -326,7 +268,7 @@ const Ordering = () => {
               <Box minWidth='48px' minHeight='48px'></Box>
             </Box>
           </Card>
-          <Card elevation={2} className={classes.orderSummary + ' ' + classes.Delivered}>
+          <Card elevation={2}>
             <Box
               width='100%'
               display='inline-flex'
@@ -335,7 +277,7 @@ const Ordering = () => {
               justifyContent='space-between'
             >
               <Box>
-                <Avatar className={classes.statusIcon}>
+                <Avatar>
                   <DoneIcon />
                 </Avatar>
               </Box>
@@ -349,7 +291,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -366,7 +307,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>
@@ -383,7 +323,6 @@ const Ordering = () => {
                   display='flex' 
                   justifyContent='center' 
                   flexDirection='row'
-                  className={classes.singleSummaryInfo}
                 >
                   <Box>
                     <Typography variant='body1'>

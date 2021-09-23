@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 
 import NavBar from '../NavBar/NavBarContainer';
 
-const MainLayout = ({children}) => (
-  <main>
-    <NavBar />
-    {children}
-  </main>
-);
+const MainLayout = ({children}) => {
+  return (
+    <main>
+      <NavBar />
+      <section>
+        {children}
+      </section>
+    </main>
+  );
+};
 
 MainLayout.propTypes = {
   children: PropTypes.node,

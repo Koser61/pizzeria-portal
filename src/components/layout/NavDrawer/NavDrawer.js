@@ -1,60 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
 
-import HomeIcon from '@material-ui/icons/Home';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import DeckIcon from '@material-ui/icons/Deck';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DeckIcon from '@mui/icons-material/Deck';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 import DrawerLink from '../../common/DrawerLink/DrawerLink';
 
-const useStyles = makeStyles(() => ({
-  linkList: {
-    width: 250,
-  },
-}));
-
 const NavDrawer = ({drawerOpen, toggleDrawer}) => {
-  const classes = useStyles();
   return (
     <Drawer
       open={drawerOpen}
       onClose={() => toggleDrawer(false)}
     >
-      <div
-        className={classes.linkList}
+      <Box
         role='presentation'
         onClick={() => toggleDrawer(false)}
         onKeyDown={() => toggleDrawer(false)}
+        sx={{ width: 200 }}
       >
         <List>
-          <DrawerLink link={process.env.PUBLIC_URL + '/dashboard'} viewTitle='Dashboard' buttonText='Home'>
+          <DrawerLink link={process.env.PUBLIC_URL + '/dashboard'} title='Home'>
             <HomeIcon />
           </DrawerLink>
         </List>
         <Divider />
         <List>
-          <DrawerLink link={process.env.PUBLIC_URL + '/ordering'} viewTitle='Ordering' buttonText='Ordering'>
+          <DrawerLink link={process.env.PUBLIC_URL + '/ordering'} title='Ordering'>
             <ShoppingCartIcon />
           </DrawerLink>
-          <DrawerLink link={process.env.PUBLIC_URL + '/tables'} viewTitle='Tables' buttonText='Tables'>
+          <DrawerLink link={process.env.PUBLIC_URL + '/tables'} title='Tables'>
             <DeckIcon />
           </DrawerLink>
-          <DrawerLink link={process.env.PUBLIC_URL + '/kitchen'} viewTitle='Kitchen' buttonText='Kitchen'>
+          <DrawerLink link={process.env.PUBLIC_URL + '/kitchen'} title='Kitchen'>
             <RestaurantIcon />
           </DrawerLink>
         </List>
-      </div>
+      </Box>
     </Drawer>
   );
 };
 
 NavDrawer.propTypes = {
+  anchor: PropTypes.string,
   drawerOpen: PropTypes.bool,
   toggleDrawer: PropTypes.func,
 };
