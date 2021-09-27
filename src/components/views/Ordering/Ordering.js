@@ -19,7 +19,6 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 
-
 const Ordering = () => {
   return (
     <Container>

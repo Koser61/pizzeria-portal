@@ -3,7 +3,8 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import navReducer from './navRedux';
-import productReducer from './productRedux';
+import productsReducer from './productsRedux';
+import orderingReducer from './orderingRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
@@ -18,12 +19,16 @@ const initialState = {
     },
     data: [],
   },
+  ordering: {
+    table: '',
+  }
 };
 
 // define reducers
 const reducers = {
   nav: navReducer,
-  products: productReducer,
+  products: productsReducer,
+  ordering: orderingReducer,
 };
 
 // add blank reducers for initial state properties without reducers

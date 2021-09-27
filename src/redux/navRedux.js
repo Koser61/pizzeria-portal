@@ -3,7 +3,7 @@ export const getCurrentView = ({nav}) => nav.currentView;
 export const getDrawerState = ({nav}) => nav.drawerOpen;
 
 /* action name creator */
-const reducerName = 'views';
+const reducerName = 'navigation';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
