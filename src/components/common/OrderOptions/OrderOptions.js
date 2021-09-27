@@ -50,7 +50,7 @@ class OrderOptions extends React.Component {
                   labelId="tableSelectLabel"
                   id="tableSelect"
                   value={table}
-                  label="Age"
+                  label="Table"
                   onChange={(event) => {
                     changeTable(event.target.value);
                   }}

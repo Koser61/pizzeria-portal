@@ -9,6 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Paper from '@mui/material/Paper';
 
 import OrderOptions from '../../common/OrderOptions/OrderOptionsContainer';
+import OrderMenu from '../../common/OrderMenu/OrderMenuContainer';
 
 class NewOrder extends React.Component {
   static propTypes = {
@@ -56,6 +57,7 @@ class NewOrder extends React.Component {
         <Container>
           <Paper elevation={3} sx={{marginTop: '1rem', padding: '0.5rem'}}>
             <OrderOptions />
+            <OrderMenu products={products} />
           </Paper>
         </Container>
       );
