@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link, Route, Switch} from 'react-router-dom';
 
-import Booking from '../../features/Booking/Booking';
-import Event from '../../features/Event/Event';
+import Booking from '../Booking/Booking';
+import Event from '../Event/Event';
 
 import styles from './Tables.scss';
 

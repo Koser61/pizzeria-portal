@@ -6,10 +6,9 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Paper from '@mui/material/Paper';
 
-import OrderOptions from '../../common/OrderOptions/OrderOptionsContainer';
-import OrderMenu from '../../common/OrderMenu/OrderMenuContainer';
+import OrderOptions from '../../features/OrderOptions/OrderOptions';
+import OrderMenu from '../../features/OrderMenu/OrderMenu';
 
 class NewOrder extends React.Component {
   static propTypes = {
@@ -44,8 +43,8 @@ class NewOrder extends React.Component {
     } else if(error) {
       return (
         <Container>
-          <Box width={1/1} marginTop='1rem'>
-            <Alert severity="error" marginTop='2rem'>
+          <Box width={1/1} sx={{marginTop: '1rem'}}>
+            <Alert severity='error' mt='2rem'>
               <AlertTitle>Error!</AlertTitle>
               {error}
             </Alert>
@@ -55,10 +54,10 @@ class NewOrder extends React.Component {
     } else {
       return (
         <Container>
-          <Paper elevation={3} sx={{marginTop: '1rem', padding: '0.5rem'}}>
+          <Box maxWidth='lg' mx='auto'>
             <OrderOptions />
             <OrderMenu products={products} />
-          </Paper>
+          </Box>
         </Container>
       );
     }

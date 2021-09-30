@@ -21,7 +21,9 @@ const initialState = {
   },
   ordering: {
     table: '',
-  }
+    orderTime: {},
+    notes: '',
+  },
 };
 
 // define reducers

@@ -6,16 +6,17 @@ import store from './redux/store.js';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
-import HomePage from './components/views/HomePage/HomePage';
+
+import Dashboard from './components/views/Dashboard/Dashboard';
 import Login from './components/views/Login/Login';
 import Ordering from './components/views/Ordering/Ordering';
 import Tables from './components/views/Tables/Tables';
 import Kitchen from './components/views/Kitchen/Kitchen';
 
-import NewOrder from './components/features/NewOrder/NewOrderContainer';
-import Order from './components/features/Order/Order';
-import Event from './components/features/Event/Event';
-import Booking from './components/features/Booking/Booking';
+import NewOrder from './components/views/NewOrder/NewOrderContainer';
+import Order from './components/views/Order/Order';
+import Event from './components/views/Event/Event';
+import Booking from './components/views/Booking/Booking';
 
 import './styles/global.scss'
 
@@ -28,7 +29,7 @@ const App = () => {
           <Switch>
             <Route exact path={process.env.PUBLIC_URL + '/'} component={Login} />
 
-            <Route path={process.env.PUBLIC_URL + '/dashboard'} component={HomePage} />
+            <Route path={process.env.PUBLIC_URL + '/dashboard'} component={Dashboard} />
 
             <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
             <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={NewOrder} />
