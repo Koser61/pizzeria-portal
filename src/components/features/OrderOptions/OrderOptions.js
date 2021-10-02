@@ -9,7 +9,7 @@ import OrderTimePicker from '../../common/OrderTimePicker/OrderTimePickerContain
 
 const OrderOptions = () => {
   return (
-    <Card elevation={3} sx={{marginTop: '1rem', paddingBottom: '1rem'}}>
+    <Card elevation={6} sx={{paddingBottom: '1rem'}}>
       <Grid container>
         <Grid item xs={12} sm={6}>
           <Box

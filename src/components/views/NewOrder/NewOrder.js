@@ -43,7 +43,7 @@ class NewOrder extends React.Component {
     } else if(error) {
       return (
         <Container>
-          <Box width={1/1} sx={{marginTop: '1rem'}}>
+          <Box width={1/1} py='1rem'>
             <Alert severity='error' mt='2rem'>
               <AlertTitle>Error!</AlertTitle>
               {error}
@@ -54,7 +54,7 @@ class NewOrder extends React.Component {
     } else {
       return (
         <Container>
-          <Box maxWidth='lg' mx='auto'>
+          <Box maxWidth='lg' mx='auto' py='1rem'>
             <OrderOptions />
             <OrderMenu products={products} />
           </Box>

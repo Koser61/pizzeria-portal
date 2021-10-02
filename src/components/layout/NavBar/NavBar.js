@@ -23,7 +23,7 @@ const NavBar = ({currentView, drawerOpen, toggleDrawer}) => {
 
   return (
     <nav>
-      <AppBar position='static'>
+      <AppBar position='static' sx={{bgcolor: 'primary.dark'}}>
         <Toolbar>
           <IconButton
             edge='start'

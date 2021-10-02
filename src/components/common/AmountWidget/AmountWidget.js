@@ -12,14 +12,14 @@ import RemoveIcon from '@mui/icons-material/Remove';
 const AmountWidget = () => {
   return (
     <Grid container paddingRight='1rem'>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={4} sx={{order: {xs: 1, sm: 3}}}>
         <Box display='flex' justifyContent='center'>
           <IconButton>
             <AddIcon />
           </IconButton>
         </Box>
       </Grid>
-      <Grid item  xs={12} sm={4} alignSelf='center'>
+      <Grid item xs={12} sm={4} order={2} alignSelf='center'>
         <Box display='flex' justifyContent='center'>
           <Card
             variant='outlined'
@@ -29,14 +29,15 @@ const AmountWidget = () => {
               display: 'flex', 
               justifyContent: 'center',
               alignContent: 'center',
-              lineHeight: '2rem'
+              lineHeight: '2rem',
+              margin: '0.1rem'
             }}
           >
             1
           </Card>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={4} sx={{order: {xs: 3, sm: 1}}}>
         <Box display='flex' justifyContent='center'>
           <IconButton>
             <RemoveIcon />

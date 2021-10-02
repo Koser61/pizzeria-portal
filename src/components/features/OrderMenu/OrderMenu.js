@@ -11,7 +11,7 @@ import OrderNotes from '../../common/OrderNotes/OrderNotesContainer';
 const OrderMenu = ({ products }) => {
   return (
     <Card
-      elevation={3}
+      elevation={6}
       sx={{
         marginTop: '0.5rem',
         paddingBottom: '0.5rem',

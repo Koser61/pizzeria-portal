@@ -16,9 +16,11 @@ const ProductBase = ({name}) => {
       display='inline-flex'
       justifyContent='space-between'
       alignItems='center'
-      sx={{ paddingX: '1rem', paddingY: '0.5rem' }}
+      sx={{ padding: '0.5rem' }}
     >
-      <Typography variant='h6'>{name}</Typography>
+      <Typography variant='h6' marginLeft='1rem'>
+        {name}
+      </Typography>
       <Box display='inline-flex' alignItems='center'>
         <AmountWidget />
         <Button variant='contained' sx={{ height: 64, borderRadius: 2 }}>
