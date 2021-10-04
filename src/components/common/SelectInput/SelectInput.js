@@ -16,6 +16,7 @@ const SelectInput = ({ id, label, options }) => {
         name={id}
         value={id}
         label={label}
+        sx={{minWidth: 180}}
       >
         {Object.values(options).map((option) => {
           function getKeyByValue(object, value) {
@@ -24,8 +25,8 @@ const SelectInput = ({ id, label, options }) => {
 
           return (
             <MenuItem
+              key={getKeyByValue(options, option)}
               value={getKeyByValue(options, option)}
-              defaultChecked={option.default}
             >
               {option.label}
             </MenuItem>

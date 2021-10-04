@@ -10,7 +10,12 @@ import Radio from '@mui/material/Radio';
 const RadioInput = ({ id, label, options }) => {
   return (
     <FormControl component='fieldset'>
-      <FormLabel component='legend'>{label}</FormLabel>
+      <FormLabel
+        component='legend'
+        sx={{marginLeft: '0.5rem'}}
+      >
+        {label}
+      </FormLabel>
       <RadioGroup
         aria-label={label}
         name={label}
@@ -22,7 +27,7 @@ const RadioInput = ({ id, label, options }) => {
 
           return (
             <FormControlLabel
-              defaultChecked={option.default}
+              key={getKeyByValue(options, option)}
               value={getKeyByValue(options, option)}
               control={<Radio />}
               label={option.label}

@@ -10,7 +10,12 @@ import Checkbox from '@mui/material/Checkbox';
 const CheckboxInput = ({ id, label, options }) => {
   return (
     <FormControl component='fieldset'>
-      <FormLabel component='legend'>{label}</FormLabel>
+      <FormLabel
+        component='legend'
+        sx={{marginLeft: '0.5rem'}}
+      >
+        {label}
+      </FormLabel>
       <FormGroup>
         {Object.values(options).map((option) => {
           function getKeyByValue(object, value) {
@@ -19,6 +24,7 @@ const CheckboxInput = ({ id, label, options }) => {
 
           return (
             <FormControlLabel
+              key={getKeyByValue(options, option)}
               value={getKeyByValue(options, option)}
               control={
                 <Checkbox defaultChecked={option.default} name='gilad' />

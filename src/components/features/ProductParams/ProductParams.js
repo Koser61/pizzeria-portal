@@ -7,7 +7,13 @@ import ProductParam from '../ProductParam/ProductParam';
 
 const ProductParams = ({params}) => {
   return (
-    <Box padding='1rem'>
+    <Box
+      paddingY='0.5rem'
+      display='flex'
+      justifyContent='space-evenly'
+      alignItems='center'
+      flexWrap='wrap'
+    >
       {Object.values(params).map((param) => {
         function getKeyByValue(object, value) {
           return Object.keys(object).find(key => object[key] === value);
@@ -15,6 +21,7 @@ const ProductParams = ({params}) => {
 
         return (
           <ProductParam
+            key={getKeyByValue(params, param)}
             id={getKeyByValue(params, param)}
             label={param.label}
             type={param.type}
