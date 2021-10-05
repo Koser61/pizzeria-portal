@@ -23,6 +23,31 @@ const initialState = {
     table: '',
     orderTime: {},
     notes: '',
+    menu: {
+      cake: {
+        //amount: 1,
+      },
+      breakfast: {
+        //amount: 1,
+        params: {
+          coffee: ''
+        }
+      },
+      pizza: {
+        //amount: 1,
+        params: {
+          sauce: '',
+          toppings: [],
+          crust: ''
+        }
+      },
+      salad: {
+        //amount: 1,
+        params: {
+          ingredients: []
+        }
+      }
+    }
   },
 };
 

@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import AmountWidget from '../../common/AmountWidget/AmountWidget';
+import AmountWidget from '../../common/AmountWidget/AmountWidgetContainer';
 
-const ProductBase = ({name}) => {
+const ProductBase = ({id, name}) => {
   return (
     <Box
       width={1 / 1}
@@ -22,7 +22,7 @@ const ProductBase = ({name}) => {
         {name}
       </Typography>
       <Box display='inline-flex' alignItems='center'>
-        <AmountWidget />
+        <AmountWidget id={id} />
         <Button variant='contained' sx={{ height: 64, borderRadius: 2 }}>
           <AddShoppingCartIcon />
         </Button>
@@ -32,6 +32,7 @@ const ProductBase = ({name}) => {
 };
 
 ProductBase.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
 };
 

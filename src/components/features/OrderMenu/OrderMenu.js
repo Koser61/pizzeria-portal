@@ -22,7 +22,7 @@ const OrderMenu = ({ products }) => {
         if (product.params) {
           return (
             <Card key={product.id} variant='outlined' sx={{marginTop: '0.5rem'}}>
-              <ProductBase name={product.name} />
+              <ProductBase id={product.id} name={product.name} />
               <Divider />
               <ProductParams params={product.params} />
             </Card>
@@ -30,7 +30,7 @@ const OrderMenu = ({ products }) => {
         } else {
           return (
             <Card key={product.id} variant='outlined' sx={{marginTop: '0.5rem'}}>
-              <ProductBase name={product.name} />
+              <ProductBase id={product.id} name={product.name} />
             </Card>
           );
         }

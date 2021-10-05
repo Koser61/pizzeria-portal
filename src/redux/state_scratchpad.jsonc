@@ -1,0 +1,45 @@
+{
+    /* NEW ORDER REDUX STATE */
+  "ordering": {
+    "table": "table1",
+    "orderTime": "2021-10-04T19:55:30.052+02:00",
+    "notes": "pasta al-dente please",
+    "menu": {
+      "cake": {
+        "amount": 1,
+        "basePrice": 9,
+        "singlePrice": 9,
+        "totalPrice": 9
+      },
+      "breakfast": {
+        "amount": 1,
+        "basePrice": 9,
+        "singlePrice": 9,
+        "totalPrice": 9,
+        "params": {
+          "coffee": "latte"
+        }
+      },
+      "pizza": {
+        "amount": 1,
+        "basePrice": 20,
+        "singlePrice": 20,
+        "totalPrice": 20,
+        "params": {
+          "sauce": "tomato",
+          "toppings": ["olives", "redPeppers", "greenPeppers", "mushrooms", "basil"],
+          "crust": "standard"
+        }
+      },
+      "salad": {
+        "amount": 1,
+        "basePrice": 9,
+        "singlePrice": 9,
+        "totalPrice": 9,
+        "params": {
+          "ingredients": ["cucumber", "tomatoes", "olives", "herbs"]
+        }
+      }
+    }
+  }
+}

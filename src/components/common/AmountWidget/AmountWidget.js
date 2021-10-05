@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -9,45 +9,77 @@ import Card from '@mui/material/Card';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const AmountWidget = () => {
-  return (
-    <Grid container paddingRight='1rem'>
-      <Grid item xs={12} sm={4} sx={{order: {xs: 1, sm: 3}}}>
-        <Box display='flex' justifyContent='center'>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={4} order={2} alignSelf='center'>
-        <Box display='flex' justifyContent='center'>
-          <Card
-            variant='outlined'
-            sx={{
-              height: '2rem',
-              width: '2rem',
-              display: 'flex', 
-              justifyContent: 'center',
-              alignContent: 'center',
-              lineHeight: '2rem',
-              margin: '0.1rem'
-            }}
-          >
-            1
-          </Card>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={4} sx={{order: {xs: 3, sm: 1}}}>
-        <Box display='flex' justifyContent='center'>
-          <IconButton>
-            <RemoveIcon />
-          </IconButton>
-        </Box>
-      </Grid>
-    </Grid>
-  );
-};
+class AmountWidget extends React.Component {
+  static propTypes = {
+    amount: PropTypes.number,
+    changeAmount: PropTypes.func,
+  }
 
-AmountWidget.propTypes = {};
+  componentDidMount() {
+    const { changeAmount } = this.props;
+    changeAmount(1);
+  }
+
+  handleIncrement(currentAmount) {
+    const { changeAmount } = this.props;
+    
+    if (currentAmount < 9) {
+      changeAmount(++currentAmount);
+    } else {
+      return;
+    }
+  }
+
+  handleDecrement(currentAmount) {
+    const { changeAmount } = this.props;
+
+    if (currentAmount > 1) {
+      changeAmount(--currentAmount);
+    } else {
+      return;
+    }
+  }
+
+  render() {
+    const { amount } = this.props;
+
+    return (
+      <Grid container paddingRight='1rem'>
+        <Grid item xs={12} sm={4} sx={{order: {xs: 1, sm: 3}}}>
+          <Box display='flex' justifyContent='center'>
+            <IconButton onClick={() => this.handleIncrement(amount)}>
+              <AddIcon />
+            </IconButton>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4} order={2} alignSelf='center'>
+          <Box display='flex' justifyContent='center'>
+            <Card
+              variant='outlined'
+              sx={{
+                height: '2rem',
+                width: '2rem',
+                display: 'flex', 
+                justifyContent: 'center',
+                alignContent: 'center',
+                lineHeight: '2rem',
+                margin: '0.1rem'
+              }}
+            >
+              {amount}
+            </Card>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4} sx={{order: {xs: 3, sm: 1}}}>
+          <Box display='flex' justifyContent='center'>
+            <IconButton onClick={() => this.handleDecrement(amount)}>
+              <RemoveIcon />
+            </IconButton>
+          </Box>
+        </Grid>
+      </Grid>
+    );
+  }
+}
 
 export default AmountWidget;
