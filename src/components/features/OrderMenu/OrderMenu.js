@@ -24,7 +24,7 @@ const OrderMenu = ({ products }) => {
             <Card key={product.id} variant='outlined' sx={{marginTop: '0.5rem'}}>
               <ProductBase id={product.id} name={product.name} />
               <Divider />
-              <ProductParams params={product.params} />
+              <ProductParams productId={product.id} params={product.params} />
             </Card>
           );
         } else {

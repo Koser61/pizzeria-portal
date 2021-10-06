@@ -24,17 +24,13 @@ const initialState = {
     orderTime: {},
     notes: '',
     menu: {
-      cake: {
-        //amount: 1,
-      },
+      cake: {},
       breakfast: {
-        //amount: 1,
         params: {
           coffee: ''
         }
       },
       pizza: {
-        //amount: 1,
         params: {
           sauce: '',
           toppings: [],
@@ -42,7 +38,6 @@ const initialState = {
         }
       },
       salad: {
-        //amount: 1,
         params: {
           ingredients: []
         }

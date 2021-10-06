@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 
 import ProductParam from '../ProductParam/ProductParam';
 
-const ProductParams = ({params}) => {
+const ProductParams = ({productId, params}) => {
   return (
     <Box
       paddingY='0.5rem'
@@ -22,6 +22,7 @@ const ProductParams = ({params}) => {
         return (
           <ProductParam
             key={getKeyByValue(params, param)}
+            productId={productId}
             id={getKeyByValue(params, param)}
             label={param.label}
             type={param.type}
@@ -34,6 +35,7 @@ const ProductParams = ({params}) => {
 };
 
 ProductParams.propTypes = {
+  productId: PropTypes.string,
   params: PropTypes.object,
 };
 

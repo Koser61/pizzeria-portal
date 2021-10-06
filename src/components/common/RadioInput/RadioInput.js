@@ -7,42 +7,68 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 
-const RadioInput = ({ id, label, options }) => {
-  return (
-    <FormControl component='fieldset'>
-      <FormLabel
-        component='legend'
-        sx={{marginLeft: '0.5rem'}}
-      >
-        {label}
-      </FormLabel>
-      <RadioGroup
-        aria-label={label}
-        name={label}
-      >
-        {Object.values(options).map((option) => { // value NOT PROPER
-          function getKeyByValue(object, value) {
-            return Object.keys(object).find(key => object[key] === value);
-          }
+class RadioInput extends React.Component {
+  static propTypes = {
+    label: PropTypes.string,
+    options: PropTypes.object,
+    selected: PropTypes.string,
+    changeSelected: PropTypes.func,
+  }
 
-          return (
-            <FormControlLabel
-              key={getKeyByValue(options, option)}
-              value={getKeyByValue(options, option)}
-              control={<Radio />}
-              label={option.label}
-            />
-          );
-        })}
-      </RadioGroup>
-    </FormControl>
-  );
-};
+  componentDidMount() {
+    const { changeSelected, options } = this.props;
 
-RadioInput.propTypes = {
-  id: PropTypes.string,
-  label: PropTypes.string,
-  options: PropTypes.object,
-};
+    changeSelected(this.findDefaultValue(options));
+  }
+
+  getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
+
+  findDefaultValue(options) {
+    let defaultValue = '';
+    
+    Object.values(options).forEach((option) => {
+
+      if(option.default) {
+        defaultValue = this.getKeyByValue(options, option);
+      }
+    });
+    
+    return defaultValue;
+  }
+
+  render() {
+    const { label, options, selected, changeSelected } = this.props;
+
+    return (
+      <FormControl component='fieldset'>
+        <FormLabel
+          component='legend'
+          sx={{marginLeft: '0.5rem'}}
+        >
+          {label}
+        </FormLabel>
+        <RadioGroup
+          aria-label={label}
+          name={label}
+          value={selected}
+          onChange={(event) => changeSelected(event.target.value)}
+        >
+          {Object.values(options).map((option) => {
+            return (
+              <FormControlLabel
+                key={this.getKeyByValue(options, option)}
+                value={this.getKeyByValue(options, option)}
+                control={<Radio />}
+                label={option.label}
+              />
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+    );
+  }
+}
 
 export default RadioInput;
