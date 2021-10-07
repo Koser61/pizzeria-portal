@@ -27,7 +27,14 @@
         "totalPrice": 20,
         "params": {
           "sauce": "tomato",
-          "toppings": ["olives", "redPeppers", "greenPeppers", "mushrooms", "basil"],
+          "toppings": {
+            "olives": false,
+            "redPeppers": false,
+            "greenPeppers": false,
+            "mushrooms": false,
+            "basil": false,
+            "salami": false
+          },
           "crust": "standard"
         }
       },
@@ -37,7 +44,15 @@
         "singlePrice": 9,
         "totalPrice": 9,
         "params": {
-          "ingredients": ["cucumber", "tomatoes", "olives", "herbs"]
+          "ingredients": {
+            "cucumber": false,
+            "tomatoes": false,
+            "olives": false,
+            "feta": false,
+            "cheese": false,
+            "herbs": false,
+            "pepper": false
+          }
         }
       }
     }

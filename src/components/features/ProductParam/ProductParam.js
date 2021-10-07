@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 
 import RadioInput from '../../common/RadioInput/RadioInputContainer';
 import CheckboxGroup from '../../common/CheckboxGroup/CheckboxGroup';
-import SelectInput from '../../common/SelectInput/SelectInput';
+import SelectInput from '../../common/SelectInput/SelectInputContainer';
 
 const ProductParam = ({ productId, id, label, type, options }) => {
   switch (type) {
