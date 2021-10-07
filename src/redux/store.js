@@ -33,13 +33,28 @@ const initialState = {
       pizza: {
         params: {
           sauce: '',
-          toppings: [],
+          toppings: {
+            olives: false,
+            redPeppers: false,
+            greenPeppers: false,
+            mushrooms: false,
+            basil: false,
+            salami: false,
+          },
           crust: ''
         }
       },
       salad: {
         params: {
-          ingredients: []
+          ingredients: {
+            cucumber: false,
+            tomatoes: false,
+            olives: false,
+            feta: false,
+            cheese: false,
+            herbs: false,
+            pepper: false,
+          }
         }
       }
     }
