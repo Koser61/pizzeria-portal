@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '@mui/material/Card';
-import Divider from '@mui/material/Divider';
 
-import ProductBase from '../ProductBase/ProductBase';
-import ProductParams from '../ProductParams/ProductParams';
+import MenuProduct from '../../features/MenuProduct/MenuProductContainer';
 import OrderNotes from '../../common/OrderNotes/OrderNotesContainer';
 
 const OrderMenu = ({ products }) => {
@@ -19,21 +17,15 @@ const OrderMenu = ({ products }) => {
       }}
     >
       {products.map((product) => {
-        if (product.params) {
-          return (
-            <Card key={product.id} variant='outlined' sx={{marginTop: '0.5rem'}}>
-              <ProductBase id={product.id} name={product.name} />
-              <Divider />
-              <ProductParams productId={product.id} params={product.params} />
-            </Card>
-          );
-        } else {
-          return (
-            <Card key={product.id} variant='outlined' sx={{marginTop: '0.5rem'}}>
-              <ProductBase id={product.id} name={product.name} />
-            </Card>
-          );
-        }
+        return (
+          <MenuProduct
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            params={product.params}
+          />
+        );
       })}
       <OrderNotes />
     </Card>
