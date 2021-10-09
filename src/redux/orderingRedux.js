@@ -8,6 +8,8 @@ export const getParamValueByIds = ({ordering}, productId, id) => ordering.menu[p
 export const getCheckedStateByIds = ({ordering}, productId, paramId, id) => ordering.menu[productId].params[paramId][id];
 
 export const getProductBasePriceById = ({ordering}, id) => ordering.menu[id].basePrice;
+export const getProductPriceSingleById = ({ordering}, id) => ordering.menu[id].priceSingle;
+export const getProductPriceById = ({ordering}, id) => ordering.menu[id].price;
 
 /* action name creator */
 const reducerName = 'ordering';
@@ -22,7 +24,9 @@ const CHANGE_PRODUCT_AMOUNT = createActionName('CHANGE_PRODUCT_AMOUNT');
 const CHANGE_PARAM_VALUE = createActionName('CHANGE_PARAM_VALUE');
 const CHANGE_CHECKED_STATE = createActionName('CHANGE_CHECKED_STATE');
 
-const CHANGE_BASE_PRICE = createActionName('CHANGE_BASE_PRICE');
+const SET_BASE_PRICE = createActionName('SET_BASE_PRICE');
+const CHANGE_PRICE_SINGLE = createActionName('CHANGE_PRICE_SINGLE');
+const CHANGE_PRICE = createActionName('CHANGE_PRICE');
 
 /* action creators */
 export const changeOrderTime = payload => ({ payload, type: CHANGE_ORDER_TIME });
@@ -33,7 +37,9 @@ export const changeProductAmount = (payload, id) => ({ payload, id, type: CHANGE
 export const changeParamValue = (payload, productId, id) => ({ payload, productId, id, type: CHANGE_PARAM_VALUE });
 export const changeCheckedState = (payload, productId, paramId, id) => ({ payload, productId, paramId, id, type: CHANGE_CHECKED_STATE });
 
-export const setBasePrice = (payload, id) => ({ payload, id, type: CHANGE_BASE_PRICE });
+export const setBasePrice = (payload, id) => ({ payload, id, type: SET_BASE_PRICE });
+export const changePriceSingle = (payload, id) => ({ payload, id, type: CHANGE_PRICE_SINGLE });
+export const changePrice = (payload, id) => ({ payload, id, type: CHANGE_PRICE });
 
 /* reducer */
 export default function reducer(statePart = {}, action = {}) {
@@ -95,7 +101,7 @@ export default function reducer(statePart = {}, action = {}) {
           },
         }
       }
-    case CHANGE_BASE_PRICE:
+    case SET_BASE_PRICE:
       return {
         ...statePart,
         menu: {
@@ -103,6 +109,28 @@ export default function reducer(statePart = {}, action = {}) {
           [action.id]: {
             ...statePart.menu[action.id],
             basePrice: action.payload,
+          },
+        }
+      }
+    case CHANGE_PRICE_SINGLE:
+      return {
+        ...statePart,
+        menu: {
+          ...statePart.menu,
+          [action.id]: {
+            ...statePart.menu[action.id],
+            priceSingle: action.payload,
+          },
+        }
+      }
+    case CHANGE_PRICE:
+      return {
+        ...statePart,
+        menu: {
+          ...statePart.menu,
+          [action.id]: {
+            ...statePart.menu[action.id],
+            price: action.payload,
           },
         }
       }
