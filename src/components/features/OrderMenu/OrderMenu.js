@@ -22,7 +22,7 @@ const OrderMenu = ({ products }) => {
             key={product.id}
             id={product.id}
             name={product.name}
-            price={product.price}
+            defaultPrice={product.price}
             params={product.params}
           />
         );

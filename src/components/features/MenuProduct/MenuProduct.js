@@ -11,15 +11,15 @@ class MenuProduct extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
-    price: PropTypes.number,
+    defaultPrice: PropTypes.number,
     params: PropTypes.object,
-    setBasePrice: PropTypes.func,
+    changePriceSingle: PropTypes.func,
   };
 
   componentDidMount() {
-    const { setBasePrice, price } = this.props;
+    const { changePriceSingle, defaultPrice } = this.props;
 
-    setBasePrice(price);
+    changePriceSingle(defaultPrice);
   }
 
   render() {

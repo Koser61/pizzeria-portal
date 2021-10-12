@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import MenuProduct from './MenuProduct';
-import { setBasePrice } from '../../../redux/orderingRedux';
+import { changePriceSingle } from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state) => ({
   
 });
 
 const mapDispatchToProps = (dispatch, {id}) => ({
-  setBasePrice: (price) => dispatch(setBasePrice(price, id)),
+  changePriceSingle: (price) => dispatch(changePriceSingle(price, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuProduct);
