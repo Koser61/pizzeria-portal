@@ -9,7 +9,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import AmountWidget from '../../common/AmountWidget/AmountWidgetContainer';
 
-const ProductBase = ({id, name}) => {
+const ProductBase = ({productId, name}) => {
   return (
     <Box
       width={1 / 1}
@@ -22,7 +22,7 @@ const ProductBase = ({id, name}) => {
         {name}
       </Typography>
       <Box display='inline-flex' alignItems='center'>
-        <AmountWidget id={id} />
+        <AmountWidget productId={productId} />
         <Button variant='contained' sx={{ height: 64, borderRadius: 2 }}>
           <AddShoppingCartIcon />
         </Button>
@@ -32,7 +32,7 @@ const ProductBase = ({id, name}) => {
 };
 
 ProductBase.propTypes = {
-  id: PropTypes.string,
+  productId: PropTypes.string,
   name: PropTypes.string,
 };
 

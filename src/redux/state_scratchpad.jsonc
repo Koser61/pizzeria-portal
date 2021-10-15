@@ -7,51 +7,116 @@
     "menu": {
       "cake": {
         "amount": 1,
-        "basePrice": 9,
         "singlePrice": 9,
         "totalPrice": 9
       },
       "breakfast": {
         "amount": 1,
-        "basePrice": 9,
         "singlePrice": 9,
         "totalPrice": 9,
         "params": {
-          "coffee": "latte"
+          "coffee": {
+            "label": "Coffee type",
+            "selected": {
+              "label": "Latte",
+              "value": "latte",
+              "price": 1
+            }
+          }
         }
       },
       "pizza": {
         "amount": 1,
-        "basePrice": 20,
         "singlePrice": 20,
         "totalPrice": 20,
         "params": {
-          "sauce": "tomato",
-          "toppings": {
-            "olives": false,
-            "redPeppers": false,
-            "greenPeppers": false,
-            "mushrooms": false,
-            "basil": false,
-            "salami": false
+          "sauce": {
+            "label": "Sauce",
+            "selected": {
+              "label": "Tomato",
+              "value": "tomato",
+              "price": 0
+            }
           },
-          "crust": "standard"
+          "toppings": {
+            "label": "Toppings",
+            "options": {
+              "olives": {
+                "label": "Olives",
+                "checked": false,
+                "price": 2
+              },
+              "redPeppers": {
+                "label": "Red peppers",
+                "checked": false,
+                "price": 2
+              },
+              "greenPeppers": {
+                "label": "Green peppers",
+                "checked": false,
+                "price": 2
+              },
+              "mushrooms": {
+                "label": "Mushrooms",
+                "checked": false,
+                "price": 2
+              },
+              "basil": {
+                "label": "Fresh basil",
+                "checked": false,
+                "price": 2
+              },
+              "salami": {
+                "label": "Salami",
+                "checked": false,
+                "price": 3
+              }
+            }
+          },
+          "crust": {
+            "label": "Pizza crust",
+            "selected": {
+              "label": "Standard",
+              "value": "standard",
+              "price": 0
+            }
+          }
         }
       },
       "salad": {
         "amount": 1,
-        "basePrice": 9,
         "singlePrice": 9,
         "totalPrice": 9,
         "params": {
           "ingredients": {
-            "cucumber": false,
-            "tomatoes": false,
-            "olives": false,
-            "feta": false,
-            "cheese": false,
-            "herbs": false,
-            "pepper": false
+            "cucumber": {
+              "checked": false,
+              "price": 1
+            },
+            "tomatoes": {
+              "checked": false,
+              "price": 1
+            },
+            "olives": {
+              "checked": false,
+              "price": 1
+            },
+            "feta": {
+              "checked": false,
+              "price": 1
+            },
+            "cheese": {
+              "checked": false,
+              "price": 1
+            },
+            "herbs": {
+              "checked": false,
+              "price": 1
+            },
+            "pepper": {
+              "checked": false,
+              "price": 1
+            }
           }
         }
       }

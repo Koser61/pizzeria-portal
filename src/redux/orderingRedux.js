@@ -1,44 +1,57 @@
-/* selectors */
+/* SELECTORS */
 export const getOrderTime = ({ordering}) => ordering.orderTime;
 export const getTable = ({ordering}) => ordering.table;
 export const getOrderNotes = ({ordering}) => ordering.orderNotes;
 
-export const getProductAmountById = ({ordering}, id) => ordering.menu[id].amount;
-export const getParamValueByIds = ({ordering}, productId, id) => ordering.menu[productId].params[id];
-export const getCheckedStateByIds = ({ordering}, productId, paramId, id) => ordering.menu[productId].params[paramId][id];
+export const getProductAmountById = ({ordering}, productId) =>
+  ordering.menu[productId].amount;
+export const getProductPriceSingleById = ({ordering}, productId) =>
+  ordering.menu[productId].priceSingle;
+export const getProductPriceById = ({ordering}, productId) =>
+  ordering.menu[productId].price;
 
-export const getProductPriceSingleById = ({ordering}, id) => ordering.menu[id].priceSingle;
-export const getProductPriceById = ({ordering}, id) => ordering.menu[id].price;
+export const getSelectedValueByIds = ({ordering}, productId, paramId) =>
+  ordering.menu[productId].params[paramId];
 
-/* action name creator */
+export const getCheckedStateByIds = ({ordering}, productId, paramId, optionId) =>
+  ordering.menu[productId].params[paramId].options[optionId];
+
+/* ACTION NAME CREATOR */
 const reducerName = 'ordering';
-const createActionName = name => `app/${reducerName}/${name}`;
+const createActionName = (name) => `app/${reducerName}/${name}`;
 
-/* action types */
+/* ACTION TYPES */
 const CHANGE_ORDER_TIME = createActionName('CHANGE_ORDER_TIME');
 const CHANGE_TABLE = createActionName('CHANGE_TABLE');
 const CHANGE_ORDER_NOTES = createActionName('CHANGE_ORDER_NOTES');
 
 const CHANGE_PRODUCT_AMOUNT = createActionName('CHANGE_PRODUCT_AMOUNT');
-const CHANGE_PARAM_VALUE = createActionName('CHANGE_PARAM_VALUE');
-const CHANGE_CHECKED_STATE = createActionName('CHANGE_CHECKED_STATE');
-
 const CHANGE_PRICE_SINGLE = createActionName('CHANGE_PRICE_SINGLE');
 const CHANGE_PRICE = createActionName('CHANGE_PRICE');
 
-/* action creators */
-export const changeOrderTime = payload => ({ payload, type: CHANGE_ORDER_TIME });
-export const changeTable = payload => ({ payload, type: CHANGE_TABLE });
-export const changeOrderNotes = payload => ({ payload, type: CHANGE_ORDER_NOTES });
+const CHANGE_SELECTED_VALUE = createActionName('CHANGE_SELECTED_VALUE');
 
-export const changeProductAmount = (payload, id) => ({ payload, id, type: CHANGE_PRODUCT_AMOUNT });
-export const changeParamValue = (payload, productId, id) => ({ payload, productId, id, type: CHANGE_PARAM_VALUE });
-export const changeCheckedState = (payload, productId, paramId, id) => ({ payload, productId, paramId, id, type: CHANGE_CHECKED_STATE });
+const CHANGE_CHECKED_STATE = createActionName('CHANGE_CHECKED_STATE');
 
-export const changePriceSingle = (payload, id) => ({ payload, id, type: CHANGE_PRICE_SINGLE });
-export const changePrice = (payload, id) => ({ payload, id, type: CHANGE_PRICE });
+/* ACTION CREATOR */
+export const changeOrderTime = (payload) => ({ payload, type: CHANGE_ORDER_TIME, });
+export const changeTable = (payload) => ({ payload, type: CHANGE_TABLE });
+export const changeOrderNotes = (payload) => ({ payload, type: CHANGE_ORDER_NOTES, });
 
-/* reducer */
+export const changeProductAmount = (payload, productId) =>
+  ({ payload, productId, type: CHANGE_PRODUCT_AMOUNT });
+export const changePriceSingle = (payload, productId) =>
+  ({ payload, productId, type: CHANGE_PRICE_SINGLE });
+export const changePrice = (payload, productId) =>
+  ({ payload, productId, type: CHANGE_PRICE });
+
+export const changeSelectedValue = (payload, productId, paramId) =>
+  ({ payload, productId, paramId, type: CHANGE_SELECTED_VALUE });
+
+export const changeCheckedState = (payload, productId, paramId, optionId) =>
+  ({ payload, productId, paramId, optionId, type: CHANGE_CHECKED_STATE });
+
+/* REDUCER */
 export default function reducer(statePart = {}, action = {}) {
   switch (action.type) {
     case CHANGE_ORDER_TIME:
@@ -61,13 +74,35 @@ export default function reducer(statePart = {}, action = {}) {
         ...statePart,
         menu: {
           ...statePart.menu,
-          [action.id]: {
-            ...statePart.menu[action.id],
+          [action.productId]: {
+            ...statePart.menu[action.productId],
             amount: action.payload,
           },
-        }
+        },
       }
-    case CHANGE_PARAM_VALUE:
+    case CHANGE_PRICE_SINGLE:
+      return {
+        ...statePart,
+        menu: {
+          ...statePart.menu,
+          [action.productId]: {
+            ...statePart.menu[action.productId],
+            priceSingle: action.payload,
+          },
+        },
+      }
+    case CHANGE_PRICE:
+      return {
+        ...statePart,
+        menu: {
+          ...statePart.menu,
+          [action.productId]: {
+            ...statePart.menu[action.productId],
+            price: action.payload,
+          },
+        },
+      }
+    case CHANGE_SELECTED_VALUE:
       return {
         ...statePart,
         menu: {
@@ -76,10 +111,10 @@ export default function reducer(statePart = {}, action = {}) {
             ...statePart.menu[action.productId],
             params: {
               ...statePart.menu[action.productId].params,
-              [action.id]: action.payload,
-            }
+              [action.paramId]: action.payload,
+            },
           },
-        }
+        },
       }
     case CHANGE_CHECKED_STATE:
       return {
@@ -92,33 +127,14 @@ export default function reducer(statePart = {}, action = {}) {
               ...statePart.menu[action.productId].params,
               [action.paramId]: {
                 ...statePart.menu[action.productId].params[action.paramId],
-                [action.id]: action.payload,
+                options: {
+                  ...statePart.menu[action.productId].params[action.paramId].options,
+                  [action.optionId]: action.payload,
+                },
               },
-            }
+            },
           },
-        }
-      }
-    case CHANGE_PRICE_SINGLE:
-      return {
-        ...statePart,
-        menu: {
-          ...statePart.menu,
-          [action.id]: {
-            ...statePart.menu[action.id],
-            priceSingle: action.payload,
-          },
-        }
-      }
-    case CHANGE_PRICE:
-      return {
-        ...statePart,
-        menu: {
-          ...statePart.menu,
-          [action.id]: {
-            ...statePart.menu[action.id],
-            price: action.payload,
-          },
-        }
+        },
       }
     default:
       return statePart;

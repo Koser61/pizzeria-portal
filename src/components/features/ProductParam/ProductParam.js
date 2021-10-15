@@ -3,28 +3,43 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 
-import RadioInput from '../../common/RadioInput/RadioInputContainer';
+import RadioInputGroup from '../../common/RadioInputGroup/RadioInputGroupContainer';
 import CheckboxGroup from '../../common/CheckboxGroup/CheckboxGroup';
 import SelectInput from '../../common/SelectInput/SelectInputContainer';
 
-const ProductParam = ({ productId, id, label, type, options }) => {
+const ProductParam = ({ productId, paramId, label, type, options }) => {
   switch (type) {
     case 'radios':
       return (
         <Box margin='1rem'>
-          <RadioInput productId={productId} id={id} label={label} options={options} />
+          <RadioInputGroup
+            productId={productId}
+            paramId={paramId}
+            label={label}
+            options={options}
+            />
         </Box>
       );
     case 'checkboxes':
       return (
         <Box margin='1rem'>
-          <CheckboxGroup productId={productId} id={id} label={label} options={options} />
+          <CheckboxGroup
+            productId={productId}
+            paramId={paramId}
+            label={label}
+            options={options}
+          />
         </Box>
       );
     case 'select':
       return (
         <Box margin='1rem'>
-          <SelectInput productId={productId} id={id} label={label} options={options} />
+          <SelectInput
+            productId={productId}
+            paramId={paramId}
+            label={label}
+            options={options}
+          />
         </Box>
       );
     default:
@@ -34,7 +49,7 @@ const ProductParam = ({ productId, id, label, type, options }) => {
 
 ProductParam.propTypes = {
   productId: PropTypes.string,
-  id: PropTypes.string,
+  paramId: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
   options: PropTypes.object,

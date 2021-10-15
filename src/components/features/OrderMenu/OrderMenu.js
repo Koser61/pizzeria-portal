@@ -20,7 +20,7 @@ const OrderMenu = ({ products }) => {
         return (
           <MenuProduct
             key={product.id}
-            id={product.id}
+            productId={product.id}
             name={product.name}
             defaultPrice={product.price}
             params={product.params}

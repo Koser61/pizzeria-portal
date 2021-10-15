@@ -4,42 +4,53 @@ import PropTypes from 'prop-types';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import CheckboxInput from '../CheckboxInput/CheckboxInputContainer';
 
-const CheckboxGroup = ({ productId, id, label, options }) => {
-  return (
-    <FormControl component='fieldset'>
-      <FormLabel component='legend' sx={{ marginLeft: '0.5rem' }}>
-        {label}
-      </FormLabel>
-      <FormGroup>
-        {Object.values(options).map((option) => {
-          const getKeyByValue = (object, value) => {
-            return Object.keys(object).find((key) => object[key] === value);
-          };
+class CheckboxGroup extends React.Component {
+  static propTypes = {
+    productId: PropTypes.string,
+    paramId: PropTypes.string,
+    label: PropTypes.string,
+    options: PropTypes.object,
+  };
 
-          return (
-            <CheckboxInput 
-              key={getKeyByValue(options, option)}
-              productId={productId}
-              paramId={id}
-              id={getKeyByValue(options, option)}
-              label={option.label}
-              isDefault={option.default}
-            />
-          );
-        })}
-      </FormGroup>
-    </FormControl>
-  );
-};
+  render() {
+    const { productId, paramId, label, options } = this.props;
 
-CheckboxGroup.propTypes = {
-  productId: PropTypes.string,
-  id: PropTypes.string,
-  label: PropTypes.string,
-  options: PropTypes.object,
-};
+    return (
+      <FormControl component='fieldset'>
+        <FormLabel component='legend' sx={{ marginLeft: '0.5rem' }}>
+          {label}
+        </FormLabel>
+        <FormGroup>
+          {Object.values(options).map((option) => {
+            const getKeyByValue = (object, value) => {
+              return Object.keys(object).find((key) => object[key] === value);
+            };
+  
+            return (
+              <FormControlLabel
+                key={getKeyByValue(options, option)}
+                label={option.label}
+                value={getKeyByValue(options, option)}
+                control={
+                  <CheckboxInput
+                    productId={productId}
+                    paramId={paramId}
+                    optionId={getKeyByValue(options, option)}
+                    price={option.price}
+                    isDefault={option.default}
+                  />
+                }
+              />
+            );
+          })}
+        </FormGroup>
+      </FormControl>
+    );
+  }
+}
 
 export default CheckboxGroup;

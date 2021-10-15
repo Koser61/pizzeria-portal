@@ -9,34 +9,36 @@ import ProductParams from '../ProductParams/ProductParams';
 
 class MenuProduct extends React.Component {
   static propTypes = {
-    id: PropTypes.string,
+    productId: PropTypes.string,
     name: PropTypes.string,
     defaultPrice: PropTypes.number,
     params: PropTypes.object,
+    changeProductAmount: PropTypes.func,
     changePriceSingle: PropTypes.func,
   };
 
   componentDidMount() {
-    const { changePriceSingle, defaultPrice } = this.props;
-
+    const { changeProductAmount, changePriceSingle, defaultPrice } = this.props;
+    
+    changeProductAmount(1);
     changePriceSingle(defaultPrice);
   }
 
   render() {
-    const { id, name, params } = this.props;
+    const { productId, name, params } = this.props;
 
     if (params) {
       return (
-        <Card key={id} variant='outlined' sx={{ marginTop: '0.5rem' }}>
-          <ProductBase id={id} name={name} />
+        <Card key={productId} variant='outlined' sx={{ marginTop: '0.5rem' }}>
+          <ProductBase productId={productId} name={name} />
           <Divider />
-          <ProductParams productId={id} params={params} />
+          <ProductParams productId={productId} params={params} />
         </Card>
       );
     } else {
       return (
-        <Card key={id} variant='outlined' sx={{ marginTop: '0.5rem' }}>
-          <ProductBase id={id} name={name} />
+        <Card key={productId} variant='outlined' sx={{ marginTop: '0.5rem' }}>
+          <ProductBase productId={productId} name={name} />
         </Card>
       );
     }

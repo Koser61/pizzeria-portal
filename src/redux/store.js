@@ -24,40 +24,58 @@ const initialState = {
     orderTime: {},
     notes: '',
     menu: {
-      cake: {},
+      cake: {
+        amount: 1,
+        priceSingle: 9,
+        price: 9,
+      },
       breakfast: {
+        amount: 1,
+        priceSingle: 9,
+        price: 9,
         params: {
-          coffee: ''
-        }
+          coffee: '',
+        },
       },
       pizza: {
+        amount: 1,
+        priceSingle: 20,
+        price: 20,
         params: {
           sauce: '',
           toppings: {
-            olives: false,
-            redPeppers: false,
-            greenPeppers: false,
-            mushrooms: false,
-            basil: false,
-            salami: false,
+            options: {
+              olives: false,
+              redPeppers: false,
+              label: false,
+              greenPeppers: false,
+              mushrooms: false,
+              basil: false,
+              salami: false,
+            },
           },
-          crust: ''
-        }
+          crust: '',
+        },
       },
       salad: {
+        amount: 1,
+        priceSingle: 9,
+        price: 9,
         params: {
           ingredients: {
-            cucumber: false,
-            tomatoes: false,
-            olives: false,
-            feta: false,
-            cheese: false,
-            herbs: false,
-            pepper: false,
-          }
-        }
-      }
-    }
+            options: {
+              cucumber: false,
+              tomatoes: false,
+              olives: false,
+              feta: false,
+              cheese: false,
+              herbs: false,
+              pepper: false,
+            },
+          },
+        },
+      },
+    },
   },
 };
 

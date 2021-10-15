@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
 import MenuProduct from './MenuProduct';
-import { changePriceSingle } from '../../../redux/orderingRedux';
+import { changeProductAmount, changePriceSingle } from '../../../redux/orderingRedux';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
   
 });
 
-const mapDispatchToProps = (dispatch, {id}) => ({
-  changePriceSingle: (price) => dispatch(changePriceSingle(price, id)),
+const mapDispatchToProps = (dispatch, {productId}) => ({
+  changeProductAmount: (amount) => dispatch(changeProductAmount(amount, productId)),
+  changePriceSingle: (price) => dispatch(changePriceSingle(price, productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuProduct);

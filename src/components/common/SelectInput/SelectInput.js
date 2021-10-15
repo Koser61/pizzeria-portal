@@ -8,7 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 
 class SelectInput extends React.Component {
   static propTypes = {
-    id: PropTypes.string,
+    productId: PropTypes.string,
+    paramId: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.object,
     selected: PropTypes.string,
@@ -16,20 +17,19 @@ class SelectInput extends React.Component {
   }
 
   componentDidMount() {
-    const { changeSelected, options } = this.props;
-  
-    changeSelected(this.findDefaultValue(options));
+    const { options, changeSelected } = this.props;
+
+    changeSelected(this.getDefaultValue(options));
   }
 
   getKeyByValue(object, value) {
     return Object.keys(object).find((key) => object[key] === value);
   }
 
-  findDefaultValue(options) {
+  getDefaultValue(options) {
     let defaultValue = '';
     
     Object.values(options).forEach((option) => {
-
       if(option.default) {
         defaultValue = this.getKeyByValue(options, option);
       }
@@ -39,25 +39,26 @@ class SelectInput extends React.Component {
   }
 
   render() {
-    const { id, label, options, selected, changeSelected } = this.props;
+    const { paramId, label, options, selected, changeSelected } = this.props;
 
     return (
       <FormControl>
-        <InputLabel id={id + '-label'}>{label}</InputLabel>
+        <InputLabel id={paramId + '-label'}>{label}</InputLabel>
         <Select
-          labelId={id + '-label'}
-          id={id}
-          name={id}
-          value={selected}
-          onChange={(event) => changeSelected(event.target.value)}
-          label={label}
           sx={{minWidth: 180}}
+          labelId={paramId + '-label'}
+          id={paramId}
+          value={selected}
+          label={label}
+          onChange={(event) => changeSelected(event.target.value)}
         >
           {Object.values(options).map((option) => {
+            const optionKey = this.getKeyByValue(options, option);
+
             return (
               <MenuItem
-                key={this.getKeyByValue(options, option)}
-                value={this.getKeyByValue(options, option)}
+                key={optionKey}
+                value={optionKey}
               >
                 {option.label}
               </MenuItem>
