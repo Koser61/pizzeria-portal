@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 
-import ProductBase from '../ProductBase/ProductBase';
+import ProductBase from '../ProductBase/ProductBaseContainer';
 import ProductParams from '../ProductParams/ProductParams';
 
 class MenuProduct extends React.Component {

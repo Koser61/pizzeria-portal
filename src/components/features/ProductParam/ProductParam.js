@@ -17,7 +17,7 @@ const ProductParam = ({ productId, paramId, label, type, options }) => {
             paramId={paramId}
             label={label}
             options={options}
-            />
+          />
         </Box>
       );
     case 'checkboxes':
