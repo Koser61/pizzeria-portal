@@ -14,14 +14,14 @@ class MenuProduct extends React.Component {
     defaultPrice: PropTypes.number,
     params: PropTypes.object,
     changeProductAmount: PropTypes.func,
-    changePriceSingle: PropTypes.func,
+    setDefaultPrice: PropTypes.func,
   };
 
   componentDidMount() {
-    const { changeProductAmount, changePriceSingle, defaultPrice } = this.props;
+    const { changeProductAmount, setDefaultPrice, defaultPrice } = this.props;
     
     changeProductAmount(1);
-    changePriceSingle(defaultPrice);
+    setDefaultPrice(defaultPrice);
   }
 
   render() {

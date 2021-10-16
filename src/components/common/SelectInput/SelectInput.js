@@ -14,12 +14,18 @@ class SelectInput extends React.Component {
     options: PropTypes.object,
     selected: PropTypes.string,
     changeSelected: PropTypes.func,
+    addDefaultParamPrice: PropTypes.func,
+    changeParamPrice: PropTypes.func,
   }
 
   componentDidMount() {
-    const { options, changeSelected } = this.props;
+    const { options, changeSelected, addDefaultParamPrice, changeParamPrice } = this.props;
+    const defaultOption = this.getDefaultValue(options);
+    const defaultParamPrice = this.getOptionPrice(options, defaultOption);
 
-    changeSelected(this.getDefaultValue(options));
+    addDefaultParamPrice(defaultParamPrice);
+    changeSelected(defaultOption);
+    changeParamPrice(defaultParamPrice);
   }
 
   getKeyByValue(object, value) {
@@ -38,8 +44,29 @@ class SelectInput extends React.Component {
     return defaultValue;
   }
 
+  getOptionPrice(options, id) {
+    let optionPrice = 0;
+
+    Object.values(options).forEach((option) => {
+      if(this.getKeyByValue(options, option) === id) {
+        optionPrice = option.price;
+      }
+    });
+
+    return optionPrice;
+  }
+
+  handleChange(eventTarget) {
+    const { options, changeSelected, changeParamPrice } = this.props;
+    const targetId = eventTarget.value;
+    const targetPrice = this.getOptionPrice(options, targetId);
+
+    changeSelected(targetId);
+    changeParamPrice(targetPrice);
+  }
+
   render() {
-    const { paramId, label, options, selected, changeSelected } = this.props;
+    const { paramId, label, options, selected } = this.props;
 
     return (
       <FormControl>
@@ -50,7 +77,7 @@ class SelectInput extends React.Component {
           id={paramId}
           value={selected}
           label={label}
-          onChange={(event) => changeSelected(event.target.value)}
+          onChange={(event) => this.handleChange(event.target)}
         >
           {Object.values(options).map((option) => {
             const optionKey = this.getKeyByValue(options, option);

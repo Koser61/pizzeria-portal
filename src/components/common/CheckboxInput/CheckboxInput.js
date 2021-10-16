@@ -12,27 +12,44 @@ class CheckboxInput extends React.Component {
     isDefault: PropTypes.bool,
     checked: PropTypes.bool,
     changeChecked: PropTypes.func,
+    addDefaultParamPrice: PropTypes.func,
+    changeOptionPrice: PropTypes.func,
   }
 
   componentDidMount() {
-    const { isDefault, changeChecked } = this.props;
+    const { isDefault, changeChecked, addDefaultParamPrice, changeOptionPrice, price } = this.props;
 
     if(isDefault) {
       changeChecked(true);
+      changeOptionPrice(price);
+      addDefaultParamPrice(price);
     } else {
       changeChecked(false);
+      changeOptionPrice(0);
+    }
+  }
+
+  handleChange(eventTarget) {
+    const { price, changeChecked, changeOptionPrice } = this.props;
+
+    if(eventTarget.checked) {
+      changeChecked(true);
+      changeOptionPrice(price);
+    } else {
+      changeChecked(false);
+      changeOptionPrice(0);
     }
   }
 
   render() {
-    const { optionId, checked, changeChecked } = this.props;
+    const { optionId, checked } = this.props;
 
     return (
       <Checkbox
         name={optionId}
         value={optionId}
         checked={checked}
-        onChange={() => changeChecked(!checked)}
+        onChange={(event) => this.handleChange(event.target)}
       />
     );
   }

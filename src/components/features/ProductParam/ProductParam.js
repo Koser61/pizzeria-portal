@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 
 import RadioInputGroup from '../../common/RadioInputGroup/RadioInputGroupContainer';
-import CheckboxGroup from '../../common/CheckboxGroup/CheckboxGroup';
+import CheckboxGroup from '../../common/CheckboxGroup/CheckboxGroupContainer';
 import SelectInput from '../../common/SelectInput/SelectInputContainer';
 
 const ProductParam = ({ productId, paramId, label, type, options }) => {

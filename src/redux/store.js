@@ -25,53 +25,114 @@ const initialState = {
     notes: '',
     menu: {
       cake: {
-        amount: 1,
-        priceSingle: 9,
-        price: 9,
+        amount: 0,
+        defaultPrice: 0,
+        defaultParamsPrices: [],
+        basePrice: 0,
+        priceSingle: 0,
+        price: 0,
       },
       breakfast: {
-        amount: 1,
-        priceSingle: 9,
-        price: 9,
+        amount: 0,
+        defaultPrice: 0,
+        defaultParamsPrices: [],
+        basePrice: 0,
+        priceSingle: 0,
+        price: 0,
         params: {
-          coffee: '',
+          coffee: {
+            value: '',
+            price: 0,
+          },
         },
       },
       pizza: {
-        amount: 1,
-        priceSingle: 20,
-        price: 20,
+        amount: 0,
+        defaultPrice: 0,
+        defaultParamsPrices: [],
+        basePrice: 0,
+        priceSingle: 0,
+        price: 0,
         params: {
-          sauce: '',
+          sauce: {
+            value: '',
+            price: 0,
+          },
           toppings: {
             options: {
-              olives: false,
-              redPeppers: false,
-              label: false,
-              greenPeppers: false,
-              mushrooms: false,
-              basil: false,
-              salami: false,
+              olives: {
+                checked: false,
+                price: 0,
+              },
+              redPeppers: {
+                checked: false,
+                price: 0,
+              },
+              greenPeppers: {
+                checked: false,
+                price: 0,
+              },
+              mushrooms: {
+                checked: false,
+                price: 0,
+              },
+              basil: {
+                checked: false,
+                price: 0,
+              },
+              salami: {
+                checked: false,
+                price: 0,
+              },
             },
+            price: 0,
           },
-          crust: '',
+          crust: {
+            value: '',
+            price: 0,
+          },
         },
       },
       salad: {
-        amount: 1,
-        priceSingle: 9,
-        price: 9,
+        amount: 0,
+        defaultPrice: 0,
+        defaultParamsPrices: [],
+        basePrice: 0,
+        priceSingle: 0,
+        price: 0,
         params: {
           ingredients: {
             options: {
-              cucumber: false,
-              tomatoes: false,
-              olives: false,
-              feta: false,
-              cheese: false,
-              herbs: false,
-              pepper: false,
+              cucumber: {
+                checked: false,
+                price: 0,
+              },
+              tomatoes: {
+                checked: false,
+                price: 0,
+              },
+              olives: {
+                checked: false,
+                price: 0,
+              },
+              feta: {
+                checked: false,
+                price: 0,
+              },
+              cheese: {
+                checked: false,
+                price: 0,
+              },
+              herbs: {
+                checked: false,
+                price: 0,
+              },
+              pepper: {
+                checked: false,
+                price: 0,
+              },
             },
+            price: 0,
           },
         },
       },

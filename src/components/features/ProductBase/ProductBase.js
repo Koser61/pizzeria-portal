@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import AmountWidget from '../../common/AmountWidget/AmountWidgetContainer';
 
@@ -21,9 +21,12 @@ const ProductBase = ({productId, name, price}) => {
       sx={{ padding: '0.5rem' }}
     >
       <Chip
-        sx={{marginLeft: '0.5rem'}}
+        sx={{
+          marginLeft: '0.5rem', 
+          fontSize: '1.25rem',
+        }}
         color='primary'
-        icon={<MonetizationOnIcon />}
+        icon={<AttachMoneyIcon />}
         label={price}
       />
       <Typography variant='h6' marginLeft='1rem'>

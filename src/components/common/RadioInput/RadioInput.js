@@ -11,13 +11,25 @@ class RadioInput extends React.Component {
     label: PropTypes.string,
     price: PropTypes.number,
     changeSelected: PropTypes.func,
+    addDefaultParamPrice: PropTypes.func,
+    changeParamPrice: PropTypes.func,
   };
 
   componentDidMount() {
-    const { isDefault, optionId, changeSelected } = this.props;
+    const { isDefault, optionId, changeSelected, addDefaultParamPrice, price, changeParamPrice } = this.props;
 
     if(isDefault) {
       changeSelected(optionId);
+      addDefaultParamPrice(price);
+      changeParamPrice(price);
+    }
+  }
+
+  handleChange(checked) {
+    const { price, changeParamPrice } = this.props;
+
+    if(checked) {
+      changeParamPrice(price);
     }
   }
 
@@ -30,6 +42,7 @@ class RadioInput extends React.Component {
           value={optionId}
           label={label}
           control={<Radio />}
+          onChange={(event) => this.handleChange(event.target.checked)}
         />
       </div>
     );
