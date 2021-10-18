@@ -1,6 +1,11 @@
 import { connect } from 'react-redux'
 import CheckboxGroup from './CheckboxGroup';
-import { getParamOptionsByIds, changeParamPrice, getUpdatedStateBool, changeDefaultOptionsPrice } from '../../../redux/orderingRedux';
+import {
+  getParamOptionsByIds,
+  changeParamPrice,
+  getUpdatedStateBool,
+  changeDefaultOptionsPrice
+} from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state, {productId, paramId}) => ({
   paramOptions: getParamOptionsByIds(state, productId, paramId),

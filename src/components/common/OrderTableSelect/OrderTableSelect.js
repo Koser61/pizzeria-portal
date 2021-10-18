@@ -15,9 +15,7 @@ const TableSelect = ({table, changeTable}) => {
         id='tableSelect'
         value={table}
         label='Table'
-        onChange={(event) => {
-          changeTable(event.target.value);
-        }}
+        onChange={(event) => changeTable(event.target.value)}
         sx={{minWidth: 210, maxWidth: 246}}
       >
         <MenuItem value={'table1'}>Table 1</MenuItem>

@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeOrderTime: (newOrderTime) => dispatch(changeOrderTime(newOrderTime)),
+  changeOrderTime: (dateTime) => dispatch(changeOrderTime(dateTime)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderTimePicker);

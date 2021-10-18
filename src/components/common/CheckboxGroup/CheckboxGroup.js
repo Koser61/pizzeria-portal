@@ -20,7 +20,7 @@ class CheckboxGroup extends React.Component {
   };
 
   componentDidUpdate() {
-    const { paramOptions, changeParamPrice, wasUpdated, changeDefaultOptionsPrice } = this.props;
+    const { wasUpdated, paramOptions, changeParamPrice, changeDefaultOptionsPrice } = this.props;
     
     let optionPrices = [];
 
@@ -49,13 +49,15 @@ class CheckboxGroup extends React.Component {
           const getKeyByValue = (object, value) => {
             return Object.keys(object).find((key) => object[key] === value);
           };
+
+          const optionName = getKeyByValue(options, option);
           
           return (
             <CheckboxInput
-              key={getKeyByValue(options, option)}
+              key={optionName}
               productId={productId}
               paramId={paramId}
-              optionId={getKeyByValue(options, option)}
+              optionId={optionName}
               label={option.label}
               price={option.price}
               isDefault={option.default}
@@ -67,18 +69,5 @@ class CheckboxGroup extends React.Component {
     );
   }
 }
-/*
-const CheckboxGroup = ({ productId, paramId, label, options, paramOptions, changeParamPrice }) => {
-  useEffect(() => {
-    let optionPrices = [];
 
-    Object.values(paramOptions).forEach((paramOption) => {
-      optionPrices.push(paramOption.price);
-    });
-
-    const paramPrice = optionPrices.reduce((sum, nextPrice) => {return sum + nextPrice}, 0);
-    changeParamPrice(paramPrice);
-  });
-};
-*/
 export default CheckboxGroup;

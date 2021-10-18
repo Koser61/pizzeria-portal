@@ -26,12 +26,14 @@ class ProductParams extends React.Component {
           function getKeyByValue(object, value) {
             return Object.keys(object).find(key => object[key] === value);
           }
+
+          const paramName = getKeyByValue(params, param);
   
           return (
             <ProductParam
-              key={getKeyByValue(params, param)}
+              key={paramName}
               productId={productId}
-              paramId={getKeyByValue(params, param)}
+              paramId={paramName}
               label={param.label}
               type={param.type}
               options={param.options}

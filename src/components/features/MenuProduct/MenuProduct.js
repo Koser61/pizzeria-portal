@@ -43,7 +43,7 @@ class MenuProduct extends React.Component {
     } else {
       return (
         <Card key={productId} variant='outlined' sx={{ marginTop: '0.5rem' }}>
-          <ProductBase productId={productId} name={name} />
+          <ProductBase hasParams productId={productId} name={name} />
           <Divider />
           <ProductParams productId={productId} params={params} />
         </Card>

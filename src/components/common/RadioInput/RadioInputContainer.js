@@ -1,6 +1,11 @@
 import { connect } from 'react-redux'
 import RadioInput from './RadioInput';
-import { changeSelectedValue, getDefaultOptionsPriceById, changeDefaultOptionsPrice, changeParamPrice } from '../../../redux/orderingRedux';
+import {
+  changeSelectedValue,
+  getDefaultOptionsPriceById,
+  changeDefaultOptionsPrice,
+  changeParamPrice
+} from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state, {productId, paramId, optionId}) => ({
   defaultOptionsPrice: getDefaultOptionsPriceById(state, productId),

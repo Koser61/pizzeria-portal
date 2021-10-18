@@ -7,7 +7,7 @@ const mapStateToProps = (state, {productId}) => ({
 });
 
 const mapDispatchToProps = (dispatch, {productId}) => ({
-  changeAmount: (newAmount) => dispatch(changeProductAmount(newAmount, productId)),
+  changeAmount: (amount) => dispatch(changeProductAmount(amount, productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AmountWidget);

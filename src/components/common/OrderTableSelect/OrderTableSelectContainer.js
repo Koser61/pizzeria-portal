@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeTable: (newTable) => dispatch(changeTable(newTable)),
+  changeTable: (table) => dispatch(changeTable(table)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderTableSelect);

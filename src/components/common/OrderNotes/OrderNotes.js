@@ -11,7 +11,7 @@ const OrderNotes = ({ notes, changeOrderNotes }) => {
         label='Notes'
         multiline
         value={notes}
-        onChange={(event) => {changeOrderNotes(event.target.value);}}
+        onChange={(event) => changeOrderNotes(event.target.value)}
         sx={{ marginTop: '1rem', width: 1 / 1 }}
       />
     </div>
