@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 class CheckboxInput extends React.Component {
@@ -10,19 +11,24 @@ class CheckboxInput extends React.Component {
     optionId: PropTypes.string,
     price: PropTypes.number,
     isDefault: PropTypes.bool,
+
     checked: PropTypes.bool,
     changeChecked: PropTypes.func,
-    addDefaultParamPrice: PropTypes.func,
     changeOptionPrice: PropTypes.func,
+    defaultOptionsPrice: PropTypes.number,
+    changeDefaultOptionsPrice: PropTypes.func,
+    setUpdatedState: PropTypes.func,
   }
 
   componentDidMount() {
-    const { isDefault, changeChecked, addDefaultParamPrice, changeOptionPrice, price } = this.props;
+    const { isDefault, changeChecked, changeOptionPrice, price, defaultOptionsPrice, changeDefaultOptionsPrice, setUpdatedState } = this.props;
+
+    setUpdatedState(false);
 
     if(isDefault) {
+      changeDefaultOptionsPrice(defaultOptionsPrice + price);
       changeChecked(true);
       changeOptionPrice(price);
-      addDefaultParamPrice(price);
     } else {
       changeChecked(false);
       changeOptionPrice(0);
@@ -30,7 +36,9 @@ class CheckboxInput extends React.Component {
   }
 
   handleChange(eventTarget) {
-    const { price, changeChecked, changeOptionPrice } = this.props;
+    const { price, changeChecked, changeOptionPrice, setUpdatedState } = this.props;
+
+    setUpdatedState(true);
 
     if(eventTarget.checked) {
       changeChecked(true);
@@ -42,14 +50,19 @@ class CheckboxInput extends React.Component {
   }
 
   render() {
-    const { optionId, checked } = this.props;
+    const { optionId, label, checked } = this.props;
 
     return (
-      <Checkbox
-        name={optionId}
-        value={optionId}
-        checked={checked}
-        onChange={(event) => this.handleChange(event.target)}
+      <FormControlLabel
+        label={label}
+        control={
+          <Checkbox
+            name={optionId}
+            value={optionId}
+            checked={checked}
+            onChange={(event) => this.handleChange(event.target)}
+          />
+        }
       />
     );
   }

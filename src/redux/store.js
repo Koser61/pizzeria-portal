@@ -26,16 +26,13 @@ const initialState = {
     menu: {
       cake: {
         amount: 0,
-        defaultPrice: 0,
-        defaultParamsPrices: [],
-        basePrice: 0,
         priceSingle: 0,
         price: 0,
       },
       breakfast: {
         amount: 0,
         defaultPrice: 0,
-        defaultParamsPrices: [],
+        defaultOptionsPrice: 0,
         basePrice: 0,
         priceSingle: 0,
         price: 0,
@@ -49,7 +46,7 @@ const initialState = {
       pizza: {
         amount: 0,
         defaultPrice: 0,
-        defaultParamsPrices: [],
+        defaultOptionsPrice: 0,
         basePrice: 0,
         priceSingle: 0,
         price: 0,
@@ -96,7 +93,7 @@ const initialState = {
       salad: {
         amount: 0,
         defaultPrice: 0,
-        defaultParamsPrices: [],
+        defaultOptionsPrice: 0,
         basePrice: 0,
         priceSingle: 0,
         price: 0,

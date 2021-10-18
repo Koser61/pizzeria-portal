@@ -11,16 +11,17 @@ class RadioInput extends React.Component {
     label: PropTypes.string,
     price: PropTypes.number,
     changeSelected: PropTypes.func,
-    addDefaultParamPrice: PropTypes.func,
     changeParamPrice: PropTypes.func,
+    defaultOptionsPrice: PropTypes.number,
+    changeDefaultOptionsPrice: PropTypes.func,
   };
 
   componentDidMount() {
-    const { isDefault, optionId, changeSelected, addDefaultParamPrice, price, changeParamPrice } = this.props;
+    const { isDefault, optionId, changeSelected, price, changeParamPrice, defaultOptionsPrice, changeDefaultOptionsPrice } = this.props;
 
     if(isDefault) {
+      changeDefaultOptionsPrice(defaultOptionsPrice + price);
       changeSelected(optionId);
-      addDefaultParamPrice(price);
       changeParamPrice(price);
     }
   }

@@ -25,7 +25,7 @@ const OrderMenu = ({ products }) => {
             defaultPrice={product.price}
             params={product.params}
           />
-        );
+        )
       })}
       <OrderNotes />
     </Card>

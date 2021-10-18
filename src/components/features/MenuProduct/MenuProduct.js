@@ -14,31 +14,38 @@ class MenuProduct extends React.Component {
     defaultPrice: PropTypes.number,
     params: PropTypes.object,
     changeProductAmount: PropTypes.func,
+    changePriceSingle: PropTypes.func,
     setDefaultPrice: PropTypes.func,
   };
 
   componentDidMount() {
-    const { changeProductAmount, setDefaultPrice, defaultPrice } = this.props;
+    const { changeProductAmount, changePriceSingle, defaultPrice, setDefaultPrice, params } = this.props;
     
     changeProductAmount(1);
-    setDefaultPrice(defaultPrice);
+
+    if(!params) {
+      changePriceSingle(defaultPrice);
+    } else {
+      setDefaultPrice(defaultPrice);
+    }
   }
 
   render() {
     const { productId, name, params } = this.props;
 
-    if (params) {
+    if (!params) {
+      return (
+        <Card key={productId} variant='outlined' sx={{ marginTop: '0.5rem' }}>
+          <ProductBase productId={productId} name={name} />
+        </Card>
+      );
+      
+    } else {
       return (
         <Card key={productId} variant='outlined' sx={{ marginTop: '0.5rem' }}>
           <ProductBase productId={productId} name={name} />
           <Divider />
           <ProductParams productId={productId} params={params} />
-        </Card>
-      );
-    } else {
-      return (
-        <Card key={productId} variant='outlined' sx={{ marginTop: '0.5rem' }}>
-          <ProductBase productId={productId} name={name} />
         </Card>
       );
     }

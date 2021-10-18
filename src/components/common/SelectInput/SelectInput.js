@@ -14,18 +14,19 @@ class SelectInput extends React.Component {
     options: PropTypes.object,
     selected: PropTypes.string,
     changeSelected: PropTypes.func,
-    addDefaultParamPrice: PropTypes.func,
     changeParamPrice: PropTypes.func,
+    defaultOptionsPrice: PropTypes.number,
+    changeDefaultOptionsPrice: PropTypes.func,
   }
 
   componentDidMount() {
-    const { options, changeSelected, addDefaultParamPrice, changeParamPrice } = this.props;
+    const { options, changeSelected, changeParamPrice, defaultOptionsPrice, changeDefaultOptionsPrice } = this.props;
     const defaultOption = this.getDefaultValue(options);
-    const defaultParamPrice = this.getOptionPrice(options, defaultOption);
+    const defaultOptionPrice = this.getOptionPrice(options, defaultOption);
 
-    addDefaultParamPrice(defaultParamPrice);
+    changeDefaultOptionsPrice(defaultOptionsPrice + defaultOptionPrice);
     changeSelected(defaultOption);
-    changeParamPrice(defaultParamPrice);
+    changeParamPrice(defaultOptionPrice);
   }
 
   getKeyByValue(object, value) {

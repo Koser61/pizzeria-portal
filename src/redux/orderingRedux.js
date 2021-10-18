@@ -8,8 +8,8 @@ export const getProductAmountById = ({ordering}, productId) =>
 
 export const getProductDefaultPriceById = ({ordering}, productId) =>
   ordering.menu[productId].defaultPrice;
-export const getDefaultParamsPricesById = ({ordering}, productId) =>
-  ordering.menu[productId].defaultParamsPrices;
+export const getDefaultOptionsPriceById = ({ordering}, productId) =>
+  ordering.menu[productId].defaultOptionsPrice;
 export const getProductBasePriceById = ({ordering}, productId) =>
   ordering.menu[productId].basePrice;
 
@@ -18,6 +18,10 @@ export const getParamOptionsByIds = ({ordering}, productId, paramId) =>
 
 export const getParamPriceByIds = ({ordering}, productId, paramId) =>
   ordering.menu[productId].params[paramId].price;
+
+export const getUpdatedStateBool = ({ordering}, productId, paramId) =>
+  ordering.menu[productId].params[paramId].wasUpdated;
+
 export const getOptionPriceByIds = ({ordering}, productId, paramId, optionId) =>
   ordering.menu[productId].params[paramId].options[optionId].price;
 
@@ -44,9 +48,11 @@ const CHANGE_ORDER_NOTES = createActionName('CHANGE_ORDER_NOTES');
 const CHANGE_PRODUCT_AMOUNT = createActionName('CHANGE_PRODUCT_AMOUNT');
 const SET_DEFAULT_PRICE = createActionName('SET_DEFAULT_PRICE');
 const SET_BASE_PRICE = createActionName('SET_BASE_PRICE');
-const ADD_DEFAULT_PARAM_PRICE = createActionName('ADD_DEFAULT_PARAM_PRICE');
+const CHANGE_DEFAULT_OPTIONS_PRICE = createActionName('CHANGE_DEFAULT_OPTIONS_PRICE');
 
 const CHANGE_PARAM_PRICE = createActionName('CHANGE_PARAM_PRICE');
+
+const SET_UPDATED_STATE = createActionName('SET_UPDATED_STATE');
 const CHANGE_OPTION_PRICE = createActionName('CHANGE_OPTION_PRICE');
 
 const CHANGE_PRICE_SINGLE = createActionName('CHANGE_PRICE_SINGLE');
@@ -56,7 +62,7 @@ const CHANGE_SELECTED_VALUE = createActionName('CHANGE_SELECTED_VALUE');
 
 const CHANGE_CHECKED_STATE = createActionName('CHANGE_CHECKED_STATE');
 
-/* ACTION CREATOR */
+/* ACTION CREATORS */
 export const changeOrderTime = (payload) => ({ payload, type: CHANGE_ORDER_TIME, });
 export const changeTable = (payload) => ({ payload, type: CHANGE_TABLE });
 export const changeOrderNotes = (payload) => ({ payload, type: CHANGE_ORDER_NOTES, });
@@ -67,8 +73,11 @@ export const setDefaultPrice = (payload, productId) =>
   ({ payload, productId, type: SET_DEFAULT_PRICE });
 export const setBasePrice = (payload, productId) =>
   ({ payload, productId, type: SET_BASE_PRICE });
-export const addDefaultParamPrice = (payload, productId) =>
-  ({ payload, productId, type: ADD_DEFAULT_PARAM_PRICE });
+export const changeDefaultOptionsPrice = (payload, productId) =>
+  ({ payload, productId, type: CHANGE_DEFAULT_OPTIONS_PRICE });
+
+export const setUpdatedState = (payload, productId, paramId) =>
+  ({ payload, productId, paramId, type: SET_UPDATED_STATE });
 
 export const changeParamPrice = (payload, productId, paramId) =>
   ({ payload, productId, paramId, type: CHANGE_PARAM_PRICE });
@@ -137,14 +146,31 @@ export default function reducer(statePart = {}, action = {}) {
           },
         },
       }
-    case ADD_DEFAULT_PARAM_PRICE:
+    case CHANGE_DEFAULT_OPTIONS_PRICE:
       return {
         ...statePart,
         menu: {
           ...statePart.menu,
           [action.productId]: {
             ...statePart.menu[action.productId],
-            defaultParamsPrices: [...statePart.menu[action.productId].defaultParamsPrices, action.payload,],
+            defaultOptionsPrice: action.payload,
+          },
+        },
+      }
+    case SET_UPDATED_STATE:
+      return {
+        ...statePart,
+        menu: {
+          ...statePart.menu,
+          [action.productId]: {
+            ...statePart.menu[action.productId],
+            params: {
+              ...statePart.menu[action.productId].params,
+              [action.paramId]: {
+                ...statePart.menu[action.productId].params[action.paramId],
+                wasUpdated: action.payload,
+              },
+            },
           },
         },
       }

@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 import RadioInput from './RadioInput';
-import { changeSelectedValue, addDefaultParamPrice, changeParamPrice } from '../../../redux/orderingRedux';
+import { changeSelectedValue, getDefaultOptionsPriceById, changeDefaultOptionsPrice, changeParamPrice } from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state, {productId, paramId, optionId}) => ({
-  
+  defaultOptionsPrice: getDefaultOptionsPriceById(state, productId),
 });
 
 const mapDispatchToProps = (dispatch, {productId, paramId, optionId}) => ({
   changeSelected: (value) => dispatch(changeSelectedValue(value, productId, paramId)),
-  addDefaultParamPrice: (price) => dispatch(addDefaultParamPrice(price, productId)),
+  changeDefaultOptionsPrice: (price) => dispatch(changeDefaultOptionsPrice(price, productId)),
   changeParamPrice: (price) => dispatch(changeParamPrice(price, productId, paramId)),
 });
 
