@@ -4,7 +4,8 @@ import {
   getParamOptionsByIds,
   changeParamPrice,
   getUpdatedStateBool,
-  changeDefaultOptionsPrice
+  changeDefaultOptionsPrice,
+  setParamLabel
 } from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state, {productId, paramId}) => ({
@@ -14,6 +15,7 @@ const mapStateToProps = (state, {productId, paramId}) => ({
 
 const mapDispatchToProps = (dispatch, {productId, paramId}) => ({
   changeParamPrice: (price) => dispatch(changeParamPrice(price, productId, paramId)),
+  setParamLabel: (label) => dispatch(setParamLabel(label, productId, paramId)),
   changeDefaultOptionsPrice: (price) => dispatch(changeDefaultOptionsPrice(price, productId)),
 });
 

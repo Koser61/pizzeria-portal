@@ -9,6 +9,7 @@ class CheckboxInput extends React.Component {
     productId: PropTypes.string,
     paramId: PropTypes.string,
     optionId: PropTypes.string,
+    label: PropTypes.string,
     price: PropTypes.number,
     isDefault: PropTypes.bool,
 
@@ -18,11 +19,13 @@ class CheckboxInput extends React.Component {
     defaultOptionsPrice: PropTypes.number,
     changeDefaultOptionsPrice: PropTypes.func,
     setUpdatedState: PropTypes.func,
+    setOptionLabel: PropTypes.func,
   }
 
   componentDidMount() {
-    const { isDefault, changeChecked, changeOptionPrice, price, defaultOptionsPrice, changeDefaultOptionsPrice, setUpdatedState } = this.props;
+    const { label, setOptionLabel, isDefault, changeChecked, changeOptionPrice, price, defaultOptionsPrice, changeDefaultOptionsPrice, setUpdatedState } = this.props;
 
+    setOptionLabel(label);
     setUpdatedState(false);
 
     if(isDefault) {

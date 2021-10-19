@@ -62,6 +62,14 @@ class ProductBase extends React.Component {
     changePrice(priceSingle * amount);
   }
 
+  handleAddToCart() {
+    /* prepare cartProduct */
+
+    /* add cartProduct to cart state*/
+
+    /* reset ProductParams to defaults ? */
+  }
+
   render() {
     const { productId, name, price } = this.props;
 
@@ -84,7 +92,11 @@ class ProductBase extends React.Component {
         </Typography>
         <Box display='inline-flex' alignItems='center'>
           <AmountWidget productId={productId} />
-          <Button variant='contained' sx={{ height: 64, borderRadius: 2 }}>
+          <Button
+            sx={{ height: 64, borderRadius: 2 }}
+            variant='contained'
+            onClick={() => this.handleAddToCart()}
+          >
             <AddShoppingCartIcon />
           </Button>
         </Box>

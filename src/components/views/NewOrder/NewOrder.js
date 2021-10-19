@@ -9,13 +9,14 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 import OrderOptions from '../../features/OrderOptions/OrderOptions';
 import OrderMenu from '../../features/OrderMenu/OrderMenu';
+//import OrderCart from '../../features/OrderCart/OrderCartContainer';
 
 class NewOrder extends React.Component {
   static propTypes = {
     fetchProducts: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
-      error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+      error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
   }
 
@@ -57,6 +58,7 @@ class NewOrder extends React.Component {
           <Box maxWidth='lg' mx='auto' py='1rem'>
             <OrderOptions />
             <OrderMenu products={products} />
+            {/*<OrderCart />*/}
           </Box>
         </Container>
       );

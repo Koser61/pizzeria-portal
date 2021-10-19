@@ -5,7 +5,9 @@ import {
   changeSelectedValue,
   changeParamPrice,
   getProductDefaultPriceById,
-  changeDefaultOptionsPrice
+  changeDefaultOptionsPrice,
+  setParamLabel,
+  changeParamOptionLabel,
 } from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state, {productId, paramId}) => ({
@@ -14,9 +16,11 @@ const mapStateToProps = (state, {productId, paramId}) => ({
 });
 
 const mapDispatchToProps = (dispatch, {productId, paramId}) => ({
+  setParamLabel: (label) => dispatch(setParamLabel(label, productId, paramId)),
   changeSelected: (value) => dispatch(changeSelectedValue(value, productId, paramId)),
   changeParamPrice: (price) => dispatch(changeParamPrice(price, productId, paramId)),
   changeDefaultOptionsPrice: (price) => dispatch(changeDefaultOptionsPrice(price, productId)),
+  changeParamOptionLabel: (label) => dispatch(changeParamOptionLabel(label, productId, paramId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectInput);

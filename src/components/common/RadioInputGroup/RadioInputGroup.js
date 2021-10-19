@@ -7,52 +7,63 @@ import RadioGroup from '@mui/material/RadioGroup';
 
 import RadioInput from '../RadioInput/RadioInputContainer';
 
-const RadioInputGroup = ({ productId, paramId, label, options, selected, changeSelected }) => {
-  return (
-    <FormControl component='fieldset'>
-      <FormLabel
-        component='legend'
-        sx={{marginLeft: '0.5rem'}}
-      >
-        {label}
-      </FormLabel>
-      <RadioGroup
-        aria-label={label}
-        name={label}
-        value={selected}
-        onChange={(event) => changeSelected(event.target.value)}
-      >
-        {Object.values(options).map((option) => {
-          const getKeyByValue = (object, value) => {
-            return Object.keys(object).find(key => object[key] === value);
-          };
+class RadioInputGroup extends React.Component {
+  static propTypes = {
+    productId: PropTypes.string,
+    paramId: PropTypes.string,
+    label: PropTypes.string,
+    options: PropTypes.object,
+    selected: PropTypes.string,
+    changeSelected: PropTypes.func,
+    setParamLabel: PropTypes.func,
+  }
 
-          const optionKey = getKeyByValue(options, option);
+  componentDidMount() {
+    const { label, setParamLabel } = this.props;
 
-          return (
-            <RadioInput
-              key={optionKey}
-              productId={productId}
-              paramId={paramId}
-              optionId={optionKey}
-              label={option.label}
-              price={option.price}
-              isDefault={option.default}
-            />
-          );
-        })}
-      </RadioGroup>
-    </FormControl>
-  );
-};
+    setParamLabel(label);
+  }
 
-RadioInputGroup.propTypes = {
-  productId: PropTypes.string,
-  paramId: PropTypes.string,
-  label: PropTypes.string,
-  options: PropTypes.object,
-  selected: PropTypes.string,
-  changeSelected: PropTypes.func
-};
+  render() {
+    const { productId, paramId, label, options, selected, changeSelected } = this.props;
+
+    return (
+      <FormControl component='fieldset'>
+        <FormLabel
+          component='legend'
+          sx={{marginLeft: '0.5rem'}}
+        >
+          {label}
+        </FormLabel>
+        <RadioGroup
+          aria-label={label}
+          name={label}
+          value={selected}
+          onChange={(event) => changeSelected(event.target.value)}
+        >
+          {Object.values(options).map((option) => {
+            const getKeyByValue = (object, value) => {
+              return Object.keys(object).find(key => object[key] === value);
+            };
+  
+            const optionKey = getKeyByValue(options, option);
+  
+            return (
+              <RadioInput
+                key={optionKey}
+                productId={productId}
+                paramId={paramId}
+                optionId={optionKey}
+                label={option.label}
+                price={option.price}
+                isDefault={option.default}
+              />
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+    );
+  }
+}
 
 export default RadioInputGroup;

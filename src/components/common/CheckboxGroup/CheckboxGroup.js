@@ -17,7 +17,14 @@ class CheckboxGroup extends React.Component {
     changeParamPrice: PropTypes.func,
     wasUpdated: PropTypes.bool,
     changeDefaultOptionsPrice: PropTypes.func,
+    setParamLabel: PropTypes.func,
   };
+
+  componentDidMount() {
+    const { label, setParamLabel } = this.props;
+
+    setParamLabel(label);
+  }
 
   componentDidUpdate() {
     const { wasUpdated, paramOptions, changeParamPrice, changeDefaultOptionsPrice } = this.props;

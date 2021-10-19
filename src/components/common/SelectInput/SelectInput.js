@@ -11,22 +11,28 @@ class SelectInput extends React.Component {
     productId: PropTypes.string,
     paramId: PropTypes.string,
     label: PropTypes.string,
+    setParamLabel: PropTypes.func,
     options: PropTypes.object,
     selected: PropTypes.string,
     changeSelected: PropTypes.func,
     changeParamPrice: PropTypes.func,
     defaultOptionsPrice: PropTypes.number,
     changeDefaultOptionsPrice: PropTypes.func,
+    changeParamOptionLabel: PropTypes.func,
   }
 
   componentDidMount() {
-    const { options, changeSelected, changeParamPrice, defaultOptionsPrice, changeDefaultOptionsPrice } = this.props;
+    const { label, setParamLabel, options, changeSelected, changeParamPrice, defaultOptionsPrice, changeDefaultOptionsPrice, changeParamOptionLabel } = this.props;
     const defaultOption = this.getDefaultValue(options);
     const defaultOptionPrice = this.getOptionPrice(options, defaultOption);
+    const defaultOptionLabel = this.getOptionLabel(options, defaultOption);
+
+    setParamLabel(label);
 
     changeDefaultOptionsPrice(defaultOptionsPrice + defaultOptionPrice);
     changeSelected(defaultOption);
     changeParamPrice(defaultOptionPrice);
+    changeParamOptionLabel(defaultOptionLabel);
   }
 
   getKeyByValue(object, value) {
@@ -57,13 +63,27 @@ class SelectInput extends React.Component {
     return optionPrice;
   }
 
+  getOptionLabel(options, id) {
+    let optionLabel = '';
+
+    Object.values(options).forEach((option) => {
+      if(this.getKeyByValue(options, option) === id) {
+        optionLabel = option.label;
+      }
+    });
+
+    return optionLabel;
+  }
+
   handleChange(eventTarget) {
-    const { options, changeSelected, changeParamPrice } = this.props;
+    const { options, changeSelected, changeParamPrice, changeParamOptionLabel } = this.props;
     const targetId = eventTarget.value;
     const targetPrice = this.getOptionPrice(options, targetId);
+    const targetLabel = this.getOptionLabel(options, targetId);
 
     changeSelected(targetId);
     changeParamPrice(targetPrice);
+    changeParamOptionLabel(targetLabel);
   }
 
   render() {
