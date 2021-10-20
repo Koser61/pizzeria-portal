@@ -22,6 +22,7 @@ class ProductBase extends React.Component {
     setBasePrice: PropTypes.func,
     priceSingle: PropTypes.number,
     changePriceSingle: PropTypes.func,
+    amount: PropTypes.number,
     price: PropTypes.number,
     changePrice: PropTypes.func,
     params: PropTypes.object,
@@ -36,6 +37,56 @@ class ProductBase extends React.Component {
     }
 
     this.calculatePrice();
+  }
+
+  handleAddToCart() {
+    /* prepare cartProduct */
+    //const cartProduct = this.prepareCartProduct();
+
+    /* add cartProduct to cart state */
+
+    /* reset ProductParams to defaults ? */
+  }
+
+  prepareCartProduct() {
+    const { hasParams, productId, amount, price, priceSingle, name, params } = this.props;
+
+    let cartProduct = {
+      id: productId,
+      amount: amount,
+      price: price,
+      priceSingle: priceSingle,
+      name: name,
+      params: {},
+    };
+
+    if(hasParams) {
+      Object.values(params).forEach((param) => {
+        const paramKey = this.getKeyByValue(params, param);
+
+        cartProduct.params[paramKey] = {};
+        cartProduct.params[paramKey].label = param.paramLabel;
+        cartProduct.params[paramKey].options = {};
+
+        if(!param.options) {
+          cartProduct.params[paramKey].options[param.value] = param.optionLabel;
+        } else {
+          Object.values(param.options).forEach((paramOption) => {
+            const paramOptionKey = this.getKeyByValue(param.options, paramOption);
+
+            if(paramOption.checked) {
+              cartProduct.params[paramKey].options[paramOptionKey] = paramOption.label;
+            };
+          });
+        };
+      });
+    };
+
+    return cartProduct;
+  }
+
+  getKeyByValue(object, value) {
+    return Object.keys(object).find((key) => object[key] === value);
   }
 
   calculateBasePrice() {
@@ -60,14 +111,6 @@ class ProductBase extends React.Component {
     const { priceSingle, amount, changePrice } = this.props;
 
     changePrice(priceSingle * amount);
-  }
-
-  handleAddToCart() {
-    /* prepare cartProduct */
-
-    /* add cartProduct to cart state*/
-
-    /* reset ProductParams to defaults ? */
   }
 
   render() {
