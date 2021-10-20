@@ -9,7 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 import OrderOptions from '../../features/OrderOptions/OrderOptions';
 import OrderMenu from '../../features/OrderMenu/OrderMenu';
-//import OrderCart from '../../features/OrderCart/OrderCartContainer';
+import OrderCart from '../../features/OrderCart/OrderCart';
 
 class NewOrder extends React.Component {
   static propTypes = {
@@ -58,7 +58,7 @@ class NewOrder extends React.Component {
           <Box maxWidth='lg' mx='auto' py='1rem'>
             <OrderOptions />
             <OrderMenu products={products} />
-            {/*<OrderCart />*/}
+            <OrderCart />
           </Box>
         </Container>
       );
