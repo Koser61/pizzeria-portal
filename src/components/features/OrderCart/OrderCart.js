@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -12,8 +13,8 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 const OrderCart = () => {
   return (
-    <Card raised sx={{marginTop: '0.5rem', p: '0.5rem'}}>
-      <Stack spacing='0.5rem'>
+    <Card raised sx={{marginTop: '0.5rem'}}>
+      <Stack m='0.5rem' spacing='0.5rem'>
         <Card variant='outlined' sx={{p: '0.5rem'}}>
           <Box
             display='flex'
@@ -85,12 +86,12 @@ const OrderCart = () => {
           </Box>
         </Card>
       </Stack>
+      <Divider />
       <Box
         display='flex'
         justifyContent='space-between'
         alignItems='center'
-        marginTop='0.5rem'
-        padding='0.5rem'
+        padding='1rem'
       >
         <Typography variant='h6'>
           Total: $20
