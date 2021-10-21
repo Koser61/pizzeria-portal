@@ -26,6 +26,7 @@ class ProductBase extends React.Component {
     price: PropTypes.number,
     changePrice: PropTypes.func,
     params: PropTypes.object,
+    addCartProduct: PropTypes.func,
   };
 
   componentDidUpdate() {
@@ -40,10 +41,13 @@ class ProductBase extends React.Component {
   }
 
   handleAddToCart() {
+    const { addCartProduct } = this.props;
+
     /* prepare cartProduct */
-    //const cartProduct = this.prepareCartProduct();
+    const cartProduct = this.prepareCartProduct();
 
     /* add cartProduct to cart state */
+    addCartProduct(cartProduct);
 
     /* reset ProductParams to defaults ? */
   }

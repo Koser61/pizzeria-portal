@@ -11,6 +11,7 @@ import {
   getProductAmountById,
   getProductPriceById,
   changePrice,
+  addCartProduct,
 } from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state, {productId}) => ({
@@ -27,6 +28,7 @@ const mapDispatchToProps = (dispatch, {productId}) => ({
   setBasePrice: (price) => dispatch(setBasePrice(price, productId)),
   changePriceSingle: (price) => dispatch(changePriceSingle(price, productId)),
   changePrice: (price) => dispatch(changePrice(price, productId)),
+  addCartProduct: (cartProduct) => dispatch(addCartProduct(cartProduct, productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductBase);

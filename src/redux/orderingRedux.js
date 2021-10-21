@@ -3,6 +3,10 @@ export const getOrderTime = ({ordering}) => ordering.orderTime;
 export const getTable = ({ordering}) => ordering.table;
 export const getOrderNotes = ({ordering}) => ordering.orderNotes;
 
+export const getCartProducts = ({ordering}) => ordering.cart.products;
+export const getCartTotalPrice = ({ordering}) => ordering.cart.totalPrice;
+export const getCartProductParamsById = ({ordering}, productId) => ordering.cart.products[productId].params;
+
 export const getProductNameById = ({ordering}, productId) => ordering.menu[productId].name;
 export const getProductDefaultPriceById = ({ordering}, productId) => ordering.menu[productId].defaultPrice;
 export const getDefaultOptionsPriceById = ({ordering}, productId) => ordering.menu[productId].defaultOptionsPrice;
@@ -14,7 +18,7 @@ export const getProductPriceById = ({ordering}, productId) => ordering.menu[prod
 
 export const getParamLabelByIds = ({ordering}, productId, paramId) => ordering.menu[productId].params[paramId].paramLabel;
 
-export const getSelectedOptionLabelByIds = ({ordering}, productId, paramId, optionId) => ordering.menu[productId].params[paramId].optionLabel;
+export const getSelectedOptionLabelByIds = ({ordering}, productId, paramId) => ordering.menu[productId].params[paramId].optionLabel;
 export const getSelectedValueByIds = ({ordering}, productId, paramId) => ordering.menu[productId].params[paramId].value;
 export const getParamOptionsByIds = ({ordering}, productId, paramId) => ordering.menu[productId].params[paramId].options;
 export const getParamPriceByIds = ({ordering}, productId, paramId) => ordering.menu[productId].params[paramId].price;
@@ -39,6 +43,9 @@ const SET_PRODUCT_NAME = createActionName('SET_PRODUCT_NAME');
 const CHANGE_DEFAULT_OPTIONS_PRICE = createActionName('CHANGE_DEFAULT_OPTIONS_PRICE');
 const SET_BASE_PRICE = createActionName('SET_BASE_PRICE');
 
+const ADD_CART_PRODUCT = createActionName('ADD_CART_PRODUCT');
+const CHANGE_CART_TOTAL_PRICE = createActionName('CHANGE_CART_TOTAL_PRICE');
+
 const CHANGE_PRODUCT_AMOUNT = createActionName('CHANGE_PRODUCT_AMOUNT');
 const CHANGE_PRICE_SINGLE = createActionName('CHANGE_PRICE_SINGLE');
 const CHANGE_PRICE = createActionName('CHANGE_PRICE');
@@ -59,6 +66,9 @@ const CHANGE_OPTION_PRICE = createActionName('CHANGE_OPTION_PRICE');
 export const changeOrderTime = (payload) => ({ payload, type: CHANGE_ORDER_TIME, });
 export const changeTable = (payload) => ({ payload, type: CHANGE_TABLE });
 export const changeOrderNotes = (payload) => ({ payload, type: CHANGE_ORDER_NOTES, });
+
+export const addCartProduct = (payload) => ({ payload, type: ADD_CART_PRODUCT });
+export const changeCartTotalPrice = (payload) => ({ payload, type: CHANGE_CART_TOTAL_PRICE });
 
 export const setProductName = (payload, productId) => ({ payload, productId, type: SET_PRODUCT_NAME });
 export const setDefaultPrice = (payload, productId) => ({ payload, productId, type: SET_DEFAULT_PRICE });
@@ -97,6 +107,22 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         orderNotes: action.payload,
+      }
+    case ADD_CART_PRODUCT:
+      return {
+        ...statePart,
+        cart: {
+          ...statePart.cart,
+          products: [ ...statePart.cart.products, action.payload, ],
+        }
+      }
+    case CHANGE_CART_TOTAL_PRICE:
+      return {
+        ...statePart,
+        cart: {
+          ...statePart.cart,
+          totalPrice: action.payload,
+        }
       }
     case CHANGE_PRODUCT_AMOUNT:
       return {
