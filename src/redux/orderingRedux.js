@@ -44,6 +44,7 @@ const CHANGE_DEFAULT_OPTIONS_PRICE = createActionName('CHANGE_DEFAULT_OPTIONS_PR
 const SET_BASE_PRICE = createActionName('SET_BASE_PRICE');
 
 const ADD_CART_PRODUCT = createActionName('ADD_CART_PRODUCT');
+const DELETE_CART_PRODUCT = createActionName('DELETE_CART_PRODUCT');
 const CHANGE_CART_TOTAL_PRICE = createActionName('CHANGE_CART_TOTAL_PRICE');
 
 const CHANGE_PRODUCT_AMOUNT = createActionName('CHANGE_PRODUCT_AMOUNT');
@@ -68,6 +69,7 @@ export const changeTable = (payload) => ({ payload, type: CHANGE_TABLE });
 export const changeOrderNotes = (payload) => ({ payload, type: CHANGE_ORDER_NOTES, });
 
 export const addCartProduct = (payload) => ({ payload, type: ADD_CART_PRODUCT });
+export const deleteCartProduct = (payload) => ({ payload, type: DELETE_CART_PRODUCT });
 export const changeCartTotalPrice = (payload) => ({ payload, type: CHANGE_CART_TOTAL_PRICE });
 
 export const setProductName = (payload, productId) => ({ payload, productId, type: SET_PRODUCT_NAME });
@@ -114,6 +116,17 @@ export default function reducer(statePart = {}, action = {}) {
         cart: {
           ...statePart.cart,
           products: [ ...statePart.cart.products, action.payload, ],
+        }
+      }
+    case DELETE_CART_PRODUCT:
+      const newArray = statePart.cart.products.slice()
+      newArray.splice(action.payload, 1)
+
+      return {
+        ...statePart,
+        cart: {
+          ...statePart.cart,
+          products: newArray,
         }
       }
     case CHANGE_CART_TOTAL_PRICE:

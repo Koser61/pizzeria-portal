@@ -19,6 +19,7 @@ class CartProduct extends React.Component {
     price: PropTypes.number,
     totalPrice: PropTypes.number,
     changeTotalPrice: PropTypes.func,
+    deleteCartProduct: PropTypes.func,
   };
 
   componentDidMount() {
@@ -28,7 +29,7 @@ class CartProduct extends React.Component {
   }
 
   render() {
-    const { amount, name, price, params } = this.props;
+    const { productId, amount, name, price, params, deleteCartProduct } = this.props;
 
     return(
       <Card variant='outlined' sx={{p: '0.5rem'}}>
@@ -51,6 +52,7 @@ class CartProduct extends React.Component {
           <IconButton
             size='large'
             sx={{mx: '0.5rem', color: 'primary.dark'}}
+            onClick={() => deleteCartProduct(productId)}
           >
             <DeleteForeverIcon />
           </IconButton>
