@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import OrderCart from './OrderCart';
-import { getCartProducts, getCartTotalPrice, changeCartTotalPrice } from '../../../redux/orderingRedux';
+import { getCartProducts, getCartTotalPrice, changeCartTotalPrice, clearCartProducts } from '../../../redux/orderingRedux';
 
 const mapStateToProps = (state) => ({
   products: getCartProducts(state),
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeTotalPrice: (price) => dispatch(changeCartTotalPrice(price)),
+  clearCartProducts: () => dispatch(clearCartProducts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderCart);

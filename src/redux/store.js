@@ -137,6 +137,12 @@ const initialState = {
     cart: {
       totalPrice: 0,
       products: [],
+    },
+    sendOrder: {
+      loading: {
+        active: false,
+        error: false,
+      }
     }
   },
 };

@@ -6,23 +6,23 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import CartProduct from '../../common/CartProduct/CartProductContainer';
+import OrderButton from '../../common/OrderButton/OrderButtonContainer';
 
 class OrderCart extends React.Component {
   static propTypes = {
     products: PropTypes.array,
     totalPrice: PropTypes.number,
     changeTotalPrice: PropTypes.func,
+    clearCartProducts: PropTypes.func,
   };
 
   componentDidMount() {
-    const { changeTotalPrice } = this.props;
+    const { changeTotalPrice, clearCartProducts } = this.props;
 
     changeTotalPrice(0);
+    clearCartProducts();
   }
 
   render() {
@@ -54,12 +54,7 @@ class OrderCart extends React.Component {
           <Typography variant='h6'>
             Total: ${totalPrice}
           </Typography>
-          <Button
-            variant="contained"
-            endIcon={<ShoppingCartIcon />}
-          >
-            Order
-          </Button>
+          <OrderButton />
         </Box>
       </Card>
     );

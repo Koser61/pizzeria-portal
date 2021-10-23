@@ -1,3 +1,6 @@
+import Axios from 'axios';
+import { api } from '../settings';
+
 /* SELECTORS */
 export const getOrderTime = ({ordering}) => ordering.orderTime;
 export const getTable = ({ordering}) => ordering.table;
@@ -29,6 +32,8 @@ export const getOptionLabelByIds = ({ordering}, productId, paramId, optionId) =>
 export const getOptionPriceByIds = ({ordering}, productId, paramId, optionId) => ordering.menu[productId].params[paramId].options[optionId].price;
 export const getCheckedStateByIds = ({ordering}, productId, paramId, optionId) => ordering.menu[productId].params[paramId].options[optionId].checked;
 
+export const getSendOrderLoadingState = ({ordering}) => ordering.sendOrder.loading;
+
 /* ACTION NAME CREATOR */
 const reducerName = 'ordering';
 const createActionName = (name) => `app/${reducerName}/${name}`;
@@ -44,6 +49,7 @@ const CHANGE_DEFAULT_OPTIONS_PRICE = createActionName('CHANGE_DEFAULT_OPTIONS_PR
 const SET_BASE_PRICE = createActionName('SET_BASE_PRICE');
 
 const ADD_CART_PRODUCT = createActionName('ADD_CART_PRODUCT');
+const CLEAR_CART_PRODUCTS = createActionName('CLEAR_CART_PRODUCTS');
 const DELETE_CART_PRODUCT = createActionName('DELETE_CART_PRODUCT');
 const CHANGE_CART_TOTAL_PRICE = createActionName('CHANGE_CART_TOTAL_PRICE');
 
@@ -63,11 +69,16 @@ const SET_OPTION_LABEL = createActionName('SET_OPTION_LABEL');
 const CHANGE_CHECKED_STATE = createActionName('CHANGE_CHECKED_STATE');
 const CHANGE_OPTION_PRICE = createActionName('CHANGE_OPTION_PRICE');
 
+const SEND_ORDER_START = createActionName('SEND_ORDER_START');
+const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
+const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
+
 /* ACTION CREATORS */
 export const changeOrderTime = (payload) => ({ payload, type: CHANGE_ORDER_TIME, });
 export const changeTable = (payload) => ({ payload, type: CHANGE_TABLE });
 export const changeOrderNotes = (payload) => ({ payload, type: CHANGE_ORDER_NOTES, });
 
+export const clearCartProducts = () => ({ type: CLEAR_CART_PRODUCTS });
 export const addCartProduct = (payload) => ({ payload, type: ADD_CART_PRODUCT });
 export const deleteCartProduct = (payload) => ({ payload, type: DELETE_CART_PRODUCT });
 export const changeCartTotalPrice = (payload) => ({ payload, type: CHANGE_CART_TOTAL_PRICE });
@@ -92,6 +103,26 @@ export const setOptionLabel = (payload, productId, paramId, optionId) => ({ payl
 export const changeCheckedState = (payload, productId, paramId, optionId) => ({ payload, productId, paramId, optionId, type: CHANGE_CHECKED_STATE });
 export const changeOptionPrice = (payload, productId, paramId, optionId) => ({ payload, productId, paramId, optionId, type: CHANGE_OPTION_PRICE });
 
+export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START });
+export const sendOrderSuccess = payload => ({ payload, type: SEND_ORDER_SUCCESS });
+export const sendOrderError = payload => ({ payload, type: SEND_ORDER_ERROR });
+
+/* THUNK CREATORS */
+export const sendOrderToAPI = (payload) => {
+  return (dispatch) => {
+    dispatch(sendOrderStarted());
+
+    Axios
+      .post(`${api.url}/${api.orders}`, payload)
+      .then(() => {
+        dispatch(sendOrderSuccess());
+      })
+      .catch(err => {
+        dispatch(sendOrderError(err.message || true));
+      });
+  };
+};
+
 /* REDUCER */
 export default function reducer(statePart = {}, action = {}) {
   switch (action.type) {
@@ -110,6 +141,14 @@ export default function reducer(statePart = {}, action = {}) {
         ...statePart,
         orderNotes: action.payload,
       }
+    case CLEAR_CART_PRODUCTS:
+      return {
+        ...statePart,
+        cart: {
+          ...statePart.cart,
+          products: [],
+        },
+      }
     case ADD_CART_PRODUCT:
       return {
         ...statePart,
@@ -121,7 +160,7 @@ export default function reducer(statePart = {}, action = {}) {
     case DELETE_CART_PRODUCT:
       let a = statePart.cart.products.slice(0, action.payload);
       let b = statePart.cart.products.slice(action.payload + 1);
-      
+
       return {
         ...statePart,
         cart: {
@@ -365,6 +404,39 @@ export default function reducer(statePart = {}, action = {}) {
                 },
               },
             },
+          },
+        },
+      }
+    case SEND_ORDER_START:
+      return {
+        ...statePart,
+        sendOrder: {
+          ...statePart.sendOrder,
+          loading: {
+            active: true,
+            error: false,
+          },
+        },
+      }
+    case SEND_ORDER_SUCCESS:
+      return {
+        ...statePart,
+        sendOrder: {
+          ...statePart.sendOrder,
+          loading: {
+            active: false,
+            error: false,
+          },
+        },
+      }
+    case SEND_ORDER_ERROR:
+      return {
+        ...statePart,
+        sendOrder: {
+          ...statePart.sendOrder,
+          loading: {
+            active: false,
+            error: action.payload,
           },
         },
       }

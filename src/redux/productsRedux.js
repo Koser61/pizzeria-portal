@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { api } from '../settings'
+import { api } from '../settings';
 
 /* selectors */
 export const getAllProducts = ({products}) => products.data;
@@ -26,7 +26,7 @@ export const fetchProductsFromAPI = () => {
       dispatch(fetchProductsStarted());
 
       Axios
-        .get(`${api.url}/${api.product}`)
+        .get(`${api.url}/${api.products}`)
         .then(res => {
           dispatch(fetchProductsSuccess(res.data));
         })
