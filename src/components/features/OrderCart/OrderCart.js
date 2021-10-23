@@ -35,6 +35,7 @@ class OrderCart extends React.Component {
             return (
               <CartProduct
                 key={i}
+                productId={i}
                 amount={product.amount}
                 name={product.name}
                 price={product.price}

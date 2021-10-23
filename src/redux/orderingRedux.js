@@ -119,14 +119,14 @@ export default function reducer(statePart = {}, action = {}) {
         }
       }
     case DELETE_CART_PRODUCT:
-      const newArray = statePart.cart.products.slice()
-      newArray.splice(action.payload, 1)
-
+      let a = statePart.cart.products.slice(0, action.payload);
+      let b = statePart.cart.products.slice(action.payload + 1);
+      
       return {
         ...statePart,
         cart: {
           ...statePart.cart,
-          products: newArray,
+          products: a.concat(b),
         }
       }
     case CHANGE_CART_TOTAL_PRICE:
