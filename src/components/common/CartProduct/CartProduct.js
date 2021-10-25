@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import CartProductDetails from '../CartProductDetails/CartProductDetails';
+import CartProductDetails from '../CartProductDetails/CartProductDetailsContainer';
 
 class CartProduct extends React.Component {
   static propTypes = {
     productId: PropTypes.number,
     amount: PropTypes.number,
     name: PropTypes.string,
-    params: PropTypes.object,
     price: PropTypes.number,
     totalPrice: PropTypes.number,
     changeTotalPrice: PropTypes.func,
@@ -37,34 +37,40 @@ class CartProduct extends React.Component {
   }
 
   render() {
-    const { amount, name, price, params } = this.props;
+    const { amount, name, price, productId } = this.props;
 
     return(
-      <Card variant='outlined' sx={{p: '0.5rem'}}>
+      <Card elevation={3}>
         <Box
-          display='flex'
+          width={1/1}
+          display='inline-flex'
           justifyContent='space-between'
           alignItems='center'
         >
-          <Box mx='1rem'>
-            <Typography variant='button' fontSize='1rem' noWrap>
-              {amount} x
-            </Typography>
+          <Chip
+            sx={{fontSize: '1rem', fontWeight: 'bold', ml: '0.5rem'}}
+            variant='outlined'
+            label={amount}
+          />
+          <Typography variant='h6' textAlign='center' fontSize='1rem'>
+            {name}
+          </Typography>
+          <Box display='inline-flex' alignItems='center'>
+            <Chip
+              sx={{ fontSize: '1rem', fontWeight: 'bold'}}
+              variant='outlined'
+              label={'$ ' + price}
+            />
+            <IconButton
+              size='large'
+              sx={{color: 'primary.dark'}}
+              onClick={() => this.handleDelete()}
+            >
+              <DeleteForeverIcon sx={{color: 'error.dark'}} />
+            </IconButton>
           </Box>
-          <CartProductDetails name={name} params={params} />
-          <Box mx='1rem'>
-            <Typography variant='button' fontSize='1rem' noWrap>
-              ${price}
-            </Typography>
-          </Box>
-          <IconButton
-            size='large'
-            sx={{mx: '0.5rem', color: 'primary.dark'}}
-            onClick={() => this.handleDelete()}
-          >
-            <DeleteForeverIcon />
-          </IconButton>
         </Box>
+        <CartProductDetails productId={productId} />
       </Card>
     );
   }

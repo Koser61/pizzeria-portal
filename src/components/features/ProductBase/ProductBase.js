@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -42,14 +43,11 @@ class ProductBase extends React.Component {
 
   handleAddToCart() {
     const { addCartProduct } = this.props;
-
-    /* prepare cartProduct */
     const cartProduct = this.prepareCartProduct();
 
-    /* add cartProduct to cart state */
     addCartProduct(cartProduct);
 
-    /* reset ProductParams to defaults ? */
+    // reset ProductParams to defaults ?
   }
 
   prepareCartProduct() {
@@ -89,10 +87,6 @@ class ProductBase extends React.Component {
     return cartProduct;
   }
 
-  getKeyByValue(object, value) {
-    return Object.keys(object).find((key) => object[key] === value);
-  }
-
   calculateBasePrice() {
     const { defaultPrice, defaultOptionsPrice, setBasePrice } = this.props;
 
@@ -117,37 +111,47 @@ class ProductBase extends React.Component {
     changePrice(priceSingle * amount);
   }
 
+  getKeyByValue(object, value) {
+    return Object.keys(object).find((key) => object[key] === value);
+  }
+
   render() {
     const { productId, name, price } = this.props;
 
     return (
-      <Box
-        width={1 / 1}
-        display='inline-flex'
-        justifyContent='space-between'
-        alignItems='center'
-        sx={{ padding: '0.5rem' }}
-      >
-        <Chip
-          sx={{ marginLeft: '0.5rem', fontSize: '1.25rem'}}
-          color='primary'
-          icon={<AttachMoneyIcon />}
-          label={price}
-        />
-        <Typography variant='h6' marginLeft='1rem'>
-          {name}
-        </Typography>
-        <Box display='inline-flex' alignItems='center'>
+      <Grid container p='0.5rem' justifyContent='space-around'>
+        <Grid item container xs={8} lg={9}>
           <AmountWidget productId={productId} />
-          <Button
-            sx={{ height: 64, borderRadius: 2 }}
-            variant='contained'
-            onClick={() => this.handleAddToCart()}
-          >
-            <AddShoppingCartIcon />
-          </Button>
-        </Box>
-      </Box>
+          <Grid item xs={9} alignSelf='center'>
+            <Typography variant='h6' marginLeft='1rem' textAlign='center'>
+              {name}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid item container xs={4} lg={3} alignItems='center'>
+          <Box component={Grid} item sm={6} display={{xs: 'none', sm: 'grid'}}>
+            <Box display='flex' justifyContent='flex-end'>
+              <Chip
+                sx={{ fontSize: '1.25rem'}}
+                variant='outlined'
+                icon={<AttachMoneyIcon />}
+                label={price}
+              />
+            </Box>
+          </Box>
+          <Grid item xs={12} sm={6}>
+            <Box display='flex' justifyContent='flex-end'>
+              <Button
+                sx={{ borderRadius: 2 }}
+                variant='contained'
+                onClick={() => this.handleAddToCart()}
+              >
+                <AddShoppingCartIcon />
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }

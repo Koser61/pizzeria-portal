@@ -44,7 +44,7 @@ class AmountWidget extends React.Component {
     const { amount } = this.props;
 
     return (
-      <Grid container paddingRight='1rem'>
+      <Grid item container xs={3}>
         <Grid item xs={12} sm={4} sx={{order: {xs: 1, sm: 3}}}>
           <Box display='flex' justifyContent='center'>
             <IconButton onClick={() => this.handleIncrement(amount)}>
@@ -52,8 +52,13 @@ class AmountWidget extends React.Component {
             </IconButton>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} order={2} alignSelf='center'>
-          <Box display='flex' justifyContent='center'>
+        <Grid item xs={12} sm={4} order={2} spacing={1}>
+          <Box 
+            height={1/1}
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+          >
             <Card
               variant='outlined'
               sx={{
@@ -63,7 +68,8 @@ class AmountWidget extends React.Component {
                 justifyContent: 'center',
                 alignContent: 'center',
                 lineHeight: '2rem',
-                margin: '0.1rem'
+                margin: '0.1rem',
+                minWidth: '2rem'
               }}
             >
               {amount}

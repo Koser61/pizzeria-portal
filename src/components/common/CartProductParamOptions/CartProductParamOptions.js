@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 
 const CartProductParamOptions = ({ options }) => {
+  const optionsCount = Object.keys(options).length - 1;
+
   return (
     <Typography
       fontStyle='italic'
@@ -11,11 +13,19 @@ const CartProductParamOptions = ({ options }) => {
       component='span'
     >
       {Object.values(options).map((option, i) => {
-        return (
-          <React.Fragment key={i}>
-            {option + ', '}
-          </React.Fragment>
-        );
+        if(i !== optionsCount) {
+          return (
+            <React.Fragment key={i}>
+              {option + ', '}
+            </React.Fragment>
+          );
+        } else {
+          return (
+            <React.Fragment key={i}>
+              {option}
+            </React.Fragment>
+          );
+        }
       })}
     </Typography>
   );

@@ -29,7 +29,7 @@ class OrderCart extends React.Component {
     const { products, totalPrice } = this.props;
 
     return (
-      <Card elevation={6} sx={{marginTop: '0.5rem'}}>
+      <Card elevation={6}>
         <Stack m='0.5rem' spacing='0.5rem'>
           {products.map((product, i) => {
             return (

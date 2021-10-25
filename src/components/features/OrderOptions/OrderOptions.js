@@ -2,34 +2,24 @@ import React from 'react';
 
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+//import Box from '@mui/material/Box';
 
 import OrderTableSelect from '../../common/OrderTableSelect/OrderTableSelectContainer';
 import OrderTimePicker from '../../common/OrderTimePicker/OrderTimePickerContainer';
 
 const OrderOptions = () => {
   return (
-    <Card elevation={6} sx={{paddingBottom: '1rem'}}>
+    <Card elevation={6} sx={{p: '0.5rem', pb: '1rem'}}>
       <Grid container>
-        <Grid item xs={12} sm={6}>
-          <Box
-            display='flex'
-            justifyContent='center'
-            alignContent='center'
-            mt='1rem'
-          >
+        <Grid container item xs={12} sm={6} justifyContent='center'>
+          <Grid item marginTop={{xs: '0.5rem'}}>
             <OrderTableSelect />
-          </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box
-            display='flex'
-            justifyContent='center'
-            alignContent='center'
-            mt='1rem'
-          >
+        <Grid container item xs={12} sm={6} justifyContent='center'>
+          <Grid item marginTop={{xs: '1rem', sm: '0.5rem'}}>
             <OrderTimePicker />
-          </Box>
+          </Grid>
         </Grid>
       </Grid>
     </Card>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -55,11 +56,21 @@ class NewOrder extends React.Component {
     } else {
       return (
         <Container>
-          <Box maxWidth='lg' mx='auto' py='1rem'>
-            <OrderOptions />
-            <OrderMenu products={products} />
-            <OrderCart />
-          </Box>
+          <Grid container spacing='0.5rem' mt='0.5rem'>
+            <Grid item container xs={12} md={7} spacing='0.5rem'>
+              <Grid item width={1/1}>
+                <OrderOptions />
+              </Grid>
+              <Grid item width={1/1}>
+                <OrderMenu products={products} />
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} md={5} spacing='1rem'>
+              <Grid item width={1/1} marginLeft={{md: '0.5rem'}}>
+                <OrderCart />
+              </Grid>
+            </Grid>
+          </Grid>
         </Container>
       );
     }

@@ -10,11 +10,7 @@ const OrderMenu = ({ products }) => {
   return (
     <Card
       elevation={6}
-      sx={{
-        marginTop: '0.5rem',
-        paddingBottom: '0.5rem',
-        paddingInline: '0.5rem',
-      }}
+      sx={{paddingBottom: '0.5rem', paddingInline: '0.5rem'}}
     >
       {products.map((product) => {
         return (
