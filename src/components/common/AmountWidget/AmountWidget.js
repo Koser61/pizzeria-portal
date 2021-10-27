@@ -52,7 +52,7 @@ class AmountWidget extends React.Component {
             </IconButton>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} order={2} spacing={1}>
+        <Grid item xs={12} sm={4} order={2}>
           <Box 
             height={1/1}
             display='flex'

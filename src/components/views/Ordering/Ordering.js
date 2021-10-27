@@ -1,345 +1,277 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Container from '@mui/material/Container'
-import Paper from '@mui/material/Paper'
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import IconButton from '@mui/material/IconButton';
-import Card from '@mui/material/Card'
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar'
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
-import CheckIcon from '@mui/icons-material/Check';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-import DoneIcon from '@mui/icons-material/Done';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
-import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import ReceiptIcon from '@mui/icons-material/Receipt';
+import NewReleasesIcon from '@mui/icons-material/NewReleases'; // NEW
+import ReceiptIcon from '@mui/icons-material/Receipt'; // ORDERED
+import FastfoodIcon from '@mui/icons-material/Fastfood'; // READY
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'; // IN DELIVERY
+import DoneIcon from '@mui/icons-material/Done'; // DELIVERED
+
+import { red, orange, yellow, green, lightGreen } from '@mui/material/colors';
 
 const Ordering = () => {
+  const statusStyle = {
+    new: {
+      color: red[900],
+      icon: <NewReleasesIcon sx={{fill: 'white'}} />
+    },
+    ordered: {
+      color: orange[900],
+      icon: <ReceiptIcon sx={{fill: 'white'}} />
+    },
+    ready: {
+      color: yellow[900],
+      icon: <FastfoodIcon sx={{fill: 'white'}} />
+    },
+    inDelivery: {
+      color: lightGreen[900],
+      icon: <LocalShippingIcon sx={{fill: 'white'}} />
+    },
+    delivered: {
+      color: green[900],
+      icon: <DoneIcon sx={{fill: 'white'}} />
+    },
+  };
+
   return (
     <Container>
-      <Link to={process.env.PUBLIC_URL + '/ordering/new'}>New Order</Link>
-      <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>Order 123abc</Link>
-      <article>
-        <AppBar position='relative' elevation={3}>
-          <Toolbar variant='dense'>
-            <Typography variant='h6'>
-              Table 1
-            </Typography>
-            <IconButton edge='end' color='inherit' aria-label='Add' size="large">
-              <AddIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Paper elevation={1}>
-          <Card elevation={2}>
-            <Box
-              width='100%'
-              display='inline-flex'
-              flexWrap='nowrap'
-              alignItems='center'
-              justifyContent='space-between'
-            >
-              <Box>
-                <Avatar>
-                  <FastfoodIcon />
-                </Avatar>
-              </Box>
-              <Box
-                display='flex'
-                alignItems='center'
-                justifyContent='space-around'
-                width='100%'
+      <Grid container mt={0.5} spacing={2}>
+        <Grid item xs={12} lg={4}>
+          <Paper elevation={6}>
+            <Accordion disableGutters>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon sx={{mx: '0.5rem'}} />}
               >
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Status:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>ready</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Order Time:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>2021-07-17 15:30:00</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Total:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>$120</span>
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box minWidth='48px' minHeight='48px'>
-                <IconButton aria-label='deliver' size="large">
-                  <CheckIcon />
-                </IconButton>
-              </Box>
-            </Box>
-          </Card>
-          <Card elevation={2}>
-            <Box
-              width='100%'
-              display='inline-flex'
-              flexWrap='nowrap'
-              alignItems='center'
-              justifyContent='space-between'
-            >
-              <Box>
-                <Avatar>
-                  <ReceiptIcon />
-                </Avatar>
-              </Box>
-              <Box
-                display='flex'
-                alignItems='center'
-                justifyContent='space-around'
-                width='100%'
-              >
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Status:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>ordered</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Order Time:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>2021-07-17 15:30:00</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Total:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>$120</span>
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box minWidth='48px' minHeight='48px'></Box>
-            </Box>
-          </Card>
-        </Paper>
-      </article>
-      <article>
-        <AppBar position='relative' elevation={3}>
-          <Toolbar variant='dense'>
-            <Typography variant='h6'>
-              Table 2
-            </Typography>
-            <IconButton edge='end' color='inherit' aria-label='Add' size="large">
-              <AddIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Paper elevation={1}>
-          <Card elevation={2}>
-            <Box
-              width='100%'
-              display='inline-flex'
-              flexWrap='nowrap'
-              alignItems='center'
-              justifyContent='space-between'
-            >
-              <Box>
-                <Avatar>
-                  <PriorityHighIcon />
-                </Avatar>
-              </Box>
-              <Box
-                display='flex'
-                alignItems='center'
-                justifyContent='space-around'
-                width='100%'
-              >
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Status:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>new</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Order Time:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>2021-07-17 15:30:00</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Total:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>$120</span>
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box minWidth='48px' minHeight='48px'></Box>
-            </Box>
-          </Card>
-          <Card elevation={2}>
-            <Box
-              width='100%'
-              display='inline-flex'
-              flexWrap='nowrap'
-              alignItems='center'
-              justifyContent='space-between'
-            >
-              <Box>
-                <Avatar>
-                  <DoneIcon />
-                </Avatar>
-              </Box>
-              <Box
-                display='flex'
-                alignItems='center'
-                justifyContent='space-around'
-                width='100%'
-              >
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Status:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>delivered</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Order Time:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>2021-07-17 15:30:00</span>
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box 
-                  display='flex' 
-                  justifyContent='center' 
-                  flexDirection='row'
-                >
-                  <Box>
-                    <Typography variant='body1'>
-                      <strong>Total:&nbsp;</strong>
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant='body1'>
-                      <span>$120</span>
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box minWidth='48px' minHeight='48px'></Box>
-            </Box>
-          </Card>
-        </Paper>
-      </article>
+                <Grid container>
+                  <Grid 
+                    item container
+                    xs={2} sm={1} lg={2}
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Grid item>
+                      <Link to={process.env.PUBLIC_URL + '/ordering/new'}>
+                        <IconButton>
+                          <AddIcon />
+                        </IconButton>
+                      </Link>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    item container
+                    xs={10} sm={11} lg={10}
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Grid item>
+                      <Typography
+                        variant='h4'
+                        fontSize={{xs: '1.25rem'}}
+                        sx={{textTransform: 'uppercase'}}
+                      >
+                        Table 1
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </AccordionSummary>
+              <AccordionDetails sx={{p: 1}}>
+                <Stack spacing={1}>
+                  <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>
+                    <Card
+                      elevation={3}
+                      sx={{p: '1rem'}}
+                    >
+                      <Grid container justifyContent='space-between'>
+                        <Grid
+                          container item
+                          xs={5} sm={3} lg={4}
+                          justifyContent={{xs: 'flex-start'}}
+                          alignItems='center'
+                        >
+                          <Grid item>
+                            <Chip
+                              sx={{
+                                fontWeight: 'medium',
+                                bgcolor: statusStyle.inDelivery.color,
+                                color: 'white'
+                              }}
+                              icon={statusStyle.inDelivery.icon}
+                              label='In delivery'
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container item
+                          xs={5} sm={8} lg={6}
+                          rowSpacing={1}
+                          justifyItems='center'
+                          alignItems='center'
+                        >
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant='subtitle2' textAlign='center'>
+                              $120
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant='subtitle2' textAlign='center'>
+                              20-JUN-1990 08:03:00
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container item
+                          xs={2} sm={1} lg={2}
+                          justifyContent='center'
+                          alignItems='center'
+                        >
+                          <Grid item>
+                            <IconButton>
+                              <CheckCircleIcon />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </Link>
+                  <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>
+                    <Card
+                      elevation={3}
+                      sx={{p: '1rem'}}
+                    >
+                      <Grid container justifyContent='space-between'>
+                        <Grid
+                          container item
+                          xs={5} sm={3} lg={4}
+                          justifyContent={{xs: 'flex-start'}}
+                          alignItems='center'
+                        >
+                          <Grid item>
+                            <Chip
+                              sx={{
+                                fontWeight: 'medium',
+                                bgcolor: statusStyle.inDelivery.color,
+                                color: 'white'
+                              }}
+                              icon={statusStyle.inDelivery.icon}
+                              label='In delivery'
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container item
+                          xs={5} sm={8} lg={6}
+                          rowSpacing={1}
+                          justifyItems='center'
+                          alignItems='center'
+                        >
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant='subtitle2' textAlign='center'>
+                              $120
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant='subtitle2' textAlign='center'>
+                              20-JUN-1990 08:03:00
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container item
+                          xs={2} sm={1} lg={2}
+                          justifyContent='center'
+                          alignItems='center'
+                        >
+                          <Grid item>
+                            <IconButton>
+                              <CheckCircleIcon />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </Link>
+                  <Link to={process.env.PUBLIC_URL + '/ordering/order/123abc'}>
+                    <Card
+                      elevation={3}
+                      sx={{p: '1rem'}}
+                    >
+                      <Grid container justifyContent='space-between'>
+                        <Grid
+                          container item
+                          xs={5} sm={3} lg={4}
+                          justifyContent={{xs: 'flex-start'}}
+                          alignItems='center'
+                        >
+                          <Grid item>
+                            <Chip
+                              sx={{
+                                fontWeight: 'medium',
+                                bgcolor: statusStyle.inDelivery.color,
+                                color: 'white'
+                              }}
+                              icon={statusStyle.inDelivery.icon}
+                              label='In delivery'
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container item
+                          xs={5} sm={8} lg={6}
+                          rowSpacing={1}
+                          justifyItems='center'
+                          alignItems='center'
+                        >
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant='subtitle2' textAlign='center'>
+                              $120
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant='subtitle2' textAlign='center'>
+                              20-JUN-1990 08:03:00
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container item
+                          xs={2} sm={1} lg={2}
+                          justifyContent='center'
+                          alignItems='center'
+                        >
+                          <Grid item>
+                            <IconButton>
+                              <CheckCircleIcon />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </Link>
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+          </Paper>
+        </Grid>
+      </Grid>
+      
+      {/**/}
     </Container>
   );
 };
