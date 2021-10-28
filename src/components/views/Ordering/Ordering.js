@@ -1,30 +1,98 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+//import { Link } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
+//import Paper from '@mui/material/Paper';
+//import Accordion from '@mui/material/Accordion';
+//import AccordionSummary from '@mui/material/AccordionSummary';
+//import AccordionDetails from '@mui/material/AccordionDetails';
+//import IconButton from '@mui/material/IconButton';
+//import Typography from '@mui/material/Typography';
+//import Stack from '@mui/material/Stack';
+//import Card from '@mui/material/Card';
+//import Chip from '@mui/material/Chip';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AddIcon from '@mui/icons-material/Add';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+//import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+//import AddIcon from '@mui/icons-material/Add';
 
-import NewReleasesIcon from '@mui/icons-material/NewReleases'; // NEW
-import ReceiptIcon from '@mui/icons-material/Receipt'; // ORDERED
-import FastfoodIcon from '@mui/icons-material/Fastfood'; // READY
-import LocalShippingIcon from '@mui/icons-material/LocalShipping'; // IN DELIVERY
-import DoneIcon from '@mui/icons-material/Done'; // DELIVERED
+import { tables } from '../../../settings';
 
-import { red, orange, yellow, green, lightGreen } from '@mui/material/colors';
+import TableOrders from '../../features/TableOrders/TableOrdersContainer';
 
+//import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
+//import NewReleasesIcon from '@mui/icons-material/NewReleases'; // NEW
+//import ReceiptIcon from '@mui/icons-material/Receipt'; // ORDERED
+//import FastfoodIcon from '@mui/icons-material/Fastfood'; // READY
+//import LocalShippingIcon from '@mui/icons-material/LocalShipping'; // IN DELIVERY
+//import DoneIcon from '@mui/icons-material/Done'; // DELIVERED
+
+//import { red, orange, yellow, green, lightGreen } from '@mui/material/colors';
+
+class Ordering extends React.Component {
+  static propTypes = {
+    fetchOrders: PropTypes.func,
+    loading: PropTypes.shape({
+      active: PropTypes.bool,
+      error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    }),
+  };
+
+  componentDidMount() {
+    const { fetchOrders } = this.props;
+    fetchOrders();
+  }
+
+  render() {
+    const { loading: { active, error }, orders } = this.props;
+
+    if(active || !orders.length) {
+      return (
+        <Container>
+          <Backdrop open={active || !orders.length}>
+            <CircularProgress />
+          </Backdrop>
+        </Container>
+      );
+    } else if(error) {
+      return (
+        <Container>
+          <Box width={1/1} py='1rem'>
+            <Alert severity='error' mt='2rem'>
+              <AlertTitle>Error!</AlertTitle>
+              {error}
+            </Alert>
+          </Box>
+        </Container>
+      );
+    } else {
+      return (
+        <Container>
+          <Grid container mt={0.5} spacing={2}>
+            {tables.map((table) => {
+              return (
+                <TableOrders
+                  key={table.value}
+                  value={table.value}
+                  label={table.label}
+                />
+              );
+            })}
+          </Grid>
+        </Container>
+      );
+    }
+  }
+}
+
+/*
 const Ordering = () => {
   const statusStyle = {
     new: {
@@ -271,9 +339,9 @@ const Ordering = () => {
         </Grid>
       </Grid>
       
-      {/**/}
+      
     </Container>
   );
 };
-
+*/
 export default Ordering;

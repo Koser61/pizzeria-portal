@@ -9,7 +9,7 @@ import MainLayout from './components/layout/MainLayout/MainLayout';
 
 import Dashboard from './components/views/Dashboard/Dashboard';
 import Login from './components/views/Login/Login';
-import Ordering from './components/views/Ordering/Ordering';
+import Ordering from './components/views/Ordering/OrderingContainer';
 import Tables from './components/views/Tables/Tables';
 import Kitchen from './components/views/Kitchen/Kitchen';
 
@@ -32,7 +32,7 @@ const App = () => {
             <Route path={process.env.PUBLIC_URL + '/dashboard'} component={Dashboard} />
 
             <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
-            <Route path={process.env.PUBLIC_URL + '/ordering/new'} component={NewOrder} />
+            <Route path={process.env.PUBLIC_URL + '/ordering/new/:table'} component={NewOrder} />
             <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Order} />
 
             <Route exact path={process.env.PUBLIC_URL + '/tables'} component={Tables} />

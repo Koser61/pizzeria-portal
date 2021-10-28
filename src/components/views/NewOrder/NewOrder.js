@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -27,19 +28,14 @@ class NewOrder extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, products } = this.props;
+    const { loading: { active, error }, products, match } = this.props;
 
     if(active || !products.length){
       return (
         <Container>
-          <Box
-            display='flex'
-            justifyContent='center'
-            alignItems='center'
-            height='75vh'
-          >
+          <Backdrop open={active || !products.length}>
             <CircularProgress />
-          </Box>
+          </Backdrop>
         </Container>
       );
     } else if(error) {
@@ -59,7 +55,7 @@ class NewOrder extends React.Component {
           <Grid container spacing='0.5rem' mt='0.5rem'>
             <Grid item container xs={12} md={7} spacing='0.5rem'>
               <Grid item width={1/1}>
-                <OrderOptions />
+                <OrderOptions tableMatch={match.params.table} />
               </Grid>
               <Grid item width={1/1}>
                 <OrderMenu products={products} />

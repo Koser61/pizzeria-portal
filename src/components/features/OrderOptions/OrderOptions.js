@@ -7,13 +7,13 @@ import Grid from '@mui/material/Grid';
 import OrderTableSelect from '../../common/OrderTableSelect/OrderTableSelectContainer';
 import OrderTimePicker from '../../common/OrderTimePicker/OrderTimePickerContainer';
 
-const OrderOptions = () => {
+const OrderOptions = ({tableMatch}) => {
   return (
     <Card elevation={6} sx={{p: '0.5rem', pb: '1rem'}}>
       <Grid container>
         <Grid container item xs={12} sm={6} justifyContent='center'>
           <Grid item marginTop={{xs: '0.5rem'}}>
-            <OrderTableSelect />
+            <OrderTableSelect tableMatch={tableMatch} />
           </Grid>
         </Grid>
         <Grid container item xs={12} sm={6} justifyContent='center'>

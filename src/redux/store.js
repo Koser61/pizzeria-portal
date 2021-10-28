@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import navReducer from './navRedux';
 import productsReducer from './productsRedux';
+import ordersReducer from './ordersRedux';
 import orderingReducer from './orderingRedux';
 
 // define initial state and shallow-merge initial data
@@ -13,6 +14,13 @@ const initialState = {
     drawerOpen: false,
   },
   products: {
+    loading: {
+      active: false,
+      error: false,
+    },
+    data: [],
+  },
+  orders: {
     loading: {
       active: false,
       error: false,
@@ -151,6 +159,7 @@ const initialState = {
 const reducers = {
   nav: navReducer,
   products: productsReducer,
+  orders: ordersReducer,
   ordering: orderingReducer,
 };
 
