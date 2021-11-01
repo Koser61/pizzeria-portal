@@ -1,11 +1,24 @@
 import React from 'react';
+//import { PropTypes } from 'prop-types';
 
-import styles from './Order.scss';
+//import NewOrder from '../NewOrder/NewOrderContainer';
 
-const Order = (props) => (
-  <div className={styles.component}>
-      <h2>{props.match.params.id}</h2>
-  </div>
-);
+class Order extends React.Component {
+  static propTypes = {
+
+  };
+
+  render() {
+    //const { status } = this.props;
+
+    return (
+      <React.Fragment>
+
+      </React.Fragment>
+    );
+  }
+}
 
 export default Order;
+
+// order's id = props.match.params.id

@@ -14,10 +14,12 @@ import Stack from '@mui/material/Stack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 
+import OrderSummary from '../OrderSummary/OrderSummaryContainer';
+
 const TableOrders = ({ value, label, orders }) => {
   return (
     <Grid item xs={12} lg={4}>
-      <Paper elevation={6}>
+      <Paper elevation={8}>
         <Accordion disableGutters>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon sx={{ mx: '0.5rem' }} />}
@@ -57,7 +59,11 @@ const TableOrders = ({ value, label, orders }) => {
           </AccordionSummary>
           <AccordionDetails sx={{ p: 1 }}>
             <Stack spacing={1}>
-
+              {orders.map((order, i) => {
+                return (
+                  <OrderSummary key={i} index={i} id={order.id} />
+                );
+              })}
             </Stack>
           </AccordionDetails>
         </Accordion>

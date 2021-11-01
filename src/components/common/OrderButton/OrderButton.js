@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
-import { withRouter } from "react-router";
+import { Redirect } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -11,7 +11,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 class OrderButton extends React.Component {
   static propTypes = {
-    history: PropTypes.object,
     sendOrder: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
@@ -22,12 +21,14 @@ class OrderButton extends React.Component {
     orderNotes: PropTypes.string,
     cartTotalPrice: PropTypes.number,
     orderProducts: PropTypes.array,
+    ordersUpdated: PropTypes.bool,
   };
 
   sendOrder() {
-    const { history, sendOrder, orderTable, orderTime, orderNotes, cartTotalPrice, orderProducts } = this.props;
+    const { sendOrder, orderTable, orderTime, orderNotes, cartTotalPrice, orderProducts } = this.props;
 
     const newOrder = {
+      status: 'new',
       table: orderTable,
       orderTime: orderTime,
       notes: orderNotes,
@@ -39,11 +40,10 @@ class OrderButton extends React.Component {
     };
 
     sendOrder(newOrder);
-    history.push(process.env.PUBLIC_URL + '/ordering');
   }
 
   render() {
-    const { loading: { active, error } } = this.props;
+    const { loading: { active, error }, ordersUpdated } = this.props;
 
     if(active) {
       return(
@@ -64,6 +64,7 @@ class OrderButton extends React.Component {
           onClick={() => this.sendOrder()}
         >
           Order
+          {ordersUpdated ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
         </Button>
       );
     } else {
@@ -74,10 +75,11 @@ class OrderButton extends React.Component {
           onClick={() => this.sendOrder()}
         >
           Order
+          {ordersUpdated ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
         </Button>
       );
     }
   }
 }
 
-export default withRouter(OrderButton);
+export default OrderButton;

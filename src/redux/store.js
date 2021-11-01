@@ -25,6 +25,10 @@ const initialState = {
       active: false,
       error: false,
     },
+    changeStatus: {
+      active: false,
+      error: false,
+    },
     data: [],
   },
   ordering: {
@@ -150,8 +154,9 @@ const initialState = {
       loading: {
         active: false,
         error: false,
-      }
-    }
+      },
+    },
+    ordersUpdated: false,
   },
 };
 

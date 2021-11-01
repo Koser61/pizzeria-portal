@@ -260,7 +260,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "1"
       },
       {
          "status": "ordered",
@@ -319,7 +319,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "2"
       },
       {
          "status": "ready",
@@ -378,10 +378,10 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "3"
       },
       {
-         "status": "in delivery",
+         "status": "inDelivery",
          "table": "table1",
          "orderTime": "2021-10-28T13:54:54.534+02:00",
          "totalPrice": 49,
@@ -437,7 +437,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "4"
       },
       {
          "status": "delivered",
@@ -496,7 +496,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "5"
       },
       {
          "status": "new",
@@ -555,7 +555,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "6"
       },
       {
          "status": "ordered",
@@ -614,7 +614,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "7"
       },
       {
          "status": "ready",
@@ -673,10 +673,10 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "8"
       },
       {
-         "status": "in delivery",
+         "status": "inDelivery",
          "table": "table2",
          "orderTime": "2021-10-28T13:54:54.534+02:00",
          "totalPrice": 49,
@@ -732,7 +732,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "9"
       },
       {
          "status": "delivered",
@@ -791,7 +791,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "10"
       },
       {
          "status": "new",
@@ -850,7 +850,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "11"
       },
       {
          "status": "ordered",
@@ -909,7 +909,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "12"
       },
       {
          "status": "ready",
@@ -968,10 +968,10 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "13"
       },
       {
-         "status": "in delivery",
+         "status": "inDelivery",
          "table": "table3",
          "orderTime": "2021-10-28T13:54:54.534+02:00",
          "totalPrice": 49,
@@ -1027,7 +1027,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "14"
       },
       {
          "status": "delivered",
@@ -1086,7 +1086,7 @@
             }
          ],
          "buildId": "front",
-         "id": "9GMX3LBoWQYmlYVyHTk1T"
+         "id": "15"
       }
    ],
    "events": [
