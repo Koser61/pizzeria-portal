@@ -21,7 +21,7 @@ class OrderButton extends React.Component {
     orderNotes: PropTypes.string,
     cartTotalPrice: PropTypes.number,
     orderProducts: PropTypes.array,
-    ordersUpdated: PropTypes.bool,
+    orderWasSent: PropTypes.bool,
   };
 
   sendOrder() {
@@ -43,7 +43,7 @@ class OrderButton extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, ordersUpdated } = this.props;
+    const { loading: { active, error }, orderWasSent } = this.props;
 
     if(active) {
       return(
@@ -64,7 +64,7 @@ class OrderButton extends React.Component {
           onClick={() => this.sendOrder()}
         >
           Order
-          {ordersUpdated ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
+          {orderWasSent ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
         </Button>
       );
     } else {
@@ -75,7 +75,7 @@ class OrderButton extends React.Component {
           onClick={() => this.sendOrder()}
         >
           Order
-          {ordersUpdated ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
+          {orderWasSent ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
         </Button>
       );
     }

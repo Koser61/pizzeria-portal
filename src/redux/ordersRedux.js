@@ -10,6 +10,7 @@ export const getOrdersByTable = ({orders}, value) => orders.data.filter(order =>
 export const getOrderStatusById = ({orders}, id) => orders.data.find(order => order.id === id).status;
 export const getOrderTotalPriceById = ({orders}, id) => orders.data.find(order => order.id === id).totalPrice;
 export const getOrderOrderTimeById = ({orders}, id) => orders.data.find(order => order.id === id).orderTime;
+export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);
 
 /* action name creator */
 const reducerName = 'orders';
@@ -40,7 +41,10 @@ export const changeOrderStatus = (payload, index) => ({ payload, index, type: CH
 /* thunk creators */
 export const fetchOrdersFromAPI = () => {
   return (dispatch, getState) => {
-    if(getState().orders.data.length === 0 || getState().ordering.ordersUpdated === true) {
+    const ordersNotLoaded = getState().orders.data.length === 0;
+    const orderWasSent = getState().ordering.orderWasSent === true;
+
+    if(ordersNotLoaded || orderWasSent) {
       dispatch(fetchOrdersStarted());
 
       Axios
@@ -55,25 +59,26 @@ export const fetchOrdersFromAPI = () => {
   };
 };
 
-export const changeOrderStatusInAPI = (payload, id) => {
-  const orderId = id;
-
-  const URL = `${api.url}/${api.orders}/${orderId}`;
-  const DATA = { status: payload };
-
+export const changeOrderStatusInAPI = (orderData, status, index) => {
   return (dispatch) => {
     dispatch(changeOrderStatusStarted());
 
+    const orderDataObject = {...orderData};
+    orderDataObject.status = status;
+
     Axios
-      .patch(URL, DATA)
-      .then(() => {
-        dispatch(changeOrderStatusSuccess());
+      .put(`${api.url}/${api.orders}/${orderData.id}`, orderDataObject)
+      .then((res) => {
+        dispatch(changeOrderStatus(res.data, index))
       })
-      .catch(err => {
-        dispatch(changeOrderStatusError(err.message || true));
+      .then(() => {
+        dispatch(changeOrderStatusSuccess())
+      }).catch((err) => {
+        console.log(err.message)
+        dispatch(changeOrderStatusError(err.message || true))
       });
-  };
-};
+  }
+}
 
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
@@ -109,7 +114,7 @@ export default function reducer(statePart = [], action = {}) {
     case CHANGE_ORDER_STATUS_START: {
       return {
         ...statePart,
-        changeStatus: {
+        changeOrderStatus: {
           active: true,
           error: false,
         },
@@ -118,7 +123,7 @@ export default function reducer(statePart = [], action = {}) {
     case CHANGE_ORDER_STATUS_SUCCESS: {
       return {
         ...statePart,
-        changeStatus: {
+        changeOrderStatus: {
           active: false,
           error: false,
         },
@@ -127,10 +132,20 @@ export default function reducer(statePart = [], action = {}) {
     case CHANGE_ORDER_STATUS_ERROR: {
       return {
         ...statePart,
-        changeStatus: {
+        changeOrderStatus: {
           active: false,
           error: action.payload,
         },
+      }
+    }
+    case CHANGE_ORDER_STATUS: {
+      return {
+        ...statePart,
+        data: [
+          ...statePart.data.slice(0, action.index),
+          {...action.payload},
+          ...statePart.data.slice(action.index + 1)
+        ],
       }
     }
     default:

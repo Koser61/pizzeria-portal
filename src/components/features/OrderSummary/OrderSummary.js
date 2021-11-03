@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 
 import DoneIcon from '@mui/icons-material/Done';
 
-const OrderSummary = ({id, status, totalPrice, orderTime, changeOrderStatus}) => {
+const OrderSummary = ({ id, status, totalPrice, orderTime, changeOrderStatus, orderData }) => {
   const DateTimeISO = DateTime.fromISO(orderTime);
   const DateTimeLocaleString = DateTimeISO.toLocaleString(DateTime.DATETIME_MED);
   
@@ -23,7 +23,7 @@ const OrderSummary = ({id, status, totalPrice, orderTime, changeOrderStatus}) =>
 
   const handleChangeDelivered = (event) => {
     event.preventDefault();
-    changeOrderStatus('delivered');
+    changeOrderStatus(orderData, 'delivered');
   }
 
   return (
@@ -99,6 +99,7 @@ OrderSummary.propTypes = {
   status: PropTypes.string,
   totalPrice: PropTypes.number,
   orderTime: PropTypes.string,
+  orderData: PropTypes.object,
   changeOrderStatus: PropTypes.func,
 };
 

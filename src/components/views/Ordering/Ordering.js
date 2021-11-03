@@ -16,7 +16,7 @@ import TableOrders from '../../features/TableOrders/TableOrdersContainer';
 class Ordering extends React.Component {
   static propTypes = {
     fetchOrders: PropTypes.func,
-    changeOrdersUpdated: PropTypes.func,
+    changeOrderWasSent: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -24,9 +24,9 @@ class Ordering extends React.Component {
   };
 
   componentDidMount() {
-    const { fetchOrders, changeOrdersUpdated } = this.props;
+    const { fetchOrders, changeOrderWasSent } = this.props;
     fetchOrders();
-    changeOrdersUpdated();
+    changeOrderWasSent();
   }
 
   render() {

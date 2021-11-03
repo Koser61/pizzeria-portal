@@ -33,7 +33,7 @@ export const getOptionPriceByIds = ({ordering}, productId, paramId, optionId) =>
 export const getCheckedStateByIds = ({ordering}, productId, paramId, optionId) => ordering.menu[productId].params[paramId].options[optionId].checked;
 
 export const getSendOrderLoadingState = ({ordering}) => ordering.sendOrder.loading;
-export const getOrdersUpdatedState = ({ordering}) => ordering.ordersUpdated;
+export const getOrderWasSentState = ({ordering}) => ordering.orderWasSent;
 
 /* ACTION NAME CREATOR */
 const reducerName = 'ordering';
@@ -74,7 +74,7 @@ const SEND_ORDER_START = createActionName('SEND_ORDER_START');
 const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
 const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
 
-const CHANGE_ORDERS_UPDATED = createActionName('CHANGE_ORDERS_UPDATED');
+const CHANGE_ORDER_WAS_SENT = createActionName('CHANGE_ORDER_WAS_SENT');
 
 /* ACTION CREATORS */
 export const changeOrderTime = (payload) => ({ payload, type: CHANGE_ORDER_TIME, });
@@ -110,7 +110,7 @@ export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START })
 export const sendOrderSuccess = payload => ({ payload, type: SEND_ORDER_SUCCESS });
 export const sendOrderError = payload => ({ payload, type: SEND_ORDER_ERROR });
 
-export const changeOrdersUpdated = payload => ({ payload, type: CHANGE_ORDERS_UPDATED });
+export const changeOrderWasSent = payload => ({ payload, type: CHANGE_ORDER_WAS_SENT });
 
 /* THUNK CREATORS */
 export const sendOrderToAPI = (payload) => {
@@ -433,7 +433,7 @@ export default function reducer(statePart = {}, action = {}) {
             error: false,
           },
         },
-        ordersUpdated: true,
+        orderWasSent: true,
       }
     case SEND_ORDER_ERROR:
       return {
@@ -446,10 +446,10 @@ export default function reducer(statePart = {}, action = {}) {
           },
         },
       }
-    case CHANGE_ORDERS_UPDATED: 
+    case CHANGE_ORDER_WAS_SENT: 
       return {
         ...statePart,
-        ordersUpdated: false,
+        orderWasSent: false,
       }
     default:
       return statePart;
