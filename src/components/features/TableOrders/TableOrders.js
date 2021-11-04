@@ -16,7 +16,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import OrderSummary from '../OrderSummary/OrderSummaryContainer';
 
-const TableOrders = ({ value, label, orders }) => {
+const TableOrders = ({ value, label, orders, allOrders }) => {
   return (
     <Grid item xs={12} lg={4}>
       <Paper elevation={8}>
@@ -60,8 +60,10 @@ const TableOrders = ({ value, label, orders }) => {
           <AccordionDetails sx={{ p: 1 }}>
             <Stack spacing={1}>
               {orders.map((order, i) => {
+                const orderIndex = allOrders.indexOf(order);
+
                 return (
-                  <OrderSummary key={i} index={i} id={order.id} />
+                  <OrderSummary key={i} index={orderIndex} id={order.id} />
                 );
               })}
             </Stack>

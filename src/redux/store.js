@@ -26,17 +26,8 @@ const initialState = {
       error: false,
     },
     changeOrderStatus: {
-      progress: 0,
       active: false,
       error: false,
-      deleteOrder: {
-        active: false,
-        error: false,
-      },
-      addOrder: {
-        active: false,
-        error: false,
-      },
     },
     data: [],
   },

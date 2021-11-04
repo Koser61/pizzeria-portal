@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import TableOrders from './TableOrders';
-import { getOrdersByTable } from '../../../redux/ordersRedux';
+import { getAllOrders, getOrdersByTable } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state, {value}) => ({
+  allOrders: getAllOrders(state),
   orders: getOrdersByTable(state, value),
 });
 

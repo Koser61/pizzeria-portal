@@ -15,8 +15,8 @@ const mapStateToProps = (state, {id}) => ({
   orderData: getOrderDataById(state, id),
 });
 
-const mapDispatchToProps = (dispatch, {index}) => ({
-  changeOrderStatus: (orderData, status) => dispatch(changeOrderStatusInAPI(orderData, status, index)),
+const mapDispatchToProps = (dispatch, {id, index}) => ({
+  changeOrderStatusInAPI: (status, orderData) => dispatch(changeOrderStatusInAPI(status, id, orderData, index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderSummary);

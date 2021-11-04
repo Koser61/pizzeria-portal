@@ -1,4 +1,5 @@
 import Axios from 'axios';
+//import update from 'immutability-helper';
 import { api } from '../settings';
 
 /* selectors */
@@ -59,22 +60,20 @@ export const fetchOrdersFromAPI = () => {
   };
 };
 
-export const changeOrderStatusInAPI = (orderData, status, index) => {
+export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
+  const orderDataChanged = { ...orderData, status: payload };
+  
   return (dispatch) => {
     dispatch(changeOrderStatusStarted());
 
-    const orderDataObject = {...orderData};
-    orderDataObject.status = status;
-
     Axios
-      .put(`${api.url}/${api.orders}/${orderData.id}`, orderDataObject)
+      .put(`${api.url}/api/${api.orders}/${id}`, orderDataChanged)
       .then((res) => {
         dispatch(changeOrderStatus(res.data, index))
       })
       .then(() => {
         dispatch(changeOrderStatusSuccess())
       }).catch((err) => {
-        console.log(err.message)
         dispatch(changeOrderStatusError(err.message || true))
       });
   }
@@ -111,6 +110,16 @@ export default function reducer(statePart = [], action = {}) {
         },
       }
     }
+    case CHANGE_ORDER_STATUS: {
+      return {
+        ...statePart,
+        data: [
+          ...statePart.data.slice(0, action.index),
+          action.payload,
+          ...statePart.data.slice(action.index + 1),
+        ],
+      }
+    }
     case CHANGE_ORDER_STATUS_START: {
       return {
         ...statePart,
@@ -136,16 +145,6 @@ export default function reducer(statePart = [], action = {}) {
           active: false,
           error: action.payload,
         },
-      }
-    }
-    case CHANGE_ORDER_STATUS: {
-      return {
-        ...statePart,
-        data: [
-          ...statePart.data.slice(0, action.index),
-          {...action.payload},
-          ...statePart.data.slice(action.index + 1)
-        ],
       }
     }
     default:
