@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import OrderOptions from '../OrderOptions/OrderOptionsContainer';
-//import OrderMenu from '../OrderMenu/OrderMenu';
+import OrderMenu from '../OrderMenu/OrderMenu';
 //import OrderCart from '../OrderCart/OrderCartContainer';
 
 const OrderInfo = ({ id, status, table }) => {
@@ -23,7 +23,7 @@ const OrderInfo = ({ id, status, table }) => {
               <OrderOptions readOnly id={id} />
             </Grid>
             <Grid item width={1/1}>
-              {/*<OrderMenu readOnly id={id} />*/}
+              <OrderMenu readOnly id={id} />
             </Grid>
           </Grid>
           <Grid item container xs={12} md={5} spacing='1rem'>
