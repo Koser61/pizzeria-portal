@@ -1,24 +1,22 @@
 import React from 'react';
-//import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
-//import NewOrder from '../NewOrder/NewOrderContainer';
+import OrderInfo from '../../features/OrderInfo/OrderInfoContainer';
 
-class Order extends React.Component {
-  static propTypes = {
+const Order = ({ match: { params: { id } } }) => {
+  return (
+    <React.Fragment>
+      <OrderInfo id={id} />
+    </React.Fragment>
+  );
+};
 
-  };
-
-  render() {
-    //const { status } = this.props;
-
-    return (
-      <React.Fragment>
-
-      </React.Fragment>
-    );
-  }
-}
+Order.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
 
 export default Order;
-
-// order's id = props.match.params.id

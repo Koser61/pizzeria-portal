@@ -9,6 +9,7 @@ export const getOrdersLoadingState = ({orders}) => orders.loading;
 export const getOrdersByTable = ({orders}, value) => orders.data.filter(order => order.table === value);
 
 export const getOrderStatusById = ({orders}, id) => orders.data.find(order => order.id === id).status;
+export const getOrderTableById = ({orders}, id) => orders.data.find(order => order.id === id).table;
 export const getOrderTotalPriceById = ({orders}, id) => orders.data.find(order => order.id === id).totalPrice;
 export const getOrderOrderTimeById = ({orders}, id) => orders.data.find(order => order.id === id).orderTime;
 export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);

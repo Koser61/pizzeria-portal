@@ -11,17 +11,27 @@ import { DateTime } from 'luxon';
 
 class OrderTimePicker extends React.Component {
   static propTypes = {
-    orderTime: PropTypes.object,
+    readOnly: PropTypes.bool,
+    id: PropTypes.string,
+    orderTime: PropTypes.oneOfType([
+      PropTypes.string, PropTypes.object
+    ]),
+    loadedOrderTime: PropTypes.string,
     changeOrderTime: PropTypes.func,
   };
 
   componentDidMount() {
-    const { changeOrderTime } = this.props;
-    changeOrderTime(DateTime.now());
+    const { readOnly, loadedOrderTime, changeOrderTime } = this.props;
+    
+    if(!readOnly) {
+      changeOrderTime(DateTime.now());
+    } else {
+      changeOrderTime(loadedOrderTime);
+    }
   }
 
   render() {
-    const { orderTime, changeOrderTime } = this.props;
+    const { readOnly, orderTime, changeOrderTime } = this.props;
 
     return (
       <LocalizationProvider dateAdapter={DateAdapter}>
@@ -32,6 +42,7 @@ class OrderTimePicker extends React.Component {
           onChange={(newOrderTime) => {
             changeOrderTime(newOrderTime);
           }}
+          readOnly={readOnly}
         />
       </LocalizationProvider>
     );

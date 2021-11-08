@@ -29,7 +29,7 @@ const App = () => {
           <Switch>
             <Route exact path={process.env.PUBLIC_URL + '/'} component={Login} />
 
-            <Route path={process.env.PUBLIC_URL + '/dashboard'} component={Dashboard} />
+            <Route exact path={process.env.PUBLIC_URL + '/dashboard'} component={Dashboard} />
 
             <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
             <Route path={process.env.PUBLIC_URL + '/ordering/new/:table'} component={NewOrder} />
@@ -39,7 +39,7 @@ const App = () => {
             <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
             <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
 
-            <Route path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
+            <Route exact path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
           </Switch>
         </MainLayout>
       </BrowserRouter>
