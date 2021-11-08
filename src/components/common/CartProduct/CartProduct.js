@@ -13,6 +13,7 @@ import CartProductDetails from '../CartProductDetails/CartProductDetailsContaine
 
 class CartProduct extends React.Component {
   static propTypes = {
+    readOnly: PropTypes.bool,
     productId: PropTypes.number,
     amount: PropTypes.number,
     name: PropTypes.string,
@@ -37,7 +38,7 @@ class CartProduct extends React.Component {
   }
 
   render() {
-    const { amount, name, price, productId } = this.props;
+    const { readOnly, amount, name, price, productId } = this.props;
 
     return(
       <Card elevation={3}>
@@ -55,21 +56,30 @@ class CartProduct extends React.Component {
           <Typography variant='h6' textAlign='center' fontSize='1rem'>
             {name}
           </Typography>
-          <Box display='inline-flex' alignItems='center'>
-            <Chip
-              sx={{ fontSize: '1rem', fontWeight: 'bold'}}
-              variant='outlined'
-              label={'$ ' + price}
-            />
-            <IconButton
-              size='large'
-              sx={{color: 'primary.dark'}}
-              onClick={() => this.handleDelete()}
-            >
-              <DeleteForeverIcon sx={{color: 'error.dark'}} />
-            </IconButton>
+          {!readOnly ? 
+            <Box display='inline-flex' alignItems='center'>
+              <Chip
+                sx={{ fontSize: '1rem', fontWeight: 'bold'}}
+                variant='outlined'
+                label={'$ ' + price}
+              />
+              <IconButton
+                size='large'
+                sx={{color: 'primary.dark'}}
+                onClick={() => this.handleDelete()}
+              >
+                <DeleteForeverIcon sx={{color: 'error.dark'}} />
+              </IconButton>
+            </Box>
+            :
+            <Box display='inline-flex' alignItems='flex-end'>
+              <Chip
+                sx={{ fontSize: '1rem', fontWeight: 'bold'}}
+                variant='outlined'
+                label={'$ ' + price}
+              />
+            </Box>}
           </Box>
-        </Box>
         <CartProductDetails productId={productId} />
       </Card>
     );

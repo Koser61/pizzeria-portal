@@ -6,9 +6,17 @@ const mapStateToProps = (state) => ({
   totalPrice: getCartTotalPrice(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeTotalPrice: (price) => dispatch(changeCartTotalPrice(price)),
-  deleteCartProduct: (index) => dispatch(deleteCartProduct(index)),
-});
+const mapDispatchToProps = (dispatch, {readOnly}) => {
+  if(!readOnly) {
+    return {
+      changeTotalPrice: (price) => dispatch(changeCartTotalPrice(price)),
+      deleteCartProduct: (index) => dispatch(deleteCartProduct(index)),
+    }
+  } else {
+    return {
+      changeTotalPrice: (price) => dispatch(changeCartTotalPrice(price)),
+    }
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartProduct);

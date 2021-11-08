@@ -13,6 +13,7 @@ export const getOrderTableById = ({orders}, id) => orders.data.find(order => ord
 export const getOrderOrderTimeById = ({orders}, id) => orders.data.find(order => order.id === id).orderTime;
 export const getOrderNotesById = ({orders}, id) => orders.data.find(order => order.id === id).orderNotes;
 
+export const getOrderProductsById = ({orders}, id) => orders.data.find(order => order.id === id).products;
 export const getOrderTotalPriceById = ({orders}, id) => orders.data.find(order => order.id === id).totalPrice;
 
 export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);

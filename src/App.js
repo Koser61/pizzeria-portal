@@ -14,7 +14,7 @@ import Tables from './components/views/Tables/Tables';
 import Kitchen from './components/views/Kitchen/Kitchen';
 
 import NewOrder from './components/views/NewOrder/NewOrderContainer';
-import Order from './components/views/Order/Order';
+import Order from './components/views/Order/OrderContainer';
 import Event from './components/views/Event/Event';
 import Booking from './components/views/Booking/Booking';
 

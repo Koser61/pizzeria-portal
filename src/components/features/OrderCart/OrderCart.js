@@ -12,6 +12,8 @@ import OrderButton from '../../common/OrderButton/OrderButtonContainer';
 
 class OrderCart extends React.Component {
   static propTypes = {
+    readOnly: PropTypes.bool,
+    id: PropTypes.string,
     products: PropTypes.array,
     totalPrice: PropTypes.number,
     changeTotalPrice: PropTypes.func,
@@ -21,28 +23,43 @@ class OrderCart extends React.Component {
   componentDidMount() {
     const { changeTotalPrice, clearCartProducts } = this.props;
 
-    changeTotalPrice(0);
     clearCartProducts();
+    changeTotalPrice(0);
   }
 
   render() {
-    const { products, totalPrice } = this.props;
+    const { readOnly, products, totalPrice } = this.props;
 
     return (
       <Card elevation={6}>
         <Stack m='0.5rem' spacing='0.5rem'>
-          {products.map((product, i) => {
-            return (
-              <CartProduct
-                key={i}
-                productId={i}
-                amount={product.amount}
-                name={product.name}
-                price={product.price}
-                params={product.params}
-              />
-            );
-          })}
+          {!readOnly ? 
+            products.map((product, i) => {
+              return (
+                <CartProduct
+                  key={i}
+                  productId={i}
+                  amount={product.amount}
+                  name={product.name}
+                  price={product.price}
+                  params={product.params}
+                />
+              );
+            })
+            :
+            products.map((products, i) => {
+              return (
+                <CartProduct
+                  readOnly
+                  key={i}
+                  productId={i}
+                  amount={products.amount}
+                  name={products.name}
+                  price={products.price}
+                  params={products.params}
+                />
+              );
+            })}
         </Stack>
         <Divider />
         <Box
@@ -54,7 +71,7 @@ class OrderCart extends React.Component {
           <Typography variant='h6'>
             Total: ${totalPrice}
           </Typography>
-          <OrderButton />
+          {!readOnly ? <OrderButton /> : ''}
         </Box>
       </Card>
     );
