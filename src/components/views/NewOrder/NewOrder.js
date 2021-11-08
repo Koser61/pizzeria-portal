@@ -34,7 +34,7 @@ class NewOrder extends React.Component {
       return (
         <Container>
           <Backdrop open={active || !products.length}>
-            <CircularProgress />
+            <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>
       );

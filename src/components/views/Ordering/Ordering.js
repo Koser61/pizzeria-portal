@@ -36,7 +36,7 @@ class Ordering extends React.Component {
       return (
         <Container>
           <Backdrop open={active || !orders.length}>
-            <CircularProgress />
+            <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>
       );
