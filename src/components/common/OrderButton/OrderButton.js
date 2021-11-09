@@ -35,7 +35,6 @@ class OrderButton extends React.Component {
       totalPrice: cartTotalPrice,
       //totalNumber: 4,
       products: orderProducts,
-      buildId: 'panel',
       id: nanoid()
     };
 

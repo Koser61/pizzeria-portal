@@ -5,6 +5,9 @@ import { api } from '../settings';
 export const getOrderedOrders = ({kitchen}) => kitchen.orders;
 export const getOrderedOrdersLoadingState = ({kitchen}) => kitchen.loading;
 
+export const getLocalOrders = ({kitchen}) => kitchen.orders.filter(order => order.table);
+export const getDeliveryOrders = ({kitchen}) => kitchen.orders.filter(order => order.address);
+
 /* action name creator */
 const reducerName = 'kitchen';
 const createActionName = (name) => `app/${reducerName}/${name}`;

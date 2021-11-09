@@ -29,8 +29,8 @@
                      "price": 1,
                      "default": true
                   },
-                  "cappuccino": {
-                     "label": "Cappuccino",
+                  "cfrontuccino": {
+                     "label": "Cfrontuccino",
                      "price": 1
                   },
                   "espresso": {

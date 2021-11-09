@@ -7,6 +7,9 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import Grid from '@mui/material/Grid';
+
+import KitchenOrders from '../../features/KitchenOrders/KitchenOrdersContainer';
 
 class Kitchen extends React.Component {
   static propTypes = {
@@ -47,7 +50,14 @@ class Kitchen extends React.Component {
     } else {
       return (
         <Container>
-          <div></div>
+          <Grid container my={0.5} spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <KitchenOrders title='Local Orders' />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <KitchenOrders delivery title='Delivery Orders' />
+            </Grid>
+          </Grid>
         </Container>
       );
     }
