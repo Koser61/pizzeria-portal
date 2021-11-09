@@ -202,7 +202,381 @@
          }
       }
    ],
-   "orders": [],
+   "orders": [
+      {
+        "status": "ordered",
+        "address": "2101 Jody Road",
+        "phone": "610 604 703",
+        "orderTime": "2021-11-09T14:41:05.006Z",
+        "totalPrice": 60,
+        "subTotalPrice": 40,
+        "totalNumber": 2,
+        "deliveryFee": 20,
+        "products": [
+          {
+            "id": "pizza",
+            "amount": 2,
+            "price": 40,
+            "priceSingle": 20,
+            "name": "Nonna Alba's Pizza",
+            "params": {
+              "sauce": {
+                "label": "Sauce",
+                "options": {
+                  "tomato": "Tomato"
+                }
+              },
+              "toppings": {
+                "label": "Toppings",
+                "options": {
+                  "olives": "Olives",
+                  "redPeppers": "Red peppers",
+                  "greenPeppers": "Green peppers",
+                  "mushrooms": "Mushrooms",
+                  "basil": "Fresh basil"
+                }
+              },
+              "crust": {
+                "label": "pizza crust",
+                "options": {
+                  "standard": "standard"
+                }
+              }
+            }
+          }
+        ],
+        "buildId": "front",
+        "id": 1
+      },
+      {
+        "status": "ordered",
+        "address": "1918 Holden Street",
+        "phone": "619 265 718",
+        "orderTime": "2021-11-09T14:42:08.858Z",
+        "totalPrice": 73,
+        "subTotalPrice": 53,
+        "totalNumber": 4,
+        "deliveryFee": 20,
+        "products": [
+          {
+            "id": "pizza",
+            "amount": 1,
+            "price": 24,
+            "priceSingle": 24,
+            "name": "Nonna Alba's Pizza",
+            "params": {
+              "sauce": {
+                "label": "Sauce",
+                "options": {
+                  "tomato": "Tomato"
+                }
+              },
+              "toppings": {
+                "label": "Toppings",
+                "options": {
+                  "olives": "Olives",
+                  "redPeppers": "Red peppers",
+                  "greenPeppers": "Green peppers",
+                  "salami": "Salami"
+                }
+              },
+              "crust": {
+                "label": "pizza crust",
+                "options": {
+                  "cheese": "cheese in edges"
+                }
+              }
+            }
+          },
+          {
+            "id": "salad",
+            "amount": 1,
+            "price": 11,
+            "priceSingle": 11,
+            "name": "Nonno Alberto's Salad",
+            "params": {
+              "ingredients": {
+                "label": "Ingredients",
+                "options": {
+                  "cucumber": "Cucumber",
+                  "tomatoes": "Tomatoes",
+                  "olives": "Olives",
+                  "feta": "Feta cheese",
+                  "herbs": "Fresh herbs",
+                  "pepper": "Black pepper"
+                }
+              }
+            }
+          },
+          {
+            "id": "cake",
+            "amount": 2,
+            "price": 18,
+            "priceSingle": 9,
+            "name": "Zio Stefano's Doughnut",
+            "params": {}
+          }
+        ],
+        "buildId": "front",
+        "id": 2
+      },
+      {
+        "status": "ordered",
+        "address": "2483 Isaacs Creek Road",
+        "phone": "217 470 681",
+        "orderTime": "2021-11-09T14:43:13.249Z",
+        "totalPrice": 82,
+        "subTotalPrice": 62,
+        "totalNumber": 4,
+        "deliveryFee": 20,
+        "products": [
+          {
+            "id": "pizza",
+            "amount": 2,
+            "price": 44,
+            "priceSingle": 22,
+            "name": "Nonna Alba's Pizza",
+            "params": {
+              "sauce": {
+                "label": "Sauce",
+                "options": {
+                  "cream": "Sour cream"
+                }
+              },
+              "toppings": {
+                "label": "Toppings",
+                "options": {
+                  "olives": "Olives",
+                  "mushrooms": "Mushrooms",
+                  "salami": "Salami"
+                }
+              },
+              "crust": {
+                "label": "pizza crust",
+                "options": {
+                  "wholewheat": "wholewheat"
+                }
+              }
+            }
+          },
+          {
+            "id": "salad",
+            "amount": 2,
+            "price": 18,
+            "priceSingle": 9,
+            "name": "Nonno Alberto's Salad",
+            "params": {
+              "ingredients": {
+                "label": "Ingredients",
+                "options": {
+                  "cucumber": "Cucumber",
+                  "tomatoes": "Tomatoes",
+                  "olives": "Olives",
+                  "herbs": "Fresh herbs"
+                }
+              }
+            }
+          }
+        ],
+        "buildId": "front",
+        "id": 3
+      },
+      {
+         "status": "ordered",
+         "table": "table1",
+         "orderTime": "2021-11-09T15:45:33.870+01:00",
+         "totalPrice": 63,
+         "products": [
+           {
+             "id": "pizza",
+             "amount": 1,
+             "price": 21,
+             "priceSingle": 21,
+             "name": "Nonna Alba's Pizza",
+             "params": {
+               "sauce": {
+                 "label": "Sauce",
+                 "options": {
+                   "tomato": "Tomato"
+                 }
+               },
+               "toppings": {
+                 "label": "Toppings",
+                 "options": {
+                   "olives": "Olives",
+                   "redPeppers": "Red peppers",
+                   "greenPeppers": "Green peppers",
+                   "basil": "Fresh basil"
+                 }
+               },
+               "crust": {
+                 "label": "pizza crust",
+                 "options": {
+                   "wholewheat": "wholewheat"
+                 }
+               }
+             }
+           },
+           {
+             "id": "pizza",
+             "amount": 1,
+             "price": 24,
+             "priceSingle": 24,
+             "name": "Nonna Alba's Pizza",
+             "params": {
+               "sauce": {
+                 "label": "Sauce",
+                 "options": {
+                   "cream": "Sour cream"
+                 }
+               },
+               "toppings": {
+                 "label": "Toppings",
+                 "options": {
+                   "olives": "Olives",
+                   "mushrooms": "Mushrooms",
+                   "salami": "Salami"
+                 }
+               },
+               "crust": {
+                 "label": "pizza crust",
+                 "options": {
+                   "cheese": "cheese in edges"
+                 }
+               }
+             }
+           },
+           {
+             "id": "salad",
+             "amount": 2,
+             "price": 18,
+             "priceSingle": 9,
+             "name": "Nonno Alberto's Salad",
+             "params": {
+               "ingredients": {
+                 "label": "Ingredients",
+                 "options": {
+                   "cucumber": "Cucumber",
+                   "tomatoes": "Tomatoes",
+                   "olives": "Olives",
+                   "herbs": "Fresh herbs"
+                 }
+               }
+             }
+           }
+         ],
+         "buildId": "front",
+         "id": "SXKXW7K5a8K0JMDC6tcTc"
+       },
+       {
+         "status": "ordered",
+         "table": "table2",
+         "orderTime": "2021-11-09T15:46:48.083+01:00",
+         "totalPrice": 120,
+         "products": [
+           {
+             "id": "cake",
+             "amount": 3,
+             "price": 27,
+             "priceSingle": 9,
+             "name": "Zio Stefano's Doughnut",
+             "params": {}
+           },
+           {
+             "id": "pizza",
+             "amount": 3,
+             "price": 84,
+             "priceSingle": 28,
+             "name": "Nonna Alba's Pizza",
+             "params": {
+               "sauce": {
+                 "label": "Sauce",
+                 "options": {
+                   "tomato": "Tomato"
+                 }
+               },
+               "toppings": {
+                 "label": "Toppings",
+                 "options": {
+                   "olives": "Olives",
+                   "redPeppers": "Red peppers",
+                   "greenPeppers": "Green peppers",
+                   "mushrooms": "Mushrooms",
+                   "basil": "Fresh basil",
+                   "salami": "Salami"
+                 }
+               },
+               "crust": {
+                 "label": "pizza crust",
+                 "options": {
+                   "cheese": "cheese in edges"
+                 }
+               }
+             }
+           },
+           {
+             "id": "salad",
+             "amount": 1,
+             "price": 9,
+             "priceSingle": 9,
+             "name": "Nonno Alberto's Salad",
+             "params": {
+               "ingredients": {
+                 "label": "Ingredients",
+                 "options": {
+                   "cucumber": "Cucumber",
+                   "tomatoes": "Tomatoes",
+                   "olives": "Olives",
+                   "herbs": "Fresh herbs"
+                 }
+               }
+             }
+           }
+         ],
+         "buildId": "front",
+         "id": "psgjSUlkdkKqkv4ejJF9N"
+       },
+       {
+         "status": "ordered",
+         "table": "table3",
+         "orderTime": "2021-11-09T15:47:14.798+01:00",
+         "totalPrice": 28,
+         "products": [
+           {
+             "id": "breakfast",
+             "amount": 2,
+             "price": 14,
+             "priceSingle": 7,
+             "name": "Zia Giulia's Breakfast",
+             "params": {
+               "coffee": {
+                 "label": "Coffee type",
+                 "options": {
+                   "macchiato": "Macchiato "
+                 }
+               }
+             }
+           },
+           {
+             "id": "breakfast",
+             "amount": 2,
+             "price": 14,
+             "priceSingle": 7,
+             "name": "Zia Giulia's Breakfast",
+             "params": {
+               "coffee": {
+                 "label": "Coffee type",
+                 "options": {
+                   "latte": "Latte"
+                 }
+               }
+             }
+           }
+         ],
+         "buildId": "front",
+         "id": "rpqPr65S6aOkGQ1rpEtcy"
+       }
+    ],
    "events": [
       {
          "id": 1,
