@@ -1,0 +1,41 @@
+/* LOCAL ORDERS */
+
+{
+  "status": "new",
+  "table": "table1",
+  "orderTime": "2021-11-09T14:13:42.005+01:00",
+  "totalPrice": 41,
+  "products": [
+    {
+      "id": "pizza",
+      "amount": 1,
+      "price": 19,
+      "priceSingle": 19,
+      "name": "Nonna Alba's Pizza",
+      "params": {
+        "sauce": {
+          "label": "Sauce",
+          "options": {
+            "cream": "Sour cream"
+          }
+        },
+        "toppings": {
+          "label": "Toppings",
+          "options": {
+            "olives": "Olives",
+            "greenPeppers": "Green peppers",
+            "salami": "Salami"
+          }
+        },
+        "crust": {
+          "label": "pizza crust",
+          "options": {
+            "standard": "standard"
+          }
+        }
+      }
+    }
+  ],
+  "buildId": "front",
+  "id": "XUWFR1yCs_03uBDYYXqSi"
+}
