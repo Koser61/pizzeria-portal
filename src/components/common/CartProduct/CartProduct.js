@@ -41,7 +41,7 @@ class CartProduct extends React.Component {
     const { readOnly, amount, name, price, productId } = this.props;
 
     return(
-      <Card elevation={3}>
+      <Card variant='outlined'>
         <Box
           width={1/1}
           display='inline-flex'
