@@ -33,7 +33,7 @@ class ProductBase extends React.Component {
   componentDidUpdate() {
     const { hasParams } = this.props;
 
-    if(hasParams) {
+    if (hasParams) {
       this.calculateBasePrice();
       this.calculatePriceSingle();
     }
@@ -46,12 +46,12 @@ class ProductBase extends React.Component {
     const cartProduct = this.prepareCartProduct();
 
     addCartProduct(cartProduct);
-
     // reset ProductParams to defaults ?
   }
 
   prepareCartProduct() {
-    const { hasParams, productId, amount, price, priceSingle, name, params } = this.props;
+    const { hasParams, productId, amount, price, priceSingle, name, params } =
+      this.props;
 
     let cartProduct = {
       id: productId,
@@ -62,7 +62,7 @@ class ProductBase extends React.Component {
       params: {},
     };
 
-    if(hasParams) {
+    if (hasParams) {
       Object.values(params).forEach((param) => {
         const paramKey = this.getKeyByValue(params, param);
 
@@ -70,19 +70,23 @@ class ProductBase extends React.Component {
         cartProduct.params[paramKey].label = param.paramLabel;
         cartProduct.params[paramKey].options = {};
 
-        if(!param.options) {
+        if (!param.options) {
           cartProduct.params[paramKey].options[param.value] = param.optionLabel;
         } else {
           Object.values(param.options).forEach((paramOption) => {
-            const paramOptionKey = this.getKeyByValue(param.options, paramOption);
+            const paramOptionKey = this.getKeyByValue(
+              param.options,
+              paramOption
+            );
 
-            if(paramOption.checked) {
-              cartProduct.params[paramKey].options[paramOptionKey] = paramOption.label;
-            };
+            if (paramOption.checked) {
+              cartProduct.params[paramKey].options[paramOptionKey] =
+                paramOption.label;
+            }
           });
-        };
+        }
       });
-    };
+    }
 
     return cartProduct;
   }
@@ -119,37 +123,59 @@ class ProductBase extends React.Component {
     const { productId, name, price } = this.props;
 
     return (
-      <Grid container p='0.5rem' justifyContent='space-around'>
-        <Grid item container xs={8} lg={9}>
-          <AmountWidget productId={productId} />
-          <Grid item xs={9} alignSelf='center'>
-            <Typography variant='h6' marginLeft='1rem' textAlign='center'>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-evenly'
+        p='0.5rem'
+      >
+        <Grid
+          item
+          xs={12}
+          sm={5}
+          order={{ xs: 1, sm: 2 }}
+          mb={{ xs: '0.5rem', sm: 0 }}
+        >
+          <Box display='flex' justifyContent='center' alignItems='center'>
+            <Typography variant='h6' textAlign='center' mx='0.5rem'>
               {name}
             </Typography>
-          </Grid>
-        </Grid>
-        <Grid item container xs={4} lg={3} alignItems='center'>
-          <Box component={Grid} item sm={6} display={{xs: 'none', sm: 'grid'}}>
-            <Box display='flex' justifyContent='flex-end'>
-              <Chip
-                sx={{ fontSize: '1.25rem'}}
-                variant='outlined'
-                icon={<AttachMoneyIcon />}
-                label={price}
-              />
-            </Box>
           </Box>
-          <Grid item xs={12} sm={6}>
-            <Box display='flex' justifyContent='flex-end'>
-              <Button
-                sx={{ borderRadius: 2 }}
-                variant='contained'
-                onClick={() => this.handleAddToCart()}
-              >
-                <AddShoppingCartIcon />
-              </Button>
-            </Box>
-          </Grid>
+        </Grid>
+        <Grid item xs={6} sm={3} order={{ xs: 2, sm: 1 }}>
+          <Box
+            display='flex'
+            justifyContent={{ xs: 'center', sm: 'flex-start' }}
+          >
+            <AmountWidget productId={productId} />
+          </Box>
+        </Grid>
+        <Box
+          component={Grid}
+          item
+          sm={2}
+          order={{ xs: 3, sm: 3 }}
+          display={{ xs: 'none', sm: 'grid' }}
+        >
+          <Box display='flex' justifyContent={{ xs: 'center', sm: 'flex-end' }}>
+            <Chip
+              sx={{ fontSize: '1.25rem' }}
+              variant='outlined'
+              icon={<AttachMoneyIcon />}
+              label={price}
+            />
+          </Box>
+        </Box>
+        <Grid item xs={6} sm={2} order={{ xs: 4, sm: 4 }}>
+          <Box display='flex' justifyContent={{ xs: 'center', sm: 'flex-end' }}>
+            <Button
+              sx={{ borderRadius: 2 }}
+              variant='contained'
+              onClick={() => this.handleAddToCart()}
+            >
+              <AddShoppingCartIcon />
+            </Button>
+          </Box>
         </Grid>
       </Grid>
     );
