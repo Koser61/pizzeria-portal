@@ -1,5 +1,4 @@
 import Axios from 'axios';
-//import update from 'immutability-helper';
 import { api } from '../settings';
 
 /* selectors */
@@ -85,7 +84,7 @@ export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
 }
 
 /* reducer */
-export default function reducer(statePart = [], action = {}) {
+export default function reducer(statePart = {}, action = {}) {
   switch (action.type) {
     case FETCH_ALL_START: {
       return {

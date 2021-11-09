@@ -11,7 +11,7 @@ import Dashboard from './components/views/Dashboard/Dashboard';
 import Login from './components/views/Login/Login';
 import Ordering from './components/views/Ordering/OrderingContainer';
 import Tables from './components/views/Tables/Tables';
-import Kitchen from './components/views/Kitchen/Kitchen';
+import Kitchen from './components/views/Kitchen/KitchenContainer';
 
 import NewOrder from './components/views/NewOrder/NewOrderContainer';
 import Order from './components/views/Order/OrderContainer';
