@@ -1,46 +1,49 @@
 /* DELIVERY ORDERS */
 
-{
-  "status": "new",
-  "address": "Grove St. 345",
-  "phone": "435 535 535",
-  "totalPrice": 72,
-  "subTotalPrice": 52,
-  "totalNumber": 2,
-  "deliveryFee": 20,
-  "products": [
-    {
-      "id": "pizza",
-      "amount": 2,
-      "price": 52,
-      "priceSingle": 26,
-      "name": "Nonna Alba's Pizza",
-      "params": {
-        "sauce": {
-          "label": "Sauce",
-          "options": {
-            "tomato": "Tomato"
-          }
-        },
-        "toppings": {
-          "label": "Toppings",
-          "options": {
-            "olives": "Olives",
-            "redPeppers": "Red peppers",
-            "greenPeppers": "Green peppers",
-            "basil": "Fresh basil",
-            "salami": "Salami"
-          }
-        },
-        "crust": {
-          "label": "pizza crust",
-          "options": {
-            "cheese":"cheese in edges"
+[
+  {
+    "status": "ordered",
+    "address": "Grove St. 345",
+    "phone": "435 535 535",
+    "orderTime": "2021-11-09T13:13:42.005+01:00",
+    "totalPrice": 72,
+    "subTotalPrice": 52,
+    "totalNumber": 2,
+    "deliveryFee": 20,
+    "products": [
+      {
+        "id": "pizza",
+        "amount": 2,
+        "price": 52,
+        "priceSingle": 26,
+        "name": "Nonna Alba's Pizza",
+        "params": {
+          "sauce": {
+            "label": "Sauce",
+            "options": {
+              "tomato": "Tomato"
+            }
+          },
+          "toppings": {
+            "label": "Toppings",
+            "options": {
+              "olives": "Olives",
+              "redPeppers": "Red peppers",
+              "greenPeppers": "Green peppers",
+              "basil": "Fresh basil",
+              "salami": "Salami"
+            }
+          },
+          "crust": {
+            "label": "pizza crust",
+            "options": {
+              "cheese":"cheese in edges"
+            }
           }
         }
       }
-    }
-  ],
-  "buildId": "front",
-  "id": 1
-}
+    ],
+    "buildId": "front",
+    "id": 1
+  },
+]
