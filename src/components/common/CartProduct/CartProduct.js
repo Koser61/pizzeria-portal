@@ -47,13 +47,14 @@ class CartProduct extends React.Component {
           display='inline-flex'
           justifyContent='space-between'
           alignItems='center'
+          sx={{p: '0.5rem'}}
         >
           <Chip
             sx={{fontSize: '1rem', fontWeight: 'bold', ml: '0.5rem'}}
             variant='outlined'
             label={amount}
           />
-          <Typography variant='h6' textAlign='center' fontSize='1rem'>
+          <Typography variant='h6' textAlign='center' fontSize='1rem' mx='1rem'>
             {name}
           </Typography>
           {!readOnly ? 
