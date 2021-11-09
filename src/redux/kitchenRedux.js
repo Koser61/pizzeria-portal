@@ -8,6 +8,15 @@ export const getOrderedOrdersLoadingState = ({kitchen}) => kitchen.loading;
 export const getLocalOrders = ({kitchen}) => kitchen.orders.filter(order => order.table);
 export const getDeliveryOrders = ({kitchen}) => kitchen.orders.filter(order => order.address);
 
+export const getOrderStatus = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).status;
+export const getOrderTime = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).orderTime;
+export const getOrderProducts = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).products;
+
+export const getOrderTable = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).table;
+
+export const getOrderAddress = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).address;
+export const getOrderPhone = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).phone;
+
 /* action name creator */
 const reducerName = 'kitchen';
 const createActionName = (name) => `app/${reducerName}/${name}`;
