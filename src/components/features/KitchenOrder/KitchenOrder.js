@@ -14,14 +14,16 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import RoomIcon from '@mui/icons-material/Room';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
+import CheckIcon from '@mui/icons-material/Check';
 
 import OrderProduct from '../../common/OrderProduct/OrderProduct';
+
+import { tables } from '../../../settings';
 
 const KitchenOrder = ({ delivery, orderTime, address, phone, table, products }) => {
   const InlineBox = ({children}) => {
     return (
-      <Box height={1/1} display='inline-flex' alignItems='center'>
+      <Box height={1/1} display='inline-flex' alignItems='center' my='0.5rem'>
         {children}
       </Box>
     );
@@ -33,17 +35,30 @@ const KitchenOrder = ({ delivery, orderTime, address, phone, table, products }) 
       </Box>
     );
   };
+  const IconWrapper = ({children}) => {
+    return (
+      <Icon sx={{display: 'flex', alignItems: 'center', mr: '0.25rem'}}>
+        {children}
+      </Icon>
+    );
+  };
+  const getTableLabel = (tableValue) => {
+    for(let table of tables) {
+      if(table.value === tableValue) {
+        return table.label;
+      }
+    };
+  };
 
   return (
     <Card elevation={4} sx={{p: '0.5rem'}}>
-      <Grid container>
-        <Grid container item xs={12}>
+        <Grid container>
           <Grid item xs={10}>
             <CenteringBox>
               <InlineBox>
-                <Icon sx={{display: 'flex', alignItems: 'center', mx: '0.3rem'}}>
+                <IconWrapper>
                   <ScheduleIcon />
-                </Icon>
+                </IconWrapper>
                 <Typography variant='body2'>
                   {DateTime.fromISO(orderTime).toLocaleString(DateTime.DATETIME_MED)}
                 </Typography>
@@ -53,20 +68,20 @@ const KitchenOrder = ({ delivery, orderTime, address, phone, table, products }) 
           <Grid item xs={2}>
             <CenteringBox>
               <IconButton color='success'>
-                <FactCheckIcon />
+                <CheckIcon />
               </IconButton>
             </CenteringBox>
           </Grid>
         </Grid>
-        <Grid container item xs={12} my='0.4rem'>
+        <Grid container>
           {delivery ?
             <React.Fragment>
               <Grid item xs={6}>
                 <CenteringBox>
                   <InlineBox>
-                    <Icon sx={{display: 'flex', alignItems: 'center', mx: '0.3rem'}}>
+                    <IconWrapper>
                       <HomeWorkIcon />
-                    </Icon>
+                    </IconWrapper>
                     <Typography variant='body2'>
                       {address}
                     </Typography>
@@ -76,9 +91,9 @@ const KitchenOrder = ({ delivery, orderTime, address, phone, table, products }) 
               <Grid item xs={6}>
                 <CenteringBox>
                   <InlineBox>
-                    <Icon sx={{display: 'flex', alignItems: 'center', mx: '0.3rem'}}>
+                    <IconWrapper>
                       <ContactPhoneIcon />
-                    </Icon>
+                    </IconWrapper>
                     <Typography variant='body2'>
                       {phone}
                     </Typography>
@@ -90,18 +105,17 @@ const KitchenOrder = ({ delivery, orderTime, address, phone, table, products }) 
             <Grid item xs={12}>
               <CenteringBox>
                 <InlineBox>
-                  <Icon sx={{display: 'flex', alignItems: 'center', mx: '0.3rem'}}>
+                  <IconWrapper>
                     <RoomIcon />
-                  </Icon>
+                  </IconWrapper>
                   <Typography variant='body2'>
-                    {table}
+                    {getTableLabel(table)}
                   </Typography>
                 </InlineBox>
               </CenteringBox>
             </Grid>}
         </Grid>
-      </Grid>
-      <Stack>
+      <Stack spacing='0.5rem'>
         {products.map((product, i) => {
           return (
             <OrderProduct
