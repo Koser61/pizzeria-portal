@@ -40,7 +40,7 @@ const KitchenOrders = ({ delivery, title, orders }) => {
         </AccordionSummary>
         <Divider />
         <AccordionDetails>
-          <Stack spacing={2}>
+          <Stack spacing={1} mt='0.5rem'>
             {orders.map((order, i) => {
               return (
                 <KitchenOrder key={i} delivery={delivery} id={order.id} />
