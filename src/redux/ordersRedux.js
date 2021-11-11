@@ -53,7 +53,7 @@ export const fetchOrdersFromAPI = () => {
       dispatch(fetchOrdersStarted());
 
       Axios
-        .get(`${api.url}/${api.orders}`)
+        .get(`${api.url}/${api.orders}?${api.notDoneParam}&${api.notCancelledParam}&${api.sortByOrderTimeParam}`)
         .then(res => {
           dispatch(fetchOrdersSuccess(res.data));
         })

@@ -16,7 +16,10 @@ export const api = {
   dateEndParamKey: 'date_lte',
   notRepeatParam: 'repeat=false',
   repeatParam: 'repeat_ne=false',
+  notDoneParam: 'status_ne=done',
+  notCancelledParam: 'status_ne=cancelled',
   statusOrderedParam: 'status=ordered',
+  sortByOrderTimeParam: '_sort=orderTime',
 };
 
 export const tables = [

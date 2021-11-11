@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { api } from '../settings';
+import { DateTime } from 'luxon';
 
 /* selectors */
 export const getOrderedOrders = ({kitchen}) => kitchen.orders;
@@ -34,12 +35,24 @@ export const fetchOrdersError = (payload) => ({ payload, type: FETCH_ALL_ERROR }
 /* thunk creators */
 export const fetchOrdersFromAPI = () => {
   return (dispatch, getState) => {
-    if (getState().kitchen.orders.length === 0) {
+    if(getState().kitchen.orders.length === 0) {
       dispatch(fetchOrdersStarted());
 
-      Axios.get(`${api.url}/${api.orders}?${api.statusOrderedParam}`)
+      Axios.get(`${api.url}/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
         .then((res) => {
-          dispatch(fetchOrdersSuccess(res.data));
+          const currentDate = DateTime.now().toISODate();
+
+          let todayOrders = [];
+
+          for(let responseOrder of res.data) {
+            const orderDate = DateTime.fromISO(responseOrder.orderTime).toISODate();
+
+            if(orderDate === currentDate) {
+              todayOrders.push(responseOrder);
+            }
+          }
+
+          dispatch(fetchOrdersSuccess(todayOrders));
         })
         .catch((err) => {
           dispatch(fetchOrdersError(err.message || true));
