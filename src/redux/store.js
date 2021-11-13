@@ -164,6 +164,11 @@ const initialState = {
       active: false,
       error: false,
     },
+    changeOrderStatus: {
+      active: false,
+      error: false,
+    },
+    statusHasChanged: false,
     orders: [],
   }
 };

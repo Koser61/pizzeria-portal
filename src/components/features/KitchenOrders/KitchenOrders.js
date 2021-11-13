@@ -17,7 +17,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 
 import KitchenOrder from '../KitchenOrder/KitchenOrderContainer';
 
-const KitchenOrders = ({ delivery, title, orders }) => {
+const KitchenOrders = ({ delivery, title, allOrders, orders }) => {
   return (
     <Paper elevation={8}>
       <Accordion>
@@ -42,8 +42,10 @@ const KitchenOrders = ({ delivery, title, orders }) => {
         <AccordionDetails>
           <Stack spacing={1} mt='0.5rem'>
             {orders.map((order, i) => {
+              const orderIndex = allOrders.indexOf(order);
+              
               return (
-                <KitchenOrder key={i} delivery={delivery} id={order.id} />
+                <KitchenOrder key={i} index={orderIndex} delivery={delivery} id={order.id} />
               );
             })}
           </Stack>

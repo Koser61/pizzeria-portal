@@ -48,8 +48,9 @@ export const fetchOrdersFromAPI = () => {
   return (dispatch, getState) => {
     const ordersNotLoaded = getState().orders.data.length === 0;
     const orderWasSent = getState().ordering.orderWasSent === true;
+    const statusHasChanged = getState().kitchen.statusHasChanged === true;
 
-    if(ordersNotLoaded || orderWasSent) {
+    if(ordersNotLoaded || orderWasSent || statusHasChanged) {
       dispatch(fetchOrdersStarted());
 
       Axios

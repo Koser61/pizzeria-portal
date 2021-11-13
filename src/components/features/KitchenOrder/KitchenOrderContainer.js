@@ -5,8 +5,11 @@ import {
   getOrderProducts,
   getOrderTable,
   getOrderAddress,
-  getOrderPhone
+  getOrderPhone,
+  getStatusHasChanged,
+  changeOrderStatusInAPI,
 } from '../../../redux/kitchenRedux';
+import { getOrderDataById, fetchOrdersFromAPI } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state, {delivery, id}) => {
   if(delivery) {
@@ -15,14 +18,22 @@ const mapStateToProps = (state, {delivery, id}) => {
       phone: getOrderPhone(state, id),
       orderTime: getOrderTime(state, id),
       products: getOrderProducts(state, id),
+      orderData: getOrderDataById(state, id),
+      statusHasChanged: getStatusHasChanged(state),
     }
   } else {
     return {
       table: getOrderTable(state, id),
       orderTime: getOrderTime(state, id),
       products: getOrderProducts(state, id),
+      orderData: getOrderDataById(state, id),
     }
   }
 };
 
-export default connect(mapStateToProps)(KitchenOrder);
+const mapDispatchToProps = (dispatch, {id, index}) => ({
+  changeOrderStatusInAPI: (status, orderData) => dispatch(changeOrderStatusInAPI(status, id, orderData, index)),
+  fetchOrdersFromAPI: () => dispatch(fetchOrdersFromAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(KitchenOrder);

@@ -18,6 +18,8 @@ export const getOrderTable = ({kitchen}, id) => kitchen.orders.find(order => ord
 export const getOrderAddress = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).address;
 export const getOrderPhone = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).phone;
 
+export const getStatusHasChanged = ({kitchen}) => kitchen.statusHasChanged;
+
 /* action name creator */
 const reducerName = 'kitchen';
 const createActionName = (name) => `app/${reducerName}/${name}`;
@@ -27,10 +29,24 @@ const FETCH_ALL_START = createActionName('FETCH_ALL_START');
 const FETCH_ALL_SUCCESS = createActionName('FETCH_ALL_SUCCESS');
 const FETCH_ALL_ERROR = createActionName('FETCH_ALL_ERROR');
 
+const CHANGE_ORDER_STATUS_START = createActionName('CHANGE_ORDER_STATUS_START');
+const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCESS');
+const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
+
+const DELETE_ORDER = createActionName('DELETE_ORDER');
+const CHANGE_STATUS_CHANGED = createActionName('CHANGE_STATUS_CHANGED');
+
 /* action creators */
 export const fetchOrdersStarted = (payload) => ({ payload, type: FETCH_ALL_START });
 export const fetchOrdersSuccess = (payload) => ({ payload, type: FETCH_ALL_SUCCESS });
 export const fetchOrdersError = (payload) => ({ payload, type: FETCH_ALL_ERROR });
+
+export const changeOrderStatusStarted = (payload) => ({ payload, type: CHANGE_ORDER_STATUS_START });
+export const changeOrderStatusSuccess = (payload) => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
+export const changeOrderStatusError = (payload) => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
+
+export const deleteOrder = (payload) => ({ payload, type: DELETE_ORDER });
+export const changeStatusChangedState = (payload) => ({ payload, type: CHANGE_STATUS_CHANGED });
 
 /* thunk creators */
 export const fetchOrdersFromAPI = () => {
@@ -60,6 +76,25 @@ export const fetchOrdersFromAPI = () => {
     }
   };
 };
+
+export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
+  const orderDataChanged = { ...orderData, status: payload };
+  
+  return (dispatch) => {
+    dispatch(changeOrderStatusStarted());
+
+    Axios
+      .put(`${api.url}/api/${api.orders}/${id}`, orderDataChanged)
+      .then(() => {
+        dispatch(deleteOrder(index))
+      })
+      .then(() => {
+        dispatch(changeOrderStatusSuccess())
+      }).catch((err) => {
+        dispatch(changeOrderStatusError(err.message || true))
+      });
+  }
+}
 
 /* reducer */
 export default function reducer(statePart = {}, action = {}) {
@@ -91,6 +126,49 @@ export default function reducer(statePart = {}, action = {}) {
           error: action.payload,
         },
       };
+    }
+    case DELETE_ORDER: {
+      return {
+        ...statePart,
+        orders: [
+          ...statePart.orders.slice(0, action.payload),
+          ...statePart.orders.slice(action.payload + 1),
+        ],
+      }
+    }
+    case CHANGE_ORDER_STATUS_START: {
+      return {
+        ...statePart,
+        changeOrderStatus: {
+          active: true,
+          error: false,
+        },
+      }
+    }
+    case CHANGE_ORDER_STATUS_SUCCESS: {
+      return {
+        ...statePart,
+        changeOrderStatus: {
+          active: false,
+          error: false,
+        },
+        statusHasChanged: true,
+      }
+    }
+    case CHANGE_ORDER_STATUS_ERROR: {
+      return {
+        ...statePart,
+        changeOrderStatus: {
+          active: false,
+          error: action.payload,
+        },
+      }
+    }
+    case CHANGE_STATUS_CHANGED: {
+      return {
+        ...statePart,
+        statusHasChanged: false,
+      }
     }
     default:
       return statePart;
