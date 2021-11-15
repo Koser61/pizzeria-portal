@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import OrderTimePicker from './OrderTimePicker';
 import { getOrderTime, changeOrderTime } from '../../../redux/orderingRedux';
-import { getOrderOrderTimeById } from '../../../redux/ordersRedux';
+import { getOrderTimeById } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state, {readOnly, id}) => {
   if(readOnly) {
     return {
       orderTime: getOrderTime(state),
-      loadedOrderTime: getOrderOrderTimeById(state, id),
+      loadedOrderTime: getOrderTimeById(state, id),
     }
   } else {
     return {

@@ -11,14 +11,16 @@ export const getDeliveryOrders = ({orders}) => orders.data.filter(order => order
 export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);
 
 export const getOrderTableById = ({orders}, id) => orders.data.find(order => order.id === id).table;
-export const getOrderAddress = ({orders}, id) => orders.data.find(order => order.id === id).address;
-export const getOrderPhone = ({orders}, id) => orders.data.find(order => order.id === id).phone;
+export const getOrderAddressById = ({orders}, id) => orders.data.find(order => order.id === id).address;
+export const getOrderPhoneById = ({orders}, id) => orders.data.find(order => order.id === id).phone;
 
 export const getOrderStatusById = ({orders}, id) => orders.data.find(order => order.id === id).status;
-export const getOrderOrderTimeById = ({orders}, id) => orders.data.find(order => order.id === id).orderTime;
+export const getOrderTimeById = ({orders}, id) => orders.data.find(order => order.id === id).orderTime;
 export const getOrderNotesById = ({orders}, id) => orders.data.find(order => order.id === id).orderNotes;
 export const getOrderTotalPriceById = ({orders}, id) => orders.data.find(order => order.id === id).totalPrice;
 export const getOrderProductsById = ({orders}, id) => orders.data.find(order => order.id === id).products;
+
+export const getSendOrderLoadingState = ({orders}) => orders.sendOrder.loading;
 
 /* action name creator */
 const reducerName = 'orders';

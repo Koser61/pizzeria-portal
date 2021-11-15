@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import KitchenOrder from './KitchenOrder';
 import {
-  getOrderTime,
-  getOrderProducts,
-  getOrderTable,
-  getOrderAddress,
-  getOrderPhone,
+  getOrderTimeById,
+  getOrderProductsById,
+  getOrderTableById,
+  getOrderAddressById,
+  getOrderPhoneById,
   getOrderDataById,
   changeOrderStatusInAPI,
 } from '../../../redux/ordersRedux';
@@ -13,17 +13,17 @@ import {
 const mapStateToProps = (state, {delivery, id}) => {
   if(delivery) {
     return {
-      address: getOrderAddress(state, id),
-      phone: getOrderPhone(state, id),
-      orderTime: getOrderTime(state, id),
-      products: getOrderProducts(state, id),
+      address: getOrderAddressById(state, id),
+      phone: getOrderPhoneById(state, id),
+      orderTime: getOrderTimeById(state, id),
+      products: getOrderProductsById(state, id),
       orderData: getOrderDataById(state, id),
     }
   } else {
     return {
-      table: getOrderTable(state, id),
-      orderTime: getOrderTime(state, id),
-      products: getOrderProducts(state, id),
+      table: getOrderTableById(state, id),
+      orderTime: getOrderTimeById(state, id),
+      products: getOrderProductsById(state, id),
       orderData: getOrderDataById(state, id),
     }
   }

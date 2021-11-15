@@ -6,10 +6,11 @@ import {
   getOrderNotes,
   getCartTotalPrice,
   getCartProducts,
+} from '../../../redux/orderingRedux';
+import {
   getSendOrderLoadingState,
   sendOrderToAPI,
-  getOrderWasSentState
-} from '../../../redux/orderingRedux';
+} from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state) => ({
   loading: getSendOrderLoadingState(state),
@@ -18,7 +19,6 @@ const mapStateToProps = (state) => ({
   orderNotes: getOrderNotes(state),
   cartTotalPrice: getCartTotalPrice(state),
   orderProducts: getCartProducts(state),
-  orderWasSent: getOrderWasSentState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

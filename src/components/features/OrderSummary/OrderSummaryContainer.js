@@ -3,7 +3,7 @@ import OrderSummary from './OrderSummary';
 import {
   getOrderStatusById,
   getOrderTotalPriceById,
-  getOrderOrderTimeById,
+  getOrderTimeById,
   getOrderDataById,
   changeOrderStatusInAPI
 } from '../../../redux/ordersRedux';
@@ -11,7 +11,7 @@ import {
 const mapStateToProps = (state, {id}) => ({
   status: getOrderStatusById(state, id),
   totalPrice: getOrderTotalPriceById(state, id),
-  orderTime: getOrderOrderTimeById(state, id),
+  orderTime: getOrderTimeById(state, id),
   orderData: getOrderDataById(state, id),
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DateTime } from 'luxon';
 
 import Paper from '@mui/material/Paper';
 import Accordion from '@mui/material/Accordion';
@@ -18,6 +19,18 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import KitchenOrder from '../KitchenOrder/KitchenOrderContainer';
 
 const KitchenOrders = ({ delivery, title, allOrders, orders }) => {
+  const today = DateTime.now();
+  const todaysDate = DateTime.toISODate(today);
+  let todaysOrders = [];
+
+  for(let order of orders) {
+    const orderDate = DateTime.toISODate(order.orderTime);
+
+    if(orderDate === todaysDate) {
+      todaysOrders.push(order);
+    }
+  }
+
   return (
     <Paper elevation={8}>
       <Accordion>
@@ -41,11 +54,11 @@ const KitchenOrders = ({ delivery, title, allOrders, orders }) => {
         <Divider />
         <AccordionDetails>
           <Stack spacing={1} mt='0.5rem'>
-            {orders.map((order, i) => {
-              const orderIndex = allOrders.indexOf(order);
+            {todaysOrders.map((todaysOrder, i) => {
+              const orderIndex = allOrders.indexOf(todaysOrder);
               
               return (
-                <KitchenOrder key={i} index={orderIndex} delivery={delivery} id={order.id} />
+                <KitchenOrder key={i} index={orderIndex} delivery={delivery} id={todaysOrder.id} />
               );
             })}
           </Stack>

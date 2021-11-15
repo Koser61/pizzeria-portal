@@ -29,9 +29,6 @@ export const getOptionLabelByIds = ({ordering}, productId, paramId, optionId) =>
 export const getOptionPriceByIds = ({ordering}, productId, paramId, optionId) => ordering.menu[productId].params[paramId].options[optionId].price;
 export const getCheckedStateByIds = ({ordering}, productId, paramId, optionId) => ordering.menu[productId].params[paramId].options[optionId].checked;
 
-export const getSendOrderLoadingState = ({ordering}) => ordering.sendOrder.loading;
-export const getOrderWasSentState = ({ordering}) => ordering.orderWasSent;
-
 /* ACTION NAME CREATOR */
 const reducerName = 'ordering';
 const createActionName = (name) => `app/${reducerName}/${name}`;
