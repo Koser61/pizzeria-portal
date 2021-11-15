@@ -54,7 +54,7 @@ export const fetchOrdersFromAPI = () => {
     if(getState().kitchen.orders.length === 0) {
       dispatch(fetchOrdersStarted());
 
-      Axios.get(`${api.url}/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
+      Axios.get(`${api.url}/api/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
         .then((res) => {
           const currentDate = DateTime.now().toISODate();
 

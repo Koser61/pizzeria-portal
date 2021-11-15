@@ -26,7 +26,7 @@ export const fetchProductsFromAPI = () => {
       dispatch(fetchProductsStarted());
 
       Axios
-        .get(`${api.url}/${api.products}`)
+        .get(`${api.url}/api/${api.products}`)
         .then(res => {
           dispatch(fetchProductsSuccess(res.data));
         })

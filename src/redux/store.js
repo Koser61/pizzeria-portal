@@ -6,7 +6,6 @@ import navReducer from './navRedux';
 import productsReducer from './productsRedux';
 import ordersReducer from './ordersRedux';
 import orderingReducer from './orderingRedux';
-import kitchenReducer from './kitchenRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
@@ -158,18 +157,6 @@ const initialState = {
       },
     },
     ordersUpdated: false,
-  },
-  kitchen: {
-    loading: {
-      active: false,
-      error: false,
-    },
-    changeOrderStatus: {
-      active: false,
-      error: false,
-    },
-    statusHasChanged: false,
-    orders: [],
   }
 };
 
@@ -179,7 +166,6 @@ const reducers = {
   products: productsReducer,
   orders: ordersReducer,
   ordering: orderingReducer,
-  kitchen: kitchenReducer,
 };
 
 // add blank reducers for initial state properties without reducers

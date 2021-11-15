@@ -118,7 +118,7 @@ export const sendOrderToAPI = (payload) => {
     dispatch(sendOrderStarted());
 
     Axios
-      .post(`${api.url}/${api.orders}`, payload)
+      .post(`${api.url}/api/${api.orders}`, payload)
       .then(() => {
         dispatch(sendOrderSuccess());
       })

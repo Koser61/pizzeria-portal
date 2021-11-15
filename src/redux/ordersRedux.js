@@ -6,16 +6,19 @@ export const getAllOrders = ({orders}) => orders.data;
 export const getOrdersLoadingState = ({orders}) => orders.loading;
 
 export const getOrdersByTable = ({orders}, value) => orders.data.filter(order => order.table === value);
+export const getLocalOrders = ({orders}) => orders.data.filter(order => order.table);
+export const getDeliveryOrders = ({orders}) => orders.data.filter(order => order.address);
+export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);
+
+export const getOrderTableById = ({orders}, id) => orders.data.find(order => order.id === id).table;
+export const getOrderAddress = ({orders}, id) => orders.data.find(order => order.id === id).address;
+export const getOrderPhone = ({orders}, id) => orders.data.find(order => order.id === id).phone;
 
 export const getOrderStatusById = ({orders}, id) => orders.data.find(order => order.id === id).status;
-export const getOrderTableById = ({orders}, id) => orders.data.find(order => order.id === id).table;
 export const getOrderOrderTimeById = ({orders}, id) => orders.data.find(order => order.id === id).orderTime;
 export const getOrderNotesById = ({orders}, id) => orders.data.find(order => order.id === id).orderNotes;
-
-export const getOrderProductsById = ({orders}, id) => orders.data.find(order => order.id === id).products;
 export const getOrderTotalPriceById = ({orders}, id) => orders.data.find(order => order.id === id).totalPrice;
-
-export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);
+export const getOrderProductsById = ({orders}, id) => orders.data.find(order => order.id === id).products;
 
 /* action name creator */
 const reducerName = 'orders';
@@ -46,15 +49,11 @@ export const changeOrderStatus = (payload, index) => ({ payload, index, type: CH
 /* thunk creators */
 export const fetchOrdersFromAPI = () => {
   return (dispatch, getState) => {
-    const ordersNotLoaded = getState().orders.data.length === 0;
-    const orderWasSent = getState().ordering.orderWasSent === true;
-    const statusHasChanged = getState().kitchen.statusHasChanged === true;
-
-    if(ordersNotLoaded || orderWasSent || statusHasChanged) {
+    if(getState().orders.data.length === 0) {
       dispatch(fetchOrdersStarted());
 
       Axios
-        .get(`${api.url}/${api.orders}?${api.notDoneParam}&${api.notCancelledParam}&${api.sortByOrderTimeParam}`)
+        .get(`${api.url}/api/${api.orders}?${api.notDoneParam},${api.notCancelledParam}&${api.sortByOrderTimeParam}`)
         .then(res => {
           dispatch(fetchOrdersSuccess(res.data));
         })
