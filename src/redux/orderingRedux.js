@@ -1,6 +1,3 @@
-import Axios from 'axios';
-import { api } from '../settings';
-
 /* SELECTORS */
 export const getOrderTime = ({ordering}) => ordering.orderTime;
 export const getTable = ({ordering}) => ordering.table;
@@ -70,12 +67,6 @@ const SET_OPTION_LABEL = createActionName('SET_OPTION_LABEL');
 const CHANGE_CHECKED_STATE = createActionName('CHANGE_CHECKED_STATE');
 const CHANGE_OPTION_PRICE = createActionName('CHANGE_OPTION_PRICE');
 
-const SEND_ORDER_START = createActionName('SEND_ORDER_START');
-const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
-const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
-
-const CHANGE_ORDER_WAS_SENT = createActionName('CHANGE_ORDER_WAS_SENT');
-
 /* ACTION CREATORS */
 export const changeOrderTime = (payload) => ({ payload, type: CHANGE_ORDER_TIME, });
 export const changeTable = (payload) => ({ payload, type: CHANGE_TABLE });
@@ -105,28 +96,6 @@ export const changeSelectedValue = (payload, productId, paramId) => ({ payload, 
 export const setOptionLabel = (payload, productId, paramId, optionId) => ({ payload, productId, paramId, optionId, type: SET_OPTION_LABEL });
 export const changeCheckedState = (payload, productId, paramId, optionId) => ({ payload, productId, paramId, optionId, type: CHANGE_CHECKED_STATE });
 export const changeOptionPrice = (payload, productId, paramId, optionId) => ({ payload, productId, paramId, optionId, type: CHANGE_OPTION_PRICE });
-
-export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START });
-export const sendOrderSuccess = payload => ({ payload, type: SEND_ORDER_SUCCESS });
-export const sendOrderError = payload => ({ payload, type: SEND_ORDER_ERROR });
-
-export const changeOrderWasSent = payload => ({ payload, type: CHANGE_ORDER_WAS_SENT });
-
-/* THUNK CREATORS */
-export const sendOrderToAPI = (payload) => {
-  return (dispatch) => {
-    dispatch(sendOrderStarted());
-
-    Axios
-      .post(`${api.url}/api/${api.orders}`, payload)
-      .then(() => {
-        dispatch(sendOrderSuccess());
-      })
-      .catch(err => {
-        dispatch(sendOrderError(err.message || true));
-      });
-  };
-};
 
 /* REDUCER */
 export default function reducer(statePart = {}, action = {}) {
@@ -411,45 +380,6 @@ export default function reducer(statePart = {}, action = {}) {
             },
           },
         },
-      }
-    case SEND_ORDER_START:
-      return {
-        ...statePart,
-        sendOrder: {
-          ...statePart.sendOrder,
-          loading: {
-            active: true,
-            error: false,
-          },
-        },
-      }
-    case SEND_ORDER_SUCCESS:
-      return {
-        ...statePart,
-        sendOrder: {
-          ...statePart.sendOrder,
-          loading: {
-            active: false,
-            error: false,
-          },
-        },
-        orderWasSent: true,
-      }
-    case SEND_ORDER_ERROR:
-      return {
-        ...statePart,
-        sendOrder: {
-          ...statePart.sendOrder,
-          loading: {
-            active: false,
-            error: action.payload,
-          },
-        },
-      }
-    case CHANGE_ORDER_WAS_SENT: 
-      return {
-        ...statePart,
-        orderWasSent: false,
       }
     default:
       return statePart;

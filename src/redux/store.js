@@ -25,6 +25,10 @@ const initialState = {
       active: false,
       error: false,
     },
+    sendOrder: {
+      active: false,
+      error: false,
+    },
     changeOrderStatus: {
       active: false,
       error: false,
@@ -150,13 +154,6 @@ const initialState = {
       totalPrice: 0,
       products: [],
     },
-    sendOrder: {
-      loading: {
-        active: false,
-        error: false,
-      },
-    },
-    ordersUpdated: false,
   }
 };
 

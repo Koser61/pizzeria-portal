@@ -29,6 +29,10 @@ const FETCH_ALL_START = createActionName('FETCH_ALL_START');
 const FETCH_ALL_SUCCESS = createActionName('FETCH_ALL_SUCCESS');
 const FETCH_ALL_ERROR = createActionName('FETCH_ALL_ERROR');
 
+const SEND_ORDER_START = createActionName('SEND_ORDER_START');
+const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
+const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
+
 const CHANGE_ORDER_STATUS_START = createActionName('CHANGE_ORDER_STATUS_START');
 const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCESS');
 const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
@@ -39,6 +43,10 @@ const CHANGE_ORDER_STATUS = createActionName('CHANGE_ORDER_STATUS');
 export const fetchOrdersStarted = payload => ({ payload, type: FETCH_ALL_START });
 export const fetchOrdersSuccess = payload => ({ payload, type: FETCH_ALL_SUCCESS });
 export const fetchOrdersError = payload => ({ payload, type: FETCH_ALL_ERROR });
+
+export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START });
+export const sendOrderSuccess = (payload, data) => ({ payload, data, type: SEND_ORDER_SUCCESS });
+export const sendOrderError = payload => ({ payload, type: SEND_ORDER_ERROR });
 
 export const changeOrderStatusStarted = payload => ({ payload, type: CHANGE_ORDER_STATUS_START });
 export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
@@ -61,6 +69,21 @@ export const fetchOrdersFromAPI = () => {
           dispatch(fetchOrdersError(err.message || true));
         });
     }
+  };
+};
+
+export const sendOrderToAPI = (payload) => {
+  return (dispatch) => {
+    dispatch(sendOrderStarted());
+
+    Axios
+      .post(`${api.url}/api/${api.orders}`, payload)
+      .then((res) => {
+        dispatch(sendOrderSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(sendOrderError(err.message || true));
+      });
   };
 };
 
@@ -114,6 +137,31 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
+    case SEND_ORDER_START:
+      return {
+        ...statePart,
+        sendOrder: {
+          active: true,
+          error: false,
+        },
+      }
+    case SEND_ORDER_SUCCESS:
+      return {
+        ...statePart,
+        sendOrder: {
+          active: false,
+          error: false,
+        },
+        data: [ ...statePart.data, action.data ],
+      }
+    case SEND_ORDER_ERROR:
+      return {
+        ...statePart,
+        sendOrder: {
+          active: false,
+          error: action.payload,
+        },
+      }
     case CHANGE_ORDER_STATUS: {
       return {
         ...statePart,
