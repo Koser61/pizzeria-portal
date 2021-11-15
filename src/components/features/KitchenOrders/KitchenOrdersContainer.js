@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
 import KitchenOrders from './KitchenOrders';
-import { getDeliveryOrders, getLocalOrders, getOrderedOrders } from '../../../redux/kitchenRedux';
+import { getDeliveryOrders, getLocalOrders, getAllOrders } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state, {delivery}) => {
   if(delivery) {
     return {
       orders: getDeliveryOrders(state),
-      allOrders: getOrderedOrders(state),
+      allOrders: getAllOrders(state),
     }
   } else {
     return {
       orders: getLocalOrders(state),
-      allOrders: getOrderedOrders(state),
+      allOrders: getAllOrders(state),
     }
   }
 };

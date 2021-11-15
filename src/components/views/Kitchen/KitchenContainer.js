@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import Kitchen from './Kitchen';
-import { getOrderedOrders, getOrderedOrdersLoadingState, fetchOrdersFromAPI } from '../../../redux/kitchenRedux';
+import { getAllOrders, getOrdersLoadingState, fetchOrdersFromAPI } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state) => ({
-  orders: getOrderedOrders(state),
-  loading: getOrderedOrdersLoadingState(state),
+  orders: getAllOrders(state),
+  loading: getOrdersLoadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

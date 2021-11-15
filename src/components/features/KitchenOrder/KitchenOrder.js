@@ -29,8 +29,6 @@ const KitchenOrder = ({
   products,
   orderData,
   changeOrderStatusInAPI,
-  statusHasChanged,
-  fetchOrdersFromAPI,
 }) => {
 
   const InlineBox = ({ children }) => {
