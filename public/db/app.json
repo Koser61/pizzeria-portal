@@ -207,7 +207,7 @@
         "status": "ordered",
         "address": "2101 Jody Road",
         "phone": "610 604 703",
-        "orderTime": "2021-11-15T14:41:05.006Z",
+        "orderTime": "2021-11-17T14:41:05.006Z",
         "totalPrice": 60,
         "subTotalPrice": 40,
         "totalNumber": 2,
@@ -252,7 +252,7 @@
         "status": "ordered",
         "address": "1918 Holden Street",
         "phone": "619 265 718",
-        "orderTime": "2021-11-15T14:42:08.858Z",
+        "orderTime": "2021-11-17T14:42:08.858Z",
         "totalPrice": 73,
         "subTotalPrice": 53,
         "totalNumber": 4,
@@ -324,7 +324,7 @@
         "status": "ordered",
         "address": "2483 Isaacs Creek Road",
         "phone": "217 470 681",
-        "orderTime": "2021-11-15T14:43:13.249Z",
+        "orderTime": "2021-11-17T14:43:13.249Z",
         "totalPrice": 82,
         "subTotalPrice": 62,
         "totalNumber": 4,
@@ -382,9 +382,9 @@
         "id": 3
       },
       {
-         "status": "ordered",
+         "status": "ready",
          "table": "table1",
-         "orderTime": "2021-11-15T15:45:33.870+01:00",
+         "orderTime": "2021-11-17T15:45:33.870+01:00",
          "totalPrice": 63,
          "products": [
            {
@@ -469,9 +469,9 @@
          "id": "SXKXW7K5a8K0JMDC6tcTc"
        },
        {
-         "status": "ordered",
+         "status": "ready",
          "table": "table2",
-         "orderTime": "2021-11-15T15:46:48.083+01:00",
+         "orderTime": "2021-11-17T15:46:48.083+01:00",
          "totalPrice": 120,
          "products": [
            {
@@ -537,9 +537,9 @@
          "id": "psgjSUlkdkKqkv4ejJF9N"
        },
        {
-         "status": "ordered",
+         "status": "ready",
          "table": "table3",
-         "orderTime": "2021-11-15T15:47:14.798+01:00",
+         "orderTime": "2021-11-17T15:47:14.798+01:00",
          "totalPrice": 28,
          "products": [
            {

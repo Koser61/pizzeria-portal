@@ -28,6 +28,7 @@ const initialState = {
     sendOrder: {
       active: false,
       error: false,
+      orderWasSent: false,
     },
     changeOrderStatus: {
       active: false,

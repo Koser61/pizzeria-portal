@@ -15,20 +15,20 @@ class OrderButton extends React.Component {
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+      orderWasSent: PropTypes.bool,
     }),
     orderTable: PropTypes.string,
     orderTime: PropTypes.any,
     orderNotes: PropTypes.string,
     cartTotalPrice: PropTypes.number,
     orderProducts: PropTypes.array,
-    orderWasSent: PropTypes.bool,
   };
 
   sendOrder() {
     const { sendOrder, orderTable, orderTime, orderNotes, cartTotalPrice, orderProducts } = this.props;
 
     const newOrder = {
-      status: 'new',
+      status: 'ordered',
       table: orderTable,
       orderTime: orderTime,
       notes: orderNotes,
@@ -42,7 +42,7 @@ class OrderButton extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, orderWasSent } = this.props;
+    const { loading: { active, error, orderWasSent } } = this.props;
 
     if(active) {
       return(
@@ -63,7 +63,7 @@ class OrderButton extends React.Component {
           onClick={() => this.sendOrder()}
         >
           Order
-          {orderWasSent ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
+          {orderWasSent ? <Redirect to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
         </Button>
       );
     } else {
@@ -74,7 +74,7 @@ class OrderButton extends React.Component {
           onClick={() => this.sendOrder()}
         >
           Order
-          {orderWasSent ? <Redirect push exact to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
+          {orderWasSent ? <Redirect to={process.env.PUBLIC_URL + '/ordering'} /> : ''}
         </Button>
       );
     }

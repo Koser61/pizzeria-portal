@@ -4,10 +4,13 @@ import { api } from '../settings';
 /* selectors */
 export const getAllOrders = ({orders}) => orders.data;
 export const getOrdersLoadingState = ({orders}) => orders.loading;
+export const getSendOrderLoadingState = ({orders}) => orders.sendOrder;
+export const getOrderWasSentState = ({orders}) => orders.sendOrder.orderWasSent;
+export const getChangeOrderStatusState = ({orders}) => orders.changeOrderStatus;
 
-export const getOrdersByTable = ({orders}, value) => orders.data.filter(order => order.table === value);
+export const getOrdersByTable = ({orders}, value) => orders.data.filter(order => order.table && order.table === value);
 export const getLocalOrders = ({orders}) => orders.data.filter(order => order.table);
-export const getDeliveryOrders = ({orders}) => orders.data.filter(order => order.address);
+export const getDeliveryOrders = ({orders}) => orders.data.filter(order => order.address && order.phone);
 export const getOrderDataById = ({orders}, id) => orders.data.find(order => order.id === id);
 
 export const getOrderTableById = ({orders}, id) => orders.data.find(order => order.id === id).table;
@@ -19,8 +22,6 @@ export const getOrderTimeById = ({orders}, id) => orders.data.find(order => orde
 export const getOrderNotesById = ({orders}, id) => orders.data.find(order => order.id === id).orderNotes;
 export const getOrderTotalPriceById = ({orders}, id) => orders.data.find(order => order.id === id).totalPrice;
 export const getOrderProductsById = ({orders}, id) => orders.data.find(order => order.id === id).products;
-
-export const getSendOrderLoadingState = ({orders}) => orders.sendOrder.loading;
 
 /* action name creator */
 const reducerName = 'orders';
@@ -35,6 +36,9 @@ const SEND_ORDER_START = createActionName('SEND_ORDER_START');
 const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
 const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
 
+const ADD_ORDER = createActionName('ADD_ORDER');
+const CHANGE_ORDER_WAS_SENT = createActionName('CHANGE_ORDER_WAS_SENT');
+
 const CHANGE_ORDER_STATUS_START = createActionName('CHANGE_ORDER_STATUS_START');
 const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCESS');
 const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
@@ -47,8 +51,11 @@ export const fetchOrdersSuccess = payload => ({ payload, type: FETCH_ALL_SUCCESS
 export const fetchOrdersError = payload => ({ payload, type: FETCH_ALL_ERROR });
 
 export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START });
-export const sendOrderSuccess = (payload, data) => ({ payload, data, type: SEND_ORDER_SUCCESS });
+export const sendOrderSuccess = payload => ({ payload, type: SEND_ORDER_SUCCESS });
 export const sendOrderError = payload => ({ payload, type: SEND_ORDER_ERROR });
+
+export const addOrder = payload => ({ payload, type: ADD_ORDER });
+export const changeOrderWasSent = payload => ({ payload, type: CHANGE_ORDER_WAS_SENT });
 
 export const changeOrderStatusStarted = payload => ({ payload, type: CHANGE_ORDER_STATUS_START });
 export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
@@ -81,7 +88,13 @@ export const sendOrderToAPI = (payload) => {
     Axios
       .post(`${api.url}/api/${api.orders}`, payload)
       .then((res) => {
-        dispatch(sendOrderSuccess(res.data));
+        dispatch(addOrder(res.data));
+      })
+      .then(() => {
+        dispatch(sendOrderSuccess());
+      })
+      .then(() => {
+        dispatch(changeOrderWasSent(true));
       })
       .catch(err => {
         dispatch(sendOrderError(err.message || true));
@@ -154,7 +167,6 @@ export default function reducer(statePart = {}, action = {}) {
           active: false,
           error: false,
         },
-        data: [ ...statePart.data, action.data ],
       }
     case SEND_ORDER_ERROR:
       return {
@@ -164,6 +176,21 @@ export default function reducer(statePart = {}, action = {}) {
           error: action.payload,
         },
       }
+    case ADD_ORDER: {
+      return {
+        ...statePart,
+        data: [ ...statePart.data, action.payload ],
+      }
+    }
+    case CHANGE_ORDER_WAS_SENT: {
+      return {
+        ...statePart,
+        sendOrder: {
+          ...statePart.sendOrder,
+          orderWasSent: action.payload,
+        },
+      }
+    }
     case CHANGE_ORDER_STATUS: {
       return {
         ...statePart,
