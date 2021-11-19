@@ -26,12 +26,12 @@ class Kitchen extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, orders } = this.props;
+    const { loading: { active, error }, allOrders } = this.props;
 
-    if(active || !orders.length){
+    if(active || !allOrders.length){
       return (
         <Container>
-          <Backdrop open={active || !orders.length}>
+          <Backdrop open={active || !allOrders.length}>
             <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>

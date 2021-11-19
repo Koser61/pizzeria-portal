@@ -119,7 +119,7 @@ export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
         dispatch(changeOrderStatusError(err.message || true))
       });
   }
-}
+};
 
 /* reducer */
 export default function reducer(statePart = {}, action = {}) {

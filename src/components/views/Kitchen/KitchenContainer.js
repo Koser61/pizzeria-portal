@@ -3,7 +3,7 @@ import Kitchen from './Kitchen';
 import { getAllOrders, getOrdersLoadingState, fetchOrdersFromAPI } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state) => ({
-  orders: getAllOrders(state),
+  allOrders: getAllOrders(state),
   loading: getOrdersLoadingState(state),
 });
 

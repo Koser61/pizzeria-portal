@@ -3,81 +3,118 @@ import { api } from '../settings';
 import { DateTime } from 'luxon';
 
 /* selectors */
-export const getOrderedOrders = ({kitchen}) => kitchen.orders;
-export const getOrderedOrdersLoadingState = ({kitchen}) => kitchen.loading;
+export const getLocalOrders = ({kitchen}) => kitchen.localOrders.data;
+export const getDeliveryOrders = ({kitchen}) => kitchen.deliveryOrders.data;
 
-export const getLocalOrders = ({kitchen}) => kitchen.orders.filter(order => order.table);
-export const getDeliveryOrders = ({kitchen}) => kitchen.orders.filter(order => order.address);
+export const getLocalOrdersLoadingState = ({kitchen}) => kitchen.localOrders.loading;
+export const getDeliveryOrdersLoadingState = ({kitchen}) => kitchen.deliveryOrders.loading;
+export const getChangingOrderStatus = ({kitchen}) => kitchen.changeOrderStatus;
 
-export const getOrderStatus = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).status;
-export const getOrderTime = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).orderTime;
-export const getOrderProducts = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).products;
+export const getLocalOrderTimeById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).orderTime;
+export const getDeliveryOrderTimeById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).orderTime;
 
-export const getOrderTable = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).table;
+export const getLocalOrderProductsById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).products;
+export const getDeliveryOrderProductsById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).products;
 
-export const getOrderAddress = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).address;
-export const getOrderPhone = ({kitchen}, id) => kitchen.orders.find(order => order.id === id).phone;
+export const getOrderTableById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).table;
 
-export const getStatusHasChanged = ({kitchen}) => kitchen.statusHasChanged;
+export const getOrderAddressById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).address;
+export const getOrderPhoneById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).phone;
 
 /* action name creator */
 const reducerName = 'kitchen';
 const createActionName = (name) => `app/${reducerName}/${name}`;
 
 /* action types */
-const FETCH_ALL_START = createActionName('FETCH_ALL_START');
-const FETCH_ALL_SUCCESS = createActionName('FETCH_ALL_SUCCESS');
-const FETCH_ALL_ERROR = createActionName('FETCH_ALL_ERROR');
+const FETCH_LOCAL_ORDERS_START = createActionName('FETCH_LOCAL_ORDERS_START');
+const FETCH_LOCAL_ORDERS_SUCCESS = createActionName('FETCH_LOCAL_ORDERS_SUCCESS');
+const FETCH_LOCAL_ORDERS_ERROR = createActionName('FETCH_LOCAL_ORDERS_ERROR');
+
+const FETCH_DELIVERY_ORDERS_START = createActionName('FETCH_DELIVERY_ORDERS_START');
+const FETCH_DELIVERY_ORDERS_SUCCESS = createActionName('FETCH_DELIVERY_ORDERS_SUCCESS');
+const FETCH_DELIVERY_ORDERS_ERROR = createActionName('FETCH_DELIVERY_ORDERS_ERROR');
 
 const CHANGE_ORDER_STATUS_START = createActionName('CHANGE_ORDER_STATUS_START');
 const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCESS');
 const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
 
-const DELETE_ORDER = createActionName('DELETE_ORDER');
-const CHANGE_STATUS_CHANGED = createActionName('CHANGE_STATUS_CHANGED');
+const DELETE_LOCAL_ORDER = createActionName('DELETE_LOCAL_ORDER');
+const DELETE_DELIVERY_ORDER = createActionName('DELETE_DELIVERY_ORDER');
 
 /* action creators */
-export const fetchOrdersStarted = (payload) => ({ payload, type: FETCH_ALL_START });
-export const fetchOrdersSuccess = (payload) => ({ payload, type: FETCH_ALL_SUCCESS });
-export const fetchOrdersError = (payload) => ({ payload, type: FETCH_ALL_ERROR });
+export const fetchLocalOrdersStarted = payload => ({ payload, type: FETCH_LOCAL_ORDERS_START });
+export const fetchLocalOrdersSuccess = payload => ({ payload, type: FETCH_LOCAL_ORDERS_SUCCESS });
+export const fetchLocalOrdersError = payload => ({ payload, type: FETCH_LOCAL_ORDERS_ERROR });
 
-export const changeOrderStatusStarted = (payload) => ({ payload, type: CHANGE_ORDER_STATUS_START });
-export const changeOrderStatusSuccess = (payload) => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
-export const changeOrderStatusError = (payload) => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
+export const fetchDeliveryOrdersStarted = payload => ({ payload, type: FETCH_DELIVERY_ORDERS_START });
+export const fetchDeliveryOrdersSuccess = payload => ({ payload, type: FETCH_DELIVERY_ORDERS_SUCCESS });
+export const fetchDeliveryOrdersError = payload => ({ payload, type: FETCH_DELIVERY_ORDERS_ERROR });
 
-export const deleteOrder = (payload) => ({ payload, type: DELETE_ORDER });
-export const changeStatusChangedState = (payload) => ({ payload, type: CHANGE_STATUS_CHANGED });
+export const changeOrderStatusStarted = payload => ({ payload, type: CHANGE_ORDER_STATUS_START });
+export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
+export const changeOrderStatusError = payload => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
+
+export const deleteLocalOrder = payload => ({ payload, type: DELETE_LOCAL_ORDER });
+export const deleteDeliveryOrder = payload => ({ payload, type: DELETE_DELIVERY_ORDER });
 
 /* thunk creators */
-export const fetchOrdersFromAPI = () => {
+export const fetchLocalOrdersFromAPI = () => {
   return (dispatch, getState) => {
-    if(getState().kitchen.orders.length === 0) {
-      dispatch(fetchOrdersStarted());
+    if(getState().kitchen.localOrders.data.length === 0) {
+      dispatch(fetchLocalOrdersStarted());
 
       Axios.get(`${api.url}/api/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
         .then((res) => {
           const currentDate = DateTime.now().toISODate();
 
-          let todayOrders = [];
+          let localOrders = [];
 
           for(let responseOrder of res.data) {
             const orderDate = DateTime.fromISO(responseOrder.orderTime).toISODate();
 
-            if(orderDate === currentDate) {
-              todayOrders.push(responseOrder);
+            if(orderDate === currentDate && responseOrder.table) {
+              localOrders.push(responseOrder);
             }
           }
 
-          dispatch(fetchOrdersSuccess(todayOrders));
+          dispatch(fetchLocalOrdersSuccess(localOrders));
         })
         .catch((err) => {
-          dispatch(fetchOrdersError(err.message || true));
+          dispatch(fetchLocalOrdersError(err.message || true));
         });
     }
   };
 };
 
-export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
+export const fetchDeliveryOrdersFromAPI = () => {
+  return (dispatch, getState) => {
+    if(getState().kitchen.deliveryOrders.data.length === 0) {
+      dispatch(fetchDeliveryOrdersStarted());
+
+      Axios.get(`${api.url}/api/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
+        .then((res) => {
+          const currentDate = DateTime.now().toISODate();
+
+          let deliveryOrders = [];
+
+          for(let responseOrder of res.data) {
+            const orderDate = DateTime.fromISO(responseOrder.orderTime).toISODate();
+
+            if(orderDate === currentDate && responseOrder.address && responseOrder.phone) {
+              deliveryOrders.push(responseOrder);
+            }
+          }
+
+          dispatch(fetchDeliveryOrdersSuccess(deliveryOrders));
+        })
+        .catch((err) => {
+          dispatch(fetchDeliveryOrdersError(err.message || true));
+        });
+    }
+  };
+};
+
+export const changeOrderStatusInAPI = (payload, delivery, id, orderData, index) => {
   const orderDataChanged = { ...orderData, status: payload };
   
   return (dispatch) => {
@@ -86,55 +123,90 @@ export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
     Axios
       .put(`${api.url}/api/${api.orders}/${id}`, orderDataChanged)
       .then(() => {
-        dispatch(deleteOrder(index))
+        if(delivery) {
+          dispatch(deleteDeliveryOrder(index));
+        } else {
+          dispatch(deleteLocalOrder(index));
+        }
       })
       .then(() => {
-        dispatch(changeOrderStatusSuccess())
+        dispatch(changeOrderStatusSuccess());
       }).catch((err) => {
-        dispatch(changeOrderStatusError(err.message || true))
+        dispatch(changeOrderStatusError(err.message || true));
       });
   }
-}
+};
 
 /* reducer */
 export default function reducer(statePart = {}, action = {}) {
   switch (action.type) {
-    case FETCH_ALL_START: {
+    case FETCH_LOCAL_ORDERS_START: {
       return {
         ...statePart,
-        loading: {
-          active: true,
-          error: false,
+        localOrders: {
+          loading: {
+            active: true,
+            error: false,
+          },
         },
       };
     }
-    case FETCH_ALL_SUCCESS: {
+    case FETCH_LOCAL_ORDERS_SUCCESS: {
       return {
         ...statePart,
-        loading: {
-          active: false,
-          error: false,
-        },
-        orders: action.payload,
-      };
-    }
-    case FETCH_ALL_ERROR: {
-      return {
-        ...statePart,
-        loading: {
-          active: false,
-          error: action.payload,
+        localOrders: {
+          loading: {
+            active: false,
+            error: false,
+          },
+          data: action.payload,
         },
       };
     }
-    case DELETE_ORDER: {
+    case FETCH_LOCAL_ORDERS_ERROR: {
       return {
         ...statePart,
-        orders: [
-          ...statePart.orders.slice(0, action.payload),
-          ...statePart.orders.slice(action.payload + 1),
-        ],
-      }
+        localOrders: {
+          loading: {
+            active: true,
+            error: action.payload,
+          },
+        },
+      };
+    }
+    case FETCH_DELIVERY_ORDERS_START: {
+      return {
+        ...statePart,
+        deliveryOrders: {
+          loading: {
+            active: true,
+            error: false,
+          },
+        },
+      };
+    }
+    case FETCH_DELIVERY_ORDERS_SUCCESS: {
+      return {
+        ...statePart,
+        deliveryOrders: {
+          loading: {
+            active: false,
+            error: false,
+          },
+          data: action.payload,
+        },
+      };
+    }
+    case FETCH_DELIVERY_ORDERS_ERROR: {
+      return {
+        ...statePart,
+        deliveryOrders: {
+          loading: {
+            active: true,
+            error: action.payload,
+          },
+        },
+      };
     }
     case CHANGE_ORDER_STATUS_START: {
       return {
@@ -152,22 +224,39 @@ export default function reducer(statePart = {}, action = {}) {
           active: false,
           error: false,
         },
-        statusHasChanged: true,
       }
     }
     case CHANGE_ORDER_STATUS_ERROR: {
       return {
         ...statePart,
         changeOrderStatus: {
-          active: false,
+          active: true,
           error: action.payload,
         },
       }
     }
-    case CHANGE_STATUS_CHANGED: {
+    case DELETE_LOCAL_ORDER: {
       return {
         ...statePart,
-        statusHasChanged: false,
+        localOrders: {
+          ...statePart.localOrders,
+          data: [
+            ...statePart.localOrders.data.slice(0, action.payload),
+            ...statePart.localOrders.data.slice(action.payload + 1),
+          ],
+        },
+      }
+    }
+    case DELETE_DELIVERY_ORDER: {
+      return {
+        ...statePart,
+        deliveryOrders: {
+          ...statePart.deliveryOrders,
+          data: [
+            ...statePart.deliveryOrders.data.slice(0, action.payload),
+            ...statePart.deliveryOrders.data.slice(action.payload + 1),
+          ],
+        },
       }
     }
     default:
