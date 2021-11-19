@@ -29,8 +29,8 @@
                      "price": 1,
                      "default": true
                   },
-                  "cfrontuccino": {
-                     "label": "Cfrontuccino",
+                  "cappuccino": {
+                     "label": "Cappuccino",
                      "price": 1
                   },
                   "espresso": {
@@ -382,7 +382,7 @@
         "id": 3
       },
       {
-         "status": "ready",
+         "status": "ordered",
          "table": "table1",
          "orderTime": "2021-11-19T15:45:33.870+01:00",
          "totalPrice": 63,
@@ -469,7 +469,7 @@
          "id": "SXKXW7K5a8K0JMDC6tcTc"
        },
        {
-         "status": "ready",
+         "status": "ordered",
          "table": "table2",
          "orderTime": "2021-11-19T15:46:48.083+01:00",
          "totalPrice": 120,
@@ -537,7 +537,7 @@
          "id": "psgjSUlkdkKqkv4ejJF9N"
        },
        {
-         "status": "ready",
+         "status": "ordered",
          "table": "table3",
          "orderTime": "2021-11-19T15:47:14.798+01:00",
          "totalPrice": 28,

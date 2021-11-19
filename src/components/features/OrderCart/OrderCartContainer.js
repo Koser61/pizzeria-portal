@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import OrderCart from './OrderCart';
 import { getCartProducts, getCartTotalPrice, changeCartTotalPrice, clearCartProducts } from '../../../redux/orderingRedux';
+import { getOrderTotalPriceById } from '../../../redux/ordersRedux';
 
 const mapStateToProps = (state, {readOnly, id}) => {
   if(!readOnly) {
@@ -11,7 +12,7 @@ const mapStateToProps = (state, {readOnly, id}) => {
   } else {
     return {
       products: getCartProducts(state),
-      totalPrice: getCartTotalPrice(state),
+      totalPrice: getOrderTotalPriceById(state, id),
     }
   }
 };
