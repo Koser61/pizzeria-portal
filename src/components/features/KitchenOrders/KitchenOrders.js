@@ -18,7 +18,7 @@ class KitchenOrders extends React.Component {
   static propTypes = {
     delivery: PropTypes.bool,
     title: PropTypes.string,
-
+    allOrders: PropTypes.array,
     fetchOrders: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
@@ -33,7 +33,7 @@ class KitchenOrders extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, delivery, title, orders } = this.props;
+    const { loading: { active, error }, delivery, title, allOrders, orders } = this.props;
 
     if(active || !orders.length){
       return (
@@ -87,8 +87,10 @@ class KitchenOrders extends React.Component {
             <AccordionDetails>
               <Stack spacing={1} mt='0.5rem'>
                 {orders.map((order, i) => {
+                  const orderIndex = allOrders.indexOf(order);
+
                   return (
-                    <KitchenOrder key={i} index={i} delivery={delivery} id={order.id} />
+                    <KitchenOrder key={i} index={orderIndex} localIndex={i} delivery={delivery} id={order.id} />
                   );
                 })}
               </Stack>

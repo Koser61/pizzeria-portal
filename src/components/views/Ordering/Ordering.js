@@ -24,9 +24,8 @@ class Ordering extends React.Component {
   };
 
   componentDidMount() {
-    const { fetchOrders, changeOrderWasSent } = this.props;
+    const { fetchOrders } = this.props;
     fetchOrders();
-    changeOrderWasSent(false);
   }
 
   render() {

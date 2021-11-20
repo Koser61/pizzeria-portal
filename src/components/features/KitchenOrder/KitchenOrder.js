@@ -22,13 +22,16 @@ import { tables } from '../../../settings';
 
 const KitchenOrder = ({
   delivery,
+  localIndex,
   orderTime,
   address,
   phone,
   table,
+  notes,
   products,
   orderData,
   changeOrderStatusInAPI,
+  deleteOrderFromState,
 }) => {
 
   const InlineBox = ({ children }) => {
@@ -72,6 +75,8 @@ const KitchenOrder = ({
     } else {
       changeOrderStatusInAPI('ready', orderData);
     }
+
+    deleteOrderFromState(localIndex);
   };
 
   return (
@@ -140,6 +145,15 @@ const KitchenOrder = ({
         )}
       </Grid>
       <Stack spacing='0.5rem'>
+        {notes ?
+          <Card
+            variant='outlined'
+            sx={{p: '0.5rem', borderWidth: '2px', borderColor: 'primary.main'}}
+          >
+            <Typography variant='body2'>{notes}</Typography>
+          </Card>
+          : ''
+        }
         {products.map((product, i) => {
           return (
             <OrderProduct
@@ -157,12 +171,15 @@ const KitchenOrder = ({
 
 KitchenOrder.propTypes = {
   delivery: PropTypes.bool,
+  index: PropTypes.number,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   orderTime: PropTypes.string,
   products: PropTypes.array,
   address: PropTypes.string,
   phone: PropTypes.string,
   table: PropTypes.string,
+  changeOrderStatusInAPI: PropTypes.func,
+  deleteOrderFromState: PropTypes.func,
 };
 
 export default KitchenOrder;

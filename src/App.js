@@ -39,7 +39,7 @@ const App = () => {
             <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
             <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
 
-            <Route exact path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
+            <Route path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
           </Switch>
         </MainLayout>
       </BrowserRouter>

@@ -34,6 +34,7 @@ const initialState = {
     changeOrderStatus: {
       active: false,
       error: false,
+      statusHasChanged: false,
     },
     data: [],
   },
@@ -161,6 +162,7 @@ const initialState = {
     changeOrderStatus: {
       active: false,
       error: false,
+      statusHasChanged: false,
     },
     localOrders: {
       loading: {

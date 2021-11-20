@@ -44,6 +44,7 @@ const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCES
 const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
 
 const CHANGE_ORDER_STATUS = createActionName('CHANGE_ORDER_STATUS');
+const CHANGE_STATUS_HAS_CHANGED = createActionName('CHANGE_STATUS_HAS_CHANGED');
 
 /* action creators */
 export const fetchOrdersStarted = payload => ({ payload, type: FETCH_ALL_START });
@@ -62,6 +63,7 @@ export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDE
 export const changeOrderStatusError = payload => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
 
 export const changeOrderStatus = (payload, index) => ({ payload, index, type: CHANGE_ORDER_STATUS });
+export const changeStatusHasChanged = payload => ({ payload, type: CHANGE_STATUS_HAS_CHANGED });
 
 /* thunk creators */
 export const fetchOrdersFromAPI = () => {
@@ -111,12 +113,16 @@ export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
     Axios
       .put(`${api.url}/api/${api.orders}/${id}`, orderDataChanged)
       .then((res) => {
-        dispatch(changeOrderStatus(res.data, index))
+        dispatch(changeOrderStatus(res.data, index));
       })
       .then(() => {
-        dispatch(changeOrderStatusSuccess())
-      }).catch((err) => {
-        dispatch(changeOrderStatusError(err.message || true))
+        dispatch(changeOrderStatusSuccess());
+      })
+      .then(() => {
+        dispatch(changeStatusHasChanged(true));
+      })
+      .catch((err) => {
+        dispatch(changeOrderStatusError(err.message || true));
       });
   }
 };
@@ -199,6 +205,15 @@ export default function reducer(statePart = {}, action = {}) {
           action.payload,
           ...statePart.data.slice(action.index + 1),
         ],
+      }
+    }
+    case CHANGE_STATUS_HAS_CHANGED: {
+      return {
+        ...statePart,
+        changeOrderStatus: {
+          ...statePart.changeOrderStatus,
+          statusHasChanged: action.payload,
+        }
       }
     }
     case CHANGE_ORDER_STATUS_START: {

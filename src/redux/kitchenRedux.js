@@ -17,6 +17,7 @@ export const getLocalOrderProductsById = ({kitchen}, id) => kitchen.localOrders.
 export const getDeliveryOrderProductsById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).products;
 
 export const getOrderTableById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).table;
+export const getOrderNotesById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).notes;
 
 export const getOrderAddressById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).address;
 export const getOrderPhoneById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).phone;
@@ -38,6 +39,8 @@ const CHANGE_ORDER_STATUS_START = createActionName('CHANGE_ORDER_STATUS_START');
 const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCESS');
 const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
 
+const CHANGE_STATUS_HAS_CHANGED = createActionName('CHANGE_STATUS_HAS_CHANGED');
+
 const DELETE_LOCAL_ORDER = createActionName('DELETE_LOCAL_ORDER');
 const DELETE_DELIVERY_ORDER = createActionName('DELETE_DELIVERY_ORDER');
 
@@ -53,6 +56,8 @@ export const fetchDeliveryOrdersError = payload => ({ payload, type: FETCH_DELIV
 export const changeOrderStatusStarted = payload => ({ payload, type: CHANGE_ORDER_STATUS_START });
 export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
 export const changeOrderStatusError = payload => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
+
+export const changeStatusHasChanged = payload => ({ payload, type: CHANGE_STATUS_HAS_CHANGED });
 
 export const deleteLocalOrder = payload => ({ payload, type: DELETE_LOCAL_ORDER });
 export const deleteDeliveryOrder = payload => ({ payload, type: DELETE_DELIVERY_ORDER });
@@ -131,7 +136,11 @@ export const changeOrderStatusInAPI = (payload, delivery, id, orderData, index) 
       })
       .then(() => {
         dispatch(changeOrderStatusSuccess());
-      }).catch((err) => {
+      })
+      .then(() => {
+        dispatch(changeStatusHasChanged(true));
+      })
+      .catch((err) => {
         dispatch(changeOrderStatusError(err.message || true));
       });
   }
@@ -256,6 +265,15 @@ export default function reducer(statePart = {}, action = {}) {
             ...statePart.deliveryOrders.data.slice(0, action.payload),
             ...statePart.deliveryOrders.data.slice(action.payload + 1),
           ],
+        },
+      }
+    }
+    case CHANGE_STATUS_HAS_CHANGED: {
+      return {
+        ...statePart,
+        changeOrderStatus: {
+          ...statePart.changeOrderStatus,
+          statusHasChanged: action.payload,
         },
       }
     }
