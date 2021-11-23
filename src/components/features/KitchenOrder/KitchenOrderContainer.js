@@ -10,8 +10,6 @@ import {
   getOrderAddressById,
   getOrderPhoneById,
   changeOrderStatusInAPI,
-  deleteDeliveryOrder,
-  deleteLocalOrder,
 } from '../../../redux/kitchenRedux';
 import { getOrderDataById } from '../../../redux/ordersRedux';
 
@@ -35,18 +33,8 @@ const mapStateToProps = (state, {delivery, id}) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, {delivery, id, index}) => {
-  if(delivery) {
-    return {
-      changeOrderStatusInAPI: (status, orderData) => dispatch(changeOrderStatusInAPI(status, delivery, id, orderData, index)),
-      deleteOrderFromState: (localIndex) => dispatch(deleteDeliveryOrder(localIndex)),
-    }
-  } else {
-    return {
-      changeOrderStatusInAPI: (status, orderData) => dispatch(changeOrderStatusInAPI(status, delivery, id, orderData, index)),
-      deleteOrderFromState: (localIndex) => dispatch(deleteLocalOrder(localIndex)),
-    }
-  }
-};
+const mapDispatchToProps = (dispatch, {delivery, id, localIndex}) => ({
+  changeOrderStatusInAPI: (status, orderData) => dispatch(changeOrderStatusInAPI(status, delivery, id, orderData, localIndex)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(KitchenOrder);

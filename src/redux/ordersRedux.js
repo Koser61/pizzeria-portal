@@ -3,7 +3,10 @@ import { api } from '../settings';
 
 /* selectors */
 export const getAllOrders = ({orders}) => orders.data;
+
 export const getOrdersLoadingState = ({orders}) => orders.loading;
+export const getOrdersLoadingFinished = ({orders}) => orders.loading.loadingFinished;
+
 export const getSendOrderLoadingState = ({orders}) => orders.sendOrder;
 export const getOrderWasSentState = ({orders}) => orders.sendOrder.orderWasSent;
 export const getChangeOrderStatusState = ({orders}) => orders.changeOrderStatus;
@@ -32,6 +35,8 @@ const FETCH_ALL_START = createActionName('FETCH_ALL_START');
 const FETCH_ALL_SUCCESS = createActionName('FETCH_ALL_SUCCESS');
 const FETCH_ALL_ERROR = createActionName('FETCH_ALL_ERROR');
 
+const CHANGE_LOADING_FINISHED = createActionName('CHANGE_LOADING_FINISHED');
+
 const SEND_ORDER_START = createActionName('SEND_ORDER_START');
 const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
 const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
@@ -51,30 +56,37 @@ export const fetchOrdersStarted = payload => ({ payload, type: FETCH_ALL_START }
 export const fetchOrdersSuccess = payload => ({ payload, type: FETCH_ALL_SUCCESS });
 export const fetchOrdersError = payload => ({ payload, type: FETCH_ALL_ERROR });
 
+export const changeLoadingFinished = payload => ({ payload, type: CHANGE_LOADING_FINISHED });
+export const changeOrderWasSent = payload => ({ payload, type: CHANGE_ORDER_WAS_SENT });
+
 export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START });
 export const sendOrderSuccess = payload => ({ payload, type: SEND_ORDER_SUCCESS });
 export const sendOrderError = payload => ({ payload, type: SEND_ORDER_ERROR });
 
 export const addOrder = payload => ({ payload, type: ADD_ORDER });
-export const changeOrderWasSent = payload => ({ payload, type: CHANGE_ORDER_WAS_SENT });
 
 export const changeOrderStatusStarted = payload => ({ payload, type: CHANGE_ORDER_STATUS_START });
 export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDER_STATUS_SUCCESS });
 export const changeOrderStatusError = payload => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
 
 export const changeOrderStatus = (payload, index) => ({ payload, index, type: CHANGE_ORDER_STATUS });
-export const changeStatusHasChanged = payload => ({ payload, type: CHANGE_STATUS_HAS_CHANGED });
 
 /* thunk creators */
 export const fetchOrdersFromAPI = () => {
   return (dispatch, getState) => {
-    if(getState().orders.data.length === 0) {
+    const ordersEmpty = getState().orders.data.length === 0;
+    const statusWasChangedByKitchen = getState().kitchen.changeOrderStatus.statusHasChanged;
+
+    if(ordersEmpty || statusWasChangedByKitchen) {
       dispatch(fetchOrdersStarted());
 
       Axios
         .get(`${api.url}/api/${api.orders}?${api.notDoneParam},${api.notCancelledParam}&${api.sortByOrderTimeParam}`)
         .then(res => {
           dispatch(fetchOrdersSuccess(res.data));
+        })
+        .then(() => {
+          dispatch(changeLoadingFinished(true));
         })
         .catch(err => {
           dispatch(fetchOrdersError(err.message || true));
@@ -118,9 +130,6 @@ export const changeOrderStatusInAPI = (payload, id, orderData, index) => {
       .then(() => {
         dispatch(changeOrderStatusSuccess());
       })
-      .then(() => {
-        dispatch(changeStatusHasChanged(true));
-      })
       .catch((err) => {
         dispatch(changeOrderStatusError(err.message || true));
       });
@@ -155,6 +164,15 @@ export default function reducer(statePart = {}, action = {}) {
         loading: {
           active: false,
           error: action.payload,
+        },
+      }
+    }
+    case CHANGE_LOADING_FINISHED: {
+      return {
+        ...statePart,
+        loading: {
+          ...statePart.loading,
+          loadingFinished: action.payload,
         },
       }
     }

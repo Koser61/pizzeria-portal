@@ -31,7 +31,6 @@ const KitchenOrder = ({
   products,
   orderData,
   changeOrderStatusInAPI,
-  deleteOrderFromState,
 }) => {
 
   const InlineBox = ({ children }) => {
@@ -75,8 +74,6 @@ const KitchenOrder = ({
     } else {
       changeOrderStatusInAPI('ready', orderData);
     }
-
-    deleteOrderFromState(localIndex);
   };
 
   return (
@@ -179,7 +176,6 @@ KitchenOrder.propTypes = {
   phone: PropTypes.string,
   table: PropTypes.string,
   changeOrderStatusInAPI: PropTypes.func,
-  deleteOrderFromState: PropTypes.func,
 };
 
 export default KitchenOrder;

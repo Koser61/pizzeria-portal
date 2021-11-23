@@ -25,6 +25,7 @@ const initialState = {
     loading: {
       active: false,
       error: false,
+      loadingFinished: false,
     },
     sendOrder: {
       active: false,
@@ -168,6 +169,7 @@ const initialState = {
       loading: {
         active: false,
         error: false,
+        loadingFinished: false,
       },
       data: [],
     },
