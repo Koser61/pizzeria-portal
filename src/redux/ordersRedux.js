@@ -5,7 +5,6 @@ import { api } from '../settings';
 export const getAllOrders = ({orders}) => orders.data;
 
 export const getOrdersLoadingState = ({orders}) => orders.loading;
-export const getOrdersLoadingFinished = ({orders}) => orders.loading.loadingFinished;
 
 export const getSendOrderLoadingState = ({orders}) => orders.sendOrder;
 export const getOrderWasSentState = ({orders}) => orders.sendOrder.orderWasSent;
@@ -35,8 +34,6 @@ const FETCH_ALL_START = createActionName('FETCH_ALL_START');
 const FETCH_ALL_SUCCESS = createActionName('FETCH_ALL_SUCCESS');
 const FETCH_ALL_ERROR = createActionName('FETCH_ALL_ERROR');
 
-const CHANGE_LOADING_FINISHED = createActionName('CHANGE_LOADING_FINISHED');
-
 const SEND_ORDER_START = createActionName('SEND_ORDER_START');
 const SEND_ORDER_SUCCESS = createActionName('SEND_ORDER_SUCCESS');
 const SEND_ORDER_ERROR = createActionName('SEND_ORDER_ERROR');
@@ -49,14 +46,12 @@ const CHANGE_ORDER_STATUS_SUCCESS = createActionName('CHANGE_ORDER_STATUS_SUCCES
 const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
 
 const CHANGE_ORDER_STATUS = createActionName('CHANGE_ORDER_STATUS');
-const CHANGE_STATUS_HAS_CHANGED = createActionName('CHANGE_STATUS_HAS_CHANGED');
 
 /* action creators */
 export const fetchOrdersStarted = payload => ({ payload, type: FETCH_ALL_START });
 export const fetchOrdersSuccess = payload => ({ payload, type: FETCH_ALL_SUCCESS });
 export const fetchOrdersError = payload => ({ payload, type: FETCH_ALL_ERROR });
 
-export const changeLoadingFinished = payload => ({ payload, type: CHANGE_LOADING_FINISHED });
 export const changeOrderWasSent = payload => ({ payload, type: CHANGE_ORDER_WAS_SENT });
 
 export const sendOrderStarted = payload => ({ payload, type: SEND_ORDER_START });
@@ -84,9 +79,6 @@ export const fetchOrdersFromAPI = () => {
         .get(`${api.url}/api/${api.orders}?${api.notDoneParam},${api.notCancelledParam}&${api.sortByOrderTimeParam}`)
         .then(res => {
           dispatch(fetchOrdersSuccess(res.data));
-        })
-        .then(() => {
-          dispatch(changeLoadingFinished(true));
         })
         .catch(err => {
           dispatch(fetchOrdersError(err.message || true));
@@ -167,15 +159,6 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case CHANGE_LOADING_FINISHED: {
-      return {
-        ...statePart,
-        loading: {
-          ...statePart.loading,
-          loadingFinished: action.payload,
-        },
-      }
-    }
     case SEND_ORDER_START:
       return {
         ...statePart,
@@ -223,15 +206,6 @@ export default function reducer(statePart = {}, action = {}) {
           action.payload,
           ...statePart.data.slice(action.index + 1),
         ],
-      }
-    }
-    case CHANGE_STATUS_HAS_CHANGED: {
-      return {
-        ...statePart,
-        changeOrderStatus: {
-          ...statePart.changeOrderStatus,
-          statusHasChanged: action.payload,
-        }
       }
     }
     case CHANGE_ORDER_STATUS_START: {

@@ -16,6 +16,7 @@ import OrderCart from '../../features/OrderCart/OrderCartContainer';
 class NewOrder extends React.Component {
   static propTypes = {
     fetchProducts: PropTypes.func,
+    changeOrderWasSent: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -23,8 +24,10 @@ class NewOrder extends React.Component {
   }
 
   componentDidMount(){
-    const { fetchProducts } = this.props;
+    const { fetchProducts, changeOrderWasSent } = this.props;
+    
     fetchProducts();
+    changeOrderWasSent(false);
   }
 
   render() {

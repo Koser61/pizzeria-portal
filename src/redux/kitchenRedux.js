@@ -9,7 +9,6 @@ export const getDeliveryOrders = ({kitchen}) => kitchen.deliveryOrders.data;
 export const getLocalOrdersLoadingState = ({kitchen}) => kitchen.localOrders.loading;
 export const getDeliveryOrdersLoadingState = ({kitchen}) => kitchen.deliveryOrders.loading;
 
-export const getLocalOrdersLoadingFinished = ({kitchen}) => kitchen.localOrders.loading.loadingFinished;
 export const getChangingOrderStatus = ({kitchen}) => kitchen.changeOrderStatus;
 
 export const getLocalOrderTimeById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).orderTime;
@@ -33,8 +32,6 @@ const FETCH_LOCAL_ORDERS_START = createActionName('FETCH_LOCAL_ORDERS_START');
 const FETCH_LOCAL_ORDERS_SUCCESS = createActionName('FETCH_LOCAL_ORDERS_SUCCESS');
 const FETCH_LOCAL_ORDERS_ERROR = createActionName('FETCH_LOCAL_ORDERS_ERROR');
 
-const CHANGE_LOADING_FINISHED = createActionName('CHANGE_LOADING_FINISHED');
-
 const FETCH_DELIVERY_ORDERS_START = createActionName('FETCH_DELIVERY_ORDERS_START');
 const FETCH_DELIVERY_ORDERS_SUCCESS = createActionName('FETCH_DELIVERY_ORDERS_SUCCESS');
 const FETCH_DELIVERY_ORDERS_ERROR = createActionName('FETCH_DELIVERY_ORDERS_ERROR');
@@ -52,8 +49,6 @@ const DELETE_DELIVERY_ORDER_FROM_STATE = createActionName('DELETE_DELIVERY_ORDER
 export const fetchLocalOrdersStarted = payload => ({ payload, type: FETCH_LOCAL_ORDERS_START });
 export const fetchLocalOrdersSuccess = payload => ({ payload, type: FETCH_LOCAL_ORDERS_SUCCESS });
 export const fetchLocalOrdersError = payload => ({ payload, type: FETCH_LOCAL_ORDERS_ERROR });
-
-export const changeLoadingFinished = payload => ({ payload, type: CHANGE_LOADING_FINISHED });
 
 export const fetchDeliveryOrdersStarted = payload => ({ payload, type: FETCH_DELIVERY_ORDERS_START });
 export const fetchDeliveryOrdersSuccess = payload => ({ payload, type: FETCH_DELIVERY_ORDERS_SUCCESS });
@@ -92,9 +87,6 @@ export const fetchLocalOrdersFromAPI = () => {
           }
 
           dispatch(fetchLocalOrdersSuccess(localOrders));
-        })
-        .then(() => {
-          dispatch(changeLoadingFinished(true));
         })
         .catch((err) => {
           dispatch(fetchLocalOrdersError(err.message || true));
@@ -191,18 +183,6 @@ export default function reducer(statePart = {}, action = {}) {
           },
         },
       };
-    }
-    case CHANGE_LOADING_FINISHED: {
-      return {
-        ...statePart,
-        localOrders: {
-          ...statePart.localOrders,
-          loading: {
-            ...statePart.localOrders.loading,
-            loadingFinished: action.payload,
-          },
-        },
-      }
     }
     case FETCH_DELIVERY_ORDERS_START: {
       return {

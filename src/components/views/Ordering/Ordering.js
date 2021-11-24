@@ -24,6 +24,7 @@ class Ordering extends React.Component {
 
   componentDidMount() {
     const { fetchOrders } = this.props;
+    
     fetchOrders();
   }
 

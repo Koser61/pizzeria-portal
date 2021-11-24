@@ -14,6 +14,7 @@ import KitchenOrders from '../../features/KitchenOrders/KitchenOrdersContainer';
 class Kitchen extends React.Component {
   static propTypes = {
     fetchOrders: PropTypes.func,
+    changeStatusHasChanged: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -21,8 +22,10 @@ class Kitchen extends React.Component {
   }
 
   componentDidMount() {
-    const { fetchOrders } = this.props;
+    const { fetchOrders, changeStatusHasChanged } = this.props;
+    
     fetchOrders();
+    changeStatusHasChanged(false);
   }
 
   render() {
