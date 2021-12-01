@@ -14,22 +14,22 @@ const reducerName = 'events';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
-const FETCH_REPEAT_EVENTS_START = createActionName('FETCH_REPEAT_EVENTS_START');
-const FETCH_REPEAT_EVENTS_SUCCESS = createActionName('FETCH_REPEAT_EVENTS_SUCCESS');
-const FETCH_REPEAT_EVENTS_ERROR = createActionName('FETCH_REPEAT_EVENTS_ERROR');
+const FETCH_REPEAT_START = createActionName('FETCH_REPEAT_START');
+const FETCH_REPEAT_SUCCESS = createActionName('FETCH_REPEAT_SUCCESS');
+const FETCH_REPEAT_ERROR = createActionName('FETCH_REPEAT_ERROR');
 
-const FETCH_NO_REPEAT_EVENTS_START = createActionName('FETCH_NO_REPEAT_EVENTS_START');
-const FETCH_NO_REPEAT_EVENTS_SUCCESS = createActionName('FETCH_NO_REPEAT_EVENTS_SUCCESS');
-const FETCH_NO_REPEAT_EVENTS_ERROR = createActionName('FETCH_NO_REPEAT_EVENTS_ERROR');
+const FETCH_NO_REPEAT_START = createActionName('FETCH_NO_REPEAT_START');
+const FETCH_NO_REPEAT_SUCCESS = createActionName('FETCH_NO_REPEAT_SUCCESS');
+const FETCH_NO_REPEAT_ERROR = createActionName('FETCH_NO_REPEAT_ERROR');
 
 /* action creators */
-export const fetchRepeatEventsStarted = payload => ({ payload, type: FETCH_REPEAT_EVENTS_START });
-export const fetchRepeatEventsSuccess = payload => ({ payload, type: FETCH_REPEAT_EVENTS_SUCCESS });
-export const fetchRepeatEventsError = payload => ({ payload, type: FETCH_REPEAT_EVENTS_ERROR });
+export const fetchRepeatEventsStarted = payload => ({ payload, type: FETCH_REPEAT_START });
+export const fetchRepeatEventsSuccess = payload => ({ payload, type: FETCH_REPEAT_SUCCESS });
+export const fetchRepeatEventsError = payload => ({ payload, type: FETCH_REPEAT_ERROR });
 
-export const fetchNoRepeatEventsStarted = payload => ({ payload, type: FETCH_NO_REPEAT_EVENTS_START });
-export const fetchNoRepeatEventsSuccess = payload => ({ payload, type: FETCH_NO_REPEAT_EVENTS_SUCCESS });
-export const fetchNoRepeatEventsError = payload => ({ payload, type: FETCH_NO_REPEAT_EVENTS_ERROR });
+export const fetchNoRepeatEventsStarted = payload => ({ payload, type: FETCH_NO_REPEAT_START });
+export const fetchNoRepeatEventsSuccess = payload => ({ payload, type: FETCH_NO_REPEAT_SUCCESS });
+export const fetchNoRepeatEventsError = payload => ({ payload, type: FETCH_NO_REPEAT_ERROR });
 
 /* thunk creators */
 export const fetchRepeatEventsFromAPI = () => {
@@ -85,7 +85,7 @@ export const fetchNoRepeatEventsFromAPI = () => {
 /* reducer */
 export default function reducer(statePart = {}, action = {}) {
   switch (action.type) {
-    case FETCH_REPEAT_EVENTS_START: {
+    case FETCH_REPEAT_START: {
       return {
         ...statePart,
         repeat: {
@@ -96,7 +96,7 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_REPEAT_EVENTS_SUCCESS: {
+    case FETCH_REPEAT_SUCCESS: {
       return {
         ...statePart,
         repeat: {
@@ -108,7 +108,7 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_REPEAT_EVENTS_ERROR: {
+    case FETCH_REPEAT_ERROR: {
       return {
         ...statePart,
         repeat: {
@@ -119,7 +119,7 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_NO_REPEAT_EVENTS_START: {
+    case FETCH_NO_REPEAT_START: {
       return {
         ...statePart,
         noRepeat: {
@@ -130,7 +130,7 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_NO_REPEAT_EVENTS_SUCCESS: {
+    case FETCH_NO_REPEAT_SUCCESS: {
       return {
         ...statePart,
         noRepeat: {
@@ -142,7 +142,7 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_NO_REPEAT_EVENTS_ERROR: {
+    case FETCH_NO_REPEAT_ERROR: {
       return {
         ...statePart,
         noRepeat: {
