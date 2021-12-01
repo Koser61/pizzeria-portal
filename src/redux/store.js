@@ -6,14 +6,12 @@ import navReducer from './navRedux';
 import productsReducer from './productsRedux';
 import ordersReducer from './ordersRedux';
 import orderingReducer from './orderingRedux';
+import eventsReducer from './eventsRedux';
+import bookingsReducer from './bookingsRedux';
 import kitchenReducer from './kitchenRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
-  nav: {
-    currentView: '',
-    drawerOpen: false,
-  },
   products: {
     loading: {
       active: false,
@@ -36,6 +34,33 @@ const initialState = {
       error: false,
     },
     data: [],
+  },
+  events: {
+    repeat: {
+      loading: {
+        active: false,
+        error: false,
+      },
+      data: [],
+    },
+    noRepeat: {
+      loading: {
+        active: false,
+        error: false,
+      },
+      data: [],
+    }
+  },
+  bookings: {
+    loading: {
+      active: false,
+      error: false,
+    },
+    data: [],
+  },
+  nav: {
+    currentView: '',
+    drawerOpen: false,
   },
   ordering: {
     table: '',
@@ -182,9 +207,11 @@ const initialState = {
 
 // define reducers
 const reducers = {
-  nav: navReducer,
   products: productsReducer,
   orders: ordersReducer,
+  events: eventsReducer,
+  bookings: bookingsReducer,
+  nav: navReducer,
   ordering: orderingReducer,
   kitchen: kitchenReducer,
 };

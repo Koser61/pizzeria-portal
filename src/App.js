@@ -10,7 +10,7 @@ import MainLayout from './components/layout/MainLayout/MainLayout';
 import Dashboard from './components/views/Dashboard/Dashboard';
 import Login from './components/views/Login/Login';
 import Ordering from './components/views/Ordering/OrderingContainer';
-import Tables from './components/views/Tables/Tables';
+import Tables from './components/views/Tables/TablesContainer';
 import Kitchen from './components/views/Kitchen/KitchenContainer';
 
 import NewOrder from './components/views/NewOrder/NewOrderContainer';
