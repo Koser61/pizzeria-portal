@@ -83,15 +83,15 @@ class Tables extends React.Component {
     } else {
       return (
         <Container>
-            <h2>Tables view</h2>
-            <Link to={process.env.PUBLIC_URL + '/tables/booking/123abc'}>Booking</Link>
-            <Link to={process.env.PUBLIC_URL + '/tables/event/321abc'}>Event</Link>
-            <div>
-              <Switch>
-                <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
-                <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
-              </Switch>
-            </div>
+          <h2>Tables view</h2>
+          <Link to={process.env.PUBLIC_URL + '/tables/booking/123abc'}>Booking</Link>
+          <Link to={process.env.PUBLIC_URL + '/tables/event/321abc'}>Event</Link>
+          <div>
+            <Switch>
+              <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
+              <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
+            </Switch>
+          </div>
         </Container>
       );
     }

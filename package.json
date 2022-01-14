@@ -16,14 +16,14 @@
     "json-server": "^0.16.3",
     "luxon": "^2.0.2",
     "nanoid": "^3.1.30",
-    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "5.0.0",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.45.0",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
@@ -68,7 +68,9 @@
   },
   "browserslist": {
     "production": [
-      "> 0.5%, last 2 versions, Firefox ESR, not dead, not IE 11, maintained node versions"
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
