@@ -193,9 +193,11 @@ class Tables extends React.Component {
             <Grid container marginX='auto'>
               <TableHoursColumn />
               {tables.map((table, i) => {
+                const thisTableisLast = table === tables[tables.length -1];
+
                 return (
                   <React.Fragment key={i}>
-                    <TableColumn table={table} borderRight={table === tables[tables.length -1]} />
+                    <TableColumn table={table} borderRight={thisTableisLast} />
                   </React.Fragment>
                 );
               })}
