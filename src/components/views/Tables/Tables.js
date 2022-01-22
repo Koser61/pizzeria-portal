@@ -192,7 +192,7 @@ class Tables extends React.Component {
 
       return (
         <Container>
-          <Box justifyContent='center' sx={{my: {xs: 2, sm: 3, md: 4}}}>
+          <Box justifyContent='center' sx={{ my: {xs: 2, sm: 3, md: 4} }}>
             <Grid container marginX='auto' maxWidth='900px'>
               <TableHoursColumn />
               {tables.map((table, i) => {
