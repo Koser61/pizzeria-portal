@@ -112,13 +112,16 @@ class Tables extends React.Component {
               position='relative'
             >
               <Box
-                width='45px'
-                height='15px'
                 backgroundColor='white'
                 position='absolute'
-                top='31px'
+                sx={{ top: {xs: '33px', sm: '32px'} }}
               >
-                <Typography variant='caption' mr={1}>
+                <Typography
+                  sx={{
+                    fontSize: {xs: '14px', sm: '16px'},
+                    mr: {xs: 1, sm: 2}
+                  }}
+                >
                   {displayedHour} 
                 </Typography>
               </Box>
@@ -148,7 +151,7 @@ class Tables extends React.Component {
                 justifyContent='center'
                 alignItems='center'
               >
-                <Typography variant='body2'>{table.label}</Typography>
+                <Typography sx={{fontSize: {xs: '14px', sm: '16px'}}} variant='body2'>{table.label}</Typography>
               </Box>
               :
               <Box
@@ -189,8 +192,8 @@ class Tables extends React.Component {
 
       return (
         <Container>
-          <Box justifyContent='center' my={2}>
-            <Grid container marginX='auto'>
+          <Box justifyContent='center' sx={{my: {xs: 2, sm: 3, md: 4}}}>
+            <Grid container marginX='auto' maxWidth='900px'>
               <TableHoursColumn />
               {tables.map((table, i) => {
                 const thisTableisLast = table === tables[tables.length -1];
