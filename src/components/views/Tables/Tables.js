@@ -11,8 +11,9 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 
-//import EventIcon from '@mui/icons-material/Event'; // single event
+import EventIcon from '@mui/icons-material/Event'; // single event
 //import EventRepeatIcon from '@mui/icons-material/EventRepeat'; // repeating event
 //import EventNoteIcon from '@mui/icons-material/EventNote'; // booking
 
@@ -95,6 +96,39 @@ class Tables extends React.Component {
       const openHour = '12:00';
       const workingHours = 12;
       const tableRows = workingHours * 2 + 1;
+      const cellHeight = 45;
+
+      const ReservationTile = () => {
+        const reservationTileHeight = cellHeight * 6;
+
+        return (
+          <Card
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: '1px',
+              bgcolor: 'black',
+              height: reservationTileHeight * 0.97,
+              width: {
+                xs: '90%',
+                sm: '94%',
+              },
+              color: 'white',
+              borderRadius: 2,
+              zIndex: 2
+            }}
+          >
+            <Box
+              height={cellHeight}
+              display='inline-flex'
+              alignItems='center'
+              pl='12px'
+            >
+              <EventIcon />
+            </Box>
+          </Card>
+        );
+      };
 
       const TableHours = ({ id }) => {
         if (id % 2 !== 0) {
@@ -106,7 +140,7 @@ class Tables extends React.Component {
 
           return (
             <Box
-              height='45px'
+              height={cellHeight}
               borderBottom='1px solid'
               borderColor={grey[400]}
               position='relative'
@@ -138,11 +172,13 @@ class Tables extends React.Component {
       };
 
       const TableCell = ({ id, table, borderRight }) => {
+        
+
         return (
           <>
             {id === 1 ?
               <Box
-                height='45px'
+                height={cellHeight}
                 borderLeft='1px solid'
                 borderBottom='1px solid'
                 borderRight={borderRight ? '1px solid' : 'none'}
@@ -151,16 +187,29 @@ class Tables extends React.Component {
                 justifyContent='center'
                 alignItems='center'
               >
-                <Typography sx={{fontSize: {xs: '14px', sm: '16px'}}} variant='body2'>{table.label}</Typography>
+                <Typography sx={{ fontSize: {xs: '14px', sm: '16px'} }} variant='body2'>{table.label}</Typography>
               </Box>
               :
               <Box
-                height='45px'
-                borderLeft='1px solid'
-                borderBottom='1px solid'
-                borderRight={borderRight ? '1px solid' : 'none'}
-                borderColor={grey[400]}
-              />}
+                height={cellHeight}
+                position='relative'
+                sx={{
+                  "::before": {
+                    content: '""',
+                    height: '100%',
+                    width: '100%',
+                    position: 'absolute',
+                    borderLeft: '1px solid',
+                    borderBottom: '1px solid',
+                    borderRight: borderRight ? '1px solid' : 'none',
+                    borderColor: grey[400],
+                    zIndex: 0
+                  }
+                }}
+              >
+                {(table.value === 'table2' && id === 3) && <ReservationTile />}
+              </Box>
+              }
           </>
         );
         
@@ -193,7 +242,7 @@ class Tables extends React.Component {
       return (
         <Container>
           <Box justifyContent='center' sx={{ my: {xs: 2, sm: 3, md: 4} }}>
-            <Grid container marginX='auto' maxWidth='900px'>
+            <Grid container marginX='auto' maxWidth='700px'>
               <TableHoursColumn />
               {tables.map((table, i) => {
                 const thisTableisLast = table === tables[tables.length -1];
