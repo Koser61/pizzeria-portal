@@ -29,18 +29,21 @@ export const fetchEventsFromAPI = () => {
       .get(`${api.url}/api/${api.events}`)
       .then(res => {
         const currentDate = DateTime.now().toISODate();
-
-        let todayRepeatEvents = [];
+        let todayEvents = [];
 
         for(let responseEvent of res.data) {
-          const orderDate = responseEvent.date;
+          if (responseEvent.repeat === false) {
+            const orderDate = responseEvent.date;
 
-          if(orderDate === currentDate) {
-            todayRepeatEvents.push(responseEvent);
+            if(orderDate === currentDate) {
+              todayEvents.push(responseEvent);
+            }
+          } else if (responseEvent.repeat === 'daily') {
+            todayEvents.push(responseEvent);
           }
         }
 
-        dispatch(fetchEventsSuccess(todayRepeatEvents));
+        dispatch(fetchEventsSuccess(todayEvents));
       })
       .catch(err => {
         dispatch(fetchEventsError(err.message || true));
