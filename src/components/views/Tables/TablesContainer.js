@@ -1,27 +1,17 @@
 import { connect } from 'react-redux';
 import Tables from './Tables';
-import {
-  getRepeatEvents,
-  getRepeatEventsLoadingState,
-  getNoRepeatEvents,
-  getNoRepeatEventsLoadingState,
-  fetchRepeatEventsFromAPI,
-  fetchNoRepeatEventsFromAPI,
-} from '../../../redux/eventsRedux';
+import { getAllEvents, getEventsLoadingState, fetchEventsFromAPI } from '../../../redux/eventsRedux';
 import { getAllBookings, getBookingsLoadingState, fetchBookingsFromAPI } from '../../../redux/bookingsRedux';
 
 const mapStateToProps = (state) => ({
-  eventsRepeat: getRepeatEvents(state),
-  eventsRepeatLoading: getRepeatEventsLoadingState(state),
-  eventsNoRepeat: getNoRepeatEvents(state),
-  eventsNoRepeatLoading: getNoRepeatEventsLoadingState(state),
+  events: getAllEvents(state),
+  eventsLoading: getEventsLoadingState(state),
   bookings: getAllBookings(state),
   bookingsLoading: getBookingsLoadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRepeatEvents: () => dispatch(fetchRepeatEventsFromAPI()),
-  fetchNoRepeatEvents: () => dispatch(fetchNoRepeatEventsFromAPI()),
+  fetchEvents: () => dispatch(fetchEventsFromAPI()),
   fetchBookings: () => dispatch(fetchBookingsFromAPI()),
 });
 

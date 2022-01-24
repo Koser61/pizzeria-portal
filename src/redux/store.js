@@ -36,20 +36,11 @@ const initialState = {
     data: [],
   },
   events: {
-    repeat: {
-      loading: {
-        active: false,
-        error: false,
-      },
-      data: [],
+    loading: {
+      active: false,
+      error: false,
     },
-    noRepeat: {
-      loading: {
-        active: false,
-        error: false,
-      },
-      data: [],
-    }
+    data: [],
   },
   bookings: {
     loading: {

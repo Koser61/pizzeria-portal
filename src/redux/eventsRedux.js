@@ -3,40 +3,30 @@ import { api } from '../settings';
 import { DateTime } from 'luxon';
 
 /* selectors */
-export const getRepeatEvents = ({events}) => events.repeat.data;
-export const getRepeatEventsLoadingState = ({events}) => events.repeat.loading;
-
-export const getNoRepeatEvents = ({events}) => events.noRepeat.data;
-export const getNoRepeatEventsLoadingState = ({events}) => events.noRepeat.loading;
+export const getAllEvents = ({events}) => events.data;
+export const getEventsLoadingState = ({events}) => events.loading;
 
 /* action name creator */
 const reducerName = 'events';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
-const FETCH_REPEAT_START = createActionName('FETCH_REPEAT_START');
-const FETCH_REPEAT_SUCCESS = createActionName('FETCH_REPEAT_SUCCESS');
-const FETCH_REPEAT_ERROR = createActionName('FETCH_REPEAT_ERROR');
-
-const FETCH_NO_REPEAT_START = createActionName('FETCH_NO_REPEAT_START');
-const FETCH_NO_REPEAT_SUCCESS = createActionName('FETCH_NO_REPEAT_SUCCESS');
-const FETCH_NO_REPEAT_ERROR = createActionName('FETCH_NO_REPEAT_ERROR');
+const FETCH_ALL_START = createActionName('FETCH_ALL_START');
+const FETCH_ALL_SUCCESS = createActionName('FETCH_ALL_SUCCESS');
+const FETCH_ALL_ERROR = createActionName('FETCH_ALL_ERROR');
 
 /* action creators */
-export const fetchRepeatEventsStarted = payload => ({ payload, type: FETCH_REPEAT_START });
-export const fetchRepeatEventsSuccess = payload => ({ payload, type: FETCH_REPEAT_SUCCESS });
-export const fetchRepeatEventsError = payload => ({ payload, type: FETCH_REPEAT_ERROR });
-
-export const fetchNoRepeatEventsStarted = payload => ({ payload, type: FETCH_NO_REPEAT_START });
-export const fetchNoRepeatEventsSuccess = payload => ({ payload, type: FETCH_NO_REPEAT_SUCCESS });
-export const fetchNoRepeatEventsError = payload => ({ payload, type: FETCH_NO_REPEAT_ERROR });
+export const fetchEventsStarted = payload => ({ payload, type: FETCH_ALL_START });
+export const fetchEventsSuccess = payload => ({ payload, type: FETCH_ALL_SUCCESS });
+export const fetchEventsError = payload => ({ payload, type: FETCH_ALL_ERROR });
 
 /* thunk creators */
-export const fetchRepeatEventsFromAPI = () => {
+export const fetchEventsFromAPI = () => {
   return (dispatch) => {
-    dispatch(fetchRepeatEventsStarted());
+    dispatch(fetchEventsStarted());
+
     Axios
-      .get(`${api.url}/api/${api.events}?${api.repeatParam}`)
+      .get(`${api.url}/api/${api.events}`)
       .then(res => {
         const currentDate = DateTime.now().toISODate();
 
@@ -44,40 +34,16 @@ export const fetchRepeatEventsFromAPI = () => {
 
         for(let responseEvent of res.data) {
           const orderDate = responseEvent.date;
+
           if(orderDate === currentDate) {
             todayRepeatEvents.push(responseEvent);
           }
         }
 
-        dispatch(fetchRepeatEventsSuccess(todayRepeatEvents));
+        dispatch(fetchEventsSuccess(todayRepeatEvents));
       })
       .catch(err => {
-        dispatch(fetchRepeatEventsError(err.message || true));
-      });
-  };
-};
-
-export const fetchNoRepeatEventsFromAPI = () => {
-  return (dispatch) => {
-    dispatch(fetchNoRepeatEventsStarted());
-    Axios
-      .get(`${api.url}/api/${api.events}?${api.notRepeatParam}`)
-      .then(res => {
-        const currentDate = DateTime.now().toISODate();
-
-        let todayNoRepeatEvents = [];
-
-        for(let responseEvent of res.data) {
-          const orderDate = responseEvent.date;
-          if(orderDate === currentDate) {
-            todayNoRepeatEvents.push(responseEvent);
-          }
-        }
-
-        dispatch(fetchNoRepeatEventsSuccess(todayNoRepeatEvents));
-      })
-      .catch(err => {
-        dispatch(fetchNoRepeatEventsError(err.message || true));
+        dispatch(fetchEventsError(err.message || true));
       });
   };
 };
@@ -85,71 +51,31 @@ export const fetchNoRepeatEventsFromAPI = () => {
 /* reducer */
 export default function reducer(statePart = {}, action = {}) {
   switch (action.type) {
-    case FETCH_REPEAT_START: {
+    case FETCH_ALL_START: {
       return {
         ...statePart,
-        repeat: {
-          loading: {
-            active: true,
-            error: false,
-          },
+        loading: {
+          active: true,
+          error: false,
         },
       }
     }
-    case FETCH_REPEAT_SUCCESS: {
+    case FETCH_ALL_SUCCESS: {
       return {
         ...statePart,
-        repeat: {
-          loading: {
-            active: true,
-            error: false,
-          },
-          data: action.payload,
+        loading: {
+          active: true,
+          error: false,
         },
+        data: action.payload,
       }
     }
-    case FETCH_REPEAT_ERROR: {
+    case FETCH_ALL_ERROR: {
       return {
         ...statePart,
-        repeat: {
-          loading: {
-            active: true,
-            error: action.payload,
-          },
-        },
-      }
-    }
-    case FETCH_NO_REPEAT_START: {
-      return {
-        ...statePart,
-        noRepeat: {
-          loading: {
-            active: true,
-            error: false,
-          },
-        },
-      }
-    }
-    case FETCH_NO_REPEAT_SUCCESS: {
-      return {
-        ...statePart,
-        noRepeat: {
-          loading: {
-            active: true,
-            error: false,
-          },
-          data: action.payload,
-        },
-      }
-    }
-    case FETCH_NO_REPEAT_ERROR: {
-      return {
-        ...statePart,
-        noRepeat: {
-          loading: {
-            active: true,
-            error: action.payload,
-          },
+        loading: {
+          active: true,
+          error: action.payload,
         },
       }
     }

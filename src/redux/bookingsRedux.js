@@ -26,7 +26,7 @@ export const fetchBookingsFromAPI = () => {
     dispatch(fetchBookingsStarted());
 
     Axios
-      .get(`${api.url}/api/${api.bookings}?${api.notRepeatParam}`)
+      .get(`${api.url}/api/${api.bookings}`)
       .then(res => {
         const currentDate = DateTime.now().toISODate();
 

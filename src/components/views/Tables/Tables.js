@@ -19,16 +19,11 @@ import TableColumn from '../../features/TableColumn/TableColumn';
 
 class Tables extends React.Component {
   static propTypes = {
-    eventsRepeatLoading: PropTypes.shape({
+    eventsLoading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
-    fetchRepeatEvents: PropTypes.func,
-    eventsNoRepeatLoading: PropTypes.shape({
-      active: PropTypes.bool,
-      error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    }),
-    fetchNoRepeatEvents: PropTypes.func,
+    fetchEvents: PropTypes.func,
     bookingsLoading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -37,52 +32,40 @@ class Tables extends React.Component {
   }
 
   componentDidMount() {
-    const { fetchRepeatEvents, fetchNoRepeatEvents, fetchBookings } = this.props;
+    const { fetchEvents, fetchBookings } = this.props;
 
-    fetchRepeatEvents();
-    fetchNoRepeatEvents();
-
+    fetchEvents();
     fetchBookings();
   }
 
   render() {
-    const { eventsRepeatLoading, eventsNoRepeatLoading, bookingsLoading } = this.props;
+    const { eventsLoading, bookingsLoading } = this.props;
 
-    if(eventsRepeatLoading.active && eventsNoRepeatLoading.active && bookingsLoading.active) {
+    if(eventsLoading.active && bookingsLoading.active) {
       return (
         <Container>
-          <Backdrop open={eventsRepeatLoading.active && eventsNoRepeatLoading.active && bookingsLoading.active}>
+          <Backdrop open={eventsLoading.active && bookingsLoading.active}>
             <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>
       );
-    } else if(eventsRepeatLoading.error || eventsNoRepeatLoading.error || bookingsLoading.error) {
+    } else if(eventsLoading.error || bookingsLoading.error) {
       return (
         <Container>
-          {eventsRepeatLoading.error ? 
+          {eventsLoading.error &&
             <Box width={1/1} py='1rem'>
               <Alert severity='error' mt='2rem'>
                 <AlertTitle>Error!</AlertTitle>
-                {eventsRepeatLoading.error}
+                {eventsLoading.error}
               </Alert>
-            </Box>
-          : ''}
-          {eventsNoRepeatLoading.error ? 
-            <Box width={1/1} py='1rem'>
-              <Alert severity='error' mt='2rem'>
-                <AlertTitle>Error!</AlertTitle>
-                {eventsNoRepeatLoading.error}
-              </Alert>
-            </Box>
-          : ''}
-          {bookingsLoading.error  ? 
+            </Box>}
+          {bookingsLoading.error &&
             <Box width={1/1} py='1rem'>
               <Alert severity='error' mt='2rem'>
                 <AlertTitle>Error!</AlertTitle>
                 {bookingsLoading.error}
               </Alert>
-            </Box>
-          : ''}
+            </Box>}
         </Container>
       );
     } else {
