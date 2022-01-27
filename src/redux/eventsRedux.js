@@ -6,6 +6,8 @@ import { DateTime } from 'luxon';
 export const getAllEvents = ({events}) => events.data;
 export const getEventsLoadingState = ({events}) => events.loading;
 
+export const getMatchingEvent = ({events}, table, cellHour) => events.data.find(event => event.table === table.nr && event.hour === cellHour);
+
 /* action name creator */
 const reducerName = 'events';
 const createActionName = name => `app/${reducerName}/${name}`;

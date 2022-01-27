@@ -12,7 +12,7 @@ const TableHour = ({ id, openHour, cellHeight }) => {
     let hoursToAdd = 0;
 
     id === 1 ? (hoursToAdd = 0) : (hoursToAdd = (id - 1) / 2);
-
+    
     const displayedHour = DateTime.fromISO(openHour)
       .plus({ hours: hoursToAdd })
       .toLocaleString(DateTime.TIME_SIMPLE);

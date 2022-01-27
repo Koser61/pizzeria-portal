@@ -23,9 +23,9 @@ export const api = {
 };
 
 export const tables = [
-  { value: 'table1', label: 'Table 1' },
-  { value: 'table2', label: 'Table 2' },
-  { value: 'table3', label: 'Table 3' },
+  { nr: 1, value: 'table1', label: 'Table 1' },
+  { nr: 2, value: 'table2', label: 'Table 2' },
+  { nr: 3, value: 'table3', label: 'Table 3' },
 ];
 
 export const statusStyle = {

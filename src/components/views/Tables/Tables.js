@@ -71,7 +71,8 @@ class Tables extends React.Component {
     } else {
       const openHour = '12:00';
       const workingHours = 12;
-      const tableRows = workingHours * 2 + 1;
+      const timeInterval = 0.5;
+      const tableRows = workingHours / timeInterval + 1;
       const cellHeight = 45;
 
       return (
@@ -92,6 +93,8 @@ class Tables extends React.Component {
                       table={table}
                       borderRight={thisTableisLast}
                       tableRows={tableRows}
+                      openHour={openHour}
+                      timeInterval={timeInterval}
                       cellHeight={cellHeight}
                     />
                   </React.Fragment>

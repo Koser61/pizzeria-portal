@@ -6,6 +6,8 @@ import { DateTime } from 'luxon';
 export const getAllBookings = ({bookings}) => bookings.data;
 export const getBookingsLoadingState = ({bookings}) => bookings.loading;
 
+export const getMatchingBooking = ({bookings}, table, cellHour) => bookings.data.find(booking => booking.table === table.nr && booking.hour === cellHour);
+
 /* action name creator */
 const reducerName = 'bookings';
 const createActionName = name => `app/${reducerName}/${name}`;
