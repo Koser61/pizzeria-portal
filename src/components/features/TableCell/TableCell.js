@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 
 import { grey } from '@mui/material/colors';
 
-//import ReservationTile from '../../common/ReservationTile/ReservationTile';
+import ReservationTile from '../../common/ReservationTile/ReservationTile';
 
-const TableCell = ({ id, table, borderRight, cellHeight, event, booking }) => {
+const TableCell = ({ id, table, borderRight, cellHeight, timeInterval, event, booking }) => {
   return (
     <>
       {id === 1 ?
@@ -47,7 +47,26 @@ const TableCell = ({ id, table, borderRight, cellHeight, event, booking }) => {
             },
           }}
         >
-          
+          {event &&
+            <ReservationTile
+              cellHeight={cellHeight}
+              timeInterval={timeInterval}
+              id={event.id}
+              duration={event.duration}
+              repeat={event.repeat}
+              variant='event'
+            />
+          }
+          {booking &&
+            <ReservationTile
+              cellHeight={cellHeight}
+              timeInterval={timeInterval}
+              id={booking.id}
+              duration={booking.duration}
+              repeat={booking.repeat}
+              variant='booking'
+            />
+          }
         </Box>
       }
     </>
@@ -64,6 +83,7 @@ TableCell.propTypes = {
   cellHeight: PropTypes.number.isRequired,
   cellHour: PropTypes.string,
   borderRight: PropTypes.bool,
+  timeInterval: PropTypes.number,
   event: PropTypes.object,
   booking: PropTypes.object,
 };

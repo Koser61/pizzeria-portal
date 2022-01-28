@@ -39,6 +39,7 @@ const TableColumn = ({ table, borderRight, tableRows, openHour, timeInterval, ce
                 cellHour={cellHour}
                 borderRight={borderRight}
                 cellHeight={cellHeight}
+                timeInterval={timeInterval}
               />
             );
           }

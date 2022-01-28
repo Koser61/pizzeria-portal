@@ -4,7 +4,11 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import DoneIcon from '@mui/icons-material/Done';
 
-import { red, orange, yellow, green, lightGreen } from '@mui/material/colors';
+import EventIcon from '@mui/icons-material/Event';
+import EventRepeatIcon from '@mui/icons-material/EventRepeat';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+
+import { red, orange, yellow, green, lightGreen, deepOrange, blue } from '@mui/material/colors';
 
 export const api = {
   url: 'http://' + window.location.hostname + (window.location.hostname === 'localhost' ? ':3131' : ''),
@@ -54,5 +58,20 @@ export const statusStyle = {
     color: green[800],
     icon: <DoneIcon sx={{fill: 'white'}} />,
     label: 'Delivered',
+  },
+};
+
+export const reservationTileStyle = {
+  noRepeatEvent: {
+    bgColor: orange[800],
+    icon: <EventIcon />,
+  },
+  repeatEvent: {
+    bgColor: deepOrange[900],
+    icon: <EventRepeatIcon />,
+  },
+  booking: {
+    bgColor: blue[800],
+    icon: <EventNoteIcon />,
   },
 };
