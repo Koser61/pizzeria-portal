@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { Route, Switch } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Backdrop from '@mui/material/Backdrop';
@@ -10,12 +9,10 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Grid from '@mui/material/Grid';
 
-import { tables } from '../../../settings';
-
-//import Booking from '../Booking/Booking';
-//import Event from '../Event/Event';
 import TableHourColumn from '../../features/TableHourColumn/TableHourColumn';
 import TableColumn from '../../features/TableColumn/TableColumn';
+
+import { tables } from '../../../settings';
 
 class Tables extends React.Component {
   static propTypes = {
@@ -102,13 +99,6 @@ class Tables extends React.Component {
               })}
             </Grid>
           </Box>
-          
-          {/*
-            <Switch>
-              <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
-              <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
-            </Switch>
-          */}
         </Container>
       );
     }
