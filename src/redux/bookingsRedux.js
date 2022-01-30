@@ -8,6 +8,14 @@ export const getBookingsLoadingState = ({bookings}) => bookings.loading;
 
 export const getMatchingBooking = ({bookings}, table, cellHour) => bookings.data.find(booking => booking.table === table.nr && booking.hour === cellHour);
 
+export const getBookingDateById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).date;
+export const getBookingHourById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).hour;
+export const getBookingTableById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).table;
+export const getBookingRepeatById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).repeat;
+export const getBookingDurationById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).duration;
+export const getBookingPplById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).ppl;
+export const getBookingStartersById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).starters;
+
 /* action name creator */
 const reducerName = 'bookings';
 const createActionName = name => `app/${reducerName}/${name}`;

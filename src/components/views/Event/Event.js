@@ -1,11 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from './Event.scss';
+import Reservation from '../../features/Reservation/Reservation';
 
-const Event = (props) => (
-  <div className={styles.component}>
-      <h2>{props.match.params.id}</h2>
-  </div>
+const Event = ({ match: { params: { id } } }) => (
+  <>
+    <Reservation type='event' id={parseInt(id)} />
+  </>
 );
+
+Event.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
 
 export default Event;

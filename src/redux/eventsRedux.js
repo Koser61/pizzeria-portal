@@ -8,6 +8,14 @@ export const getEventsLoadingState = ({events}) => events.loading;
 
 export const getMatchingEvent = ({events}, table, cellHour) => events.data.find(event => event.table === table.nr && event.hour === cellHour);
 
+export const getEventDateById = ({events}, id) => events.data.find(event => event.id === id).date;
+export const getEventHourById = ({events}, id) => events.data.find(event => event.id === id).hour;
+export const getEventTableById = ({events}, id) => events.data.find(event => event.id === id).table;
+export const getEventRepeatById = ({events}, id) => events.data.find(event => event.id === id).repeat;
+export const getEventDurationById = ({events}, id) => events.data.find(event => event.id === id).duration;
+export const getEventPplById = ({events}, id) => events.data.find(event => event.id === id).ppl;
+export const getEventStartersById = ({events}, id) => events.data.find(event => event.id === id).starters;
+
 /* action name creator */
 const reducerName = 'events';
 const createActionName = name => `app/${reducerName}/${name}`;

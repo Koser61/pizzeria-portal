@@ -1,11 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from './Booking.scss';
+import Reservation from '../../features/Reservation/Reservation';
 
-const Booking = (props) => (
-  <div className={styles.component}>
-      <h2>{props.match.params.id}</h2>
-  </div>
+const Booking = ({ match: { params: { id } } }) => (
+  <>
+    <Reservation type='booking' id={parseInt(id)} />
+  </>
 );
+
+Booking.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
 
 export default Booking;
