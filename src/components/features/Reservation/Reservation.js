@@ -25,12 +25,12 @@ const Reservation = ({ type, id }) => {
             <Grid container>
               <Grid container item xs={12} sm={6} justifyContent='center'>
                 <Grid item mx={1}>
-                  <ReservationDatePicker />
+                  <ReservationDatePicker type={type} id={id} />
                 </Grid>
               </Grid>
               <Grid container item xs={12} sm={6} justifyContent='center'>
                 <Grid item sx={{ mt: { xs: 2, sm: 0 } }} marginTop={2} mx={1}>
-                  <ReservationTimePicker />
+                  <ReservationTimePicker type={type} id={id} />
                 </Grid>
               </Grid>
             </Grid>
@@ -47,10 +47,10 @@ const Reservation = ({ type, id }) => {
                   }}
                 >
                   <Box width={1/1} maxWidth={246} mx='auto'>
-                    <ReservationTableSelect />
+                    <ReservationTableSelect type={type} id={id} />
                   </Box>
                   <Box width={1/1} maxWidth={246} mx='auto' sx={{ mt: {xs: 3, md: 0} }}>
-                    <ReservationRepeatSelect />
+                    <ReservationRepeatSelect type={type} id={id} />
                   </Box>
                 </Box>
               </Grid>
@@ -63,7 +63,7 @@ const Reservation = ({ type, id }) => {
                   display='flex'
                   justifyContent='center'
                 >
-                  <ReservationDurationAmount />
+                  <ReservationDurationAmount type={type} id={id} />
                 </Box>
               </Grid>
             </Grid>
@@ -72,12 +72,12 @@ const Reservation = ({ type, id }) => {
             <Grid container>
               <Grid item xs={12} sm={6}>
                 <Box height={1/1} display='flex' justifyContent='center' alignItems='center'>
-                  <ReservationPeopleAmount />
+                  <ReservationPeopleAmount type={type} id={id} />
                 </Box>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Box display='flex' justifyContent='center' alignItems='center'>
-                  <ReservationStartersCheckboxes />
+                  <ReservationStartersCheckboxes type={type} id={id} />
                 </Box>
               </Grid>
             </Grid>
@@ -93,7 +93,7 @@ const Reservation = ({ type, id }) => {
 };
 
 Reservation.propTypes = {
-  type: PropTypes.oneOf(['event', 'booking']).isRequired, // used to conditionally: get event or booking data, changeView in navRedux
+  type: PropTypes.oneOf(['event', 'booking']).isRequired,
   id: PropTypes.number.isRequired,
 };
 

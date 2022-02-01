@@ -8,10 +8,15 @@ import ordersReducer from './ordersRedux';
 import orderingReducer from './orderingRedux';
 import eventsReducer from './eventsRedux';
 import bookingsReducer from './bookingsRedux';
+import reservationReducer from './reservationRedux';
 import kitchenReducer from './kitchenRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
+  nav: {
+    currentView: '',
+    drawerOpen: false,
+  },
   products: {
     loading: {
       active: false,
@@ -34,24 +39,6 @@ const initialState = {
       error: false,
     },
     data: [],
-  },
-  events: {
-    loading: {
-      active: false,
-      error: false,
-    },
-    data: [],
-  },
-  bookings: {
-    loading: {
-      active: false,
-      error: false,
-    },
-    data: [],
-  },
-  nav: {
-    currentView: '',
-    drawerOpen: false,
   },
   ordering: {
     table: '',
@@ -173,11 +160,25 @@ const initialState = {
       products: [],
     },
   },
-  /*reservation: {
+  events: {
+    loading: {
+      active: false,
+      error: false,
+    },
+    data: [],
+  },
+  bookings: {
+    loading: {
+      active: false,
+      error: false,
+    },
+    data: [],
+  },
+  reservation: {
     saveDataChanges: {
       active: false,
       error: false,
-      dataChanged: false,
+      dataHasChanged: false,
     },
     date: '',
     hour: '',
@@ -186,7 +187,7 @@ const initialState = {
     duration: 1,
     ppl: 1,
     starters: [],
-  },*/
+  },
   kitchen: {
     changeOrderStatus: {
       active: false,
@@ -212,12 +213,13 @@ const initialState = {
 
 // define reducers
 const reducers = {
+  nav: navReducer,
   products: productsReducer,
   orders: ordersReducer,
+  ordering: orderingReducer,
   events: eventsReducer,
   bookings: bookingsReducer,
-  nav: navReducer,
-  ordering: orderingReducer,
+  reservation: reservationReducer,
   kitchen: kitchenReducer,
 };
 
