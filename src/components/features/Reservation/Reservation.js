@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 
-import ReservationDatePicker from '../../common/ReservationDatePicker/ReservationDatePicker';
+import ReservationDatePicker from '../../common/ReservationDatePicker/ReservationDatePickerContainer';
 import ReservationTimePicker from '../../common/ReservationTimePicker/ReservationTimePicker';
 import ReservationTableSelect from '../../common/ReservationTableSelect/ReservationTableSelect';
 import ReservationRepeatSelect from '../../common/ReservationRepeatSelect/ReservationRepeatSelect';
@@ -84,7 +84,7 @@ const Reservation = ({ type, id }) => {
           </Card>
           <Divider sx={{ my: 2 }} />
           <Box width={1/1} display='inline-flex' justifyContent='flex-end'>
-            <ReservationSubmitButton />
+            <ReservationSubmitButton type={type} id={id} />
           </Box>
         </Card>
       </Box>
