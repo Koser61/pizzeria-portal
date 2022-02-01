@@ -173,6 +173,20 @@ const initialState = {
       products: [],
     },
   },
+  /*reservation: {
+    saveDataChanges: {
+      active: false,
+      error: false,
+      dataChanged: false,
+    },
+    date: '',
+    hour: '',
+    table: 1,
+    repeat: '',
+    duration: 1,
+    ppl: 1,
+    starters: [],
+  },*/
   kitchen: {
     changeOrderStatus: {
       active: false,
