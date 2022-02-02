@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 
 import ReservationDatePicker from '../../common/ReservationDatePicker/ReservationDatePickerContainer';
 import ReservationTimePicker from '../../common/ReservationTimePicker/ReservationTimePicker';
-import ReservationTableSelect from '../../common/ReservationTableSelect/ReservationTableSelect';
+import ReservationTableSelect from '../../common/ReservationTableSelect/ReservationTableSelectContainer';
 import ReservationRepeatSelect from '../../common/ReservationRepeatSelect/ReservationRepeatSelect';
 import ReservationDurationAmount from '../../common/ReservationDurationAmount/ReservationDurationAmount';
 import ReservationPeopleAmount from '../../common/ReservationPeopleAmount/ReservationPeopleAmount';
