@@ -11,7 +11,7 @@ import ReservationDatePicker from '../../common/ReservationDatePicker/Reservatio
 import ReservationTimePicker from '../../common/ReservationTimePicker/ReservationTimePicker';
 import ReservationTableSelect from '../../common/ReservationTableSelect/ReservationTableSelectContainer';
 import ReservationRepeatSelect from '../../common/ReservationRepeatSelect/ReservationRepeatSelectContainer';
-import ReservationDurationAmount from '../../common/ReservationDurationAmount/ReservationDurationAmount';
+import ReservationDurationAmount from '../../common/ReservationDurationAmount/ReservationDurationAmountContainer';
 import ReservationPeopleAmount from '../../common/ReservationPeopleAmount/ReservationPeopleAmount';
 import ReservationStartersCheckboxes from '../../common/ReservationStartersCheckboxes/ReservationStartersCheckboxes';
 import ReservationSubmitButton from '../../common/ReservationSubmitButton/ReservationSubmitButton';
