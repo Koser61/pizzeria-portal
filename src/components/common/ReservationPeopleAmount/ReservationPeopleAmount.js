@@ -24,7 +24,7 @@ class ReservationPeopleAmount extends React.Component {
     changePeopleAmount(initialPeopleAmount);
   }
 
-  handleDurationDecrement(currentPeopleAmount) {
+  handlePeopleDecrement(currentPeopleAmount) {
     const { changePeopleAmount } = this.props;
 
     if (currentPeopleAmount > 1) {
@@ -34,7 +34,7 @@ class ReservationPeopleAmount extends React.Component {
     }
   }
 
-  handleDurationIncrement(currentPeopleAmount) {
+  handlePeopleIncrement(currentPeopleAmount) {
     const { changePeopleAmount } = this.props;
 
     if (currentPeopleAmount < 4) {
