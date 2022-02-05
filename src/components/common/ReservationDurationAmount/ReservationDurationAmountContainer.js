@@ -21,11 +21,11 @@ const mapStateToProps = (state, { type, id }) => {
 const mapDispatchToProps = (dispatch, { type }) => {
   if (type === 'event') {
     return {
-      changeDuration: (newDate) => dispatch(changeDuration(newDate)),
+      changeDuration: (newDuration) => dispatch(changeDuration(newDuration)),
     };
   } else if (type === 'booking') {
     return {
-      changeDuration: (newDate) => dispatch(changeDuration(newDate)),
+      changeDuration: (newDuration) => dispatch(changeDuration(newDuration)),
     };
   }
 };

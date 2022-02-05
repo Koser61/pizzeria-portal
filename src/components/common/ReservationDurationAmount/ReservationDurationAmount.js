@@ -32,7 +32,7 @@ class ReservationDurationAmount extends React.Component {
     } else {
       return;
     }
-  };
+  }
 
   handleDurationIncrement(currentDuration) {
     const { changeDuration } = this.props;
@@ -42,7 +42,7 @@ class ReservationDurationAmount extends React.Component {
     } else {
       return;
     }
-  };
+  }
 
   render() {
     const { duration } = this.props;
