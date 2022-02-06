@@ -8,7 +8,7 @@ import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 
 import ReservationDatePicker from '../../common/ReservationDatePicker/ReservationDatePickerContainer';
-import ReservationTimePicker from '../../common/ReservationTimePicker/ReservationTimePicker';
+import ReservationTimePicker from '../../common/ReservationTimePicker/ReservationTimePickerContainer';
 import ReservationTableSelect from '../../common/ReservationTableSelect/ReservationTableSelectContainer';
 import ReservationRepeatSelect from '../../common/ReservationRepeatSelect/ReservationRepeatSelectContainer';
 import ReservationDurationAmount from '../../common/ReservationDurationAmount/ReservationDurationAmountContainer';
