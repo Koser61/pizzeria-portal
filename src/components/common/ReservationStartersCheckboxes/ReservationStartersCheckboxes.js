@@ -47,7 +47,7 @@ class ReservationStartersCheckboxes extends React.Component {
             control={
               <Checkbox
                 checked={bread}
-                onChange={(event) => changeBread(event.target.value)}
+                onChange={(event) => changeBread(event.target.checked)}
                 name='bread'
               />
             }
@@ -57,7 +57,7 @@ class ReservationStartersCheckboxes extends React.Component {
             control={
               <Checkbox
                 checked={lemonWater}
-                onChange={(event) => changeLemonWater(event.target.value)}
+                onChange={(event) => changeLemonWater(event.target.checked)}
                 name='lemonWater'
               />
             }
