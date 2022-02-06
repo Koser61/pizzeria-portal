@@ -13,7 +13,7 @@ import ReservationTableSelect from '../../common/ReservationTableSelect/Reservat
 import ReservationRepeatSelect from '../../common/ReservationRepeatSelect/ReservationRepeatSelectContainer';
 import ReservationDurationAmount from '../../common/ReservationDurationAmount/ReservationDurationAmountContainer';
 import ReservationPeopleAmount from '../../common/ReservationPeopleAmount/ReservationPeopleAmountContainer';
-import ReservationStartersCheckboxes from '../../common/ReservationStartersCheckboxes/ReservationStartersCheckboxes';
+import ReservationStartersCheckboxes from '../../common/ReservationStartersCheckboxes/ReservationStartersCheckboxesContainer';
 import ReservationSubmitButton from '../../common/ReservationSubmitButton/ReservationSubmitButton';
 
 const Reservation = ({ type, id }) => {

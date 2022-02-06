@@ -186,7 +186,10 @@ const initialState = {
     repeat: '',
     duration: 1,
     ppl: 1,
-    starters: [],
+    starters: {
+      bread: false,
+      lemonWater: false,
+    },
   },
   kitchen: {
     changeOrderStatus: {
