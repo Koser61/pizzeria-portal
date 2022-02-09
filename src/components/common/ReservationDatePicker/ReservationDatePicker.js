@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 
 import TextField from '@mui/material/TextField';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -23,12 +23,17 @@ class ReservationDatePicker extends React.Component {
   }
 
   render() {
-    const { date, changeDate } = this.props;
+    const { initialDate, date, changeDate } = this.props;
+
+    const minDate = DateTime.fromISO(initialDate);
+    const maxDate = minDate.plus({ days: 14 });
 
     return (
       <LocalizationProvider dateAdapter={DateAdapter}>
         <DatePicker
           label='Date'
+          minDate={minDate}
+          maxDate={maxDate}
           value={date}
           onChange={(newDate) => {
             changeDate(newDate);
