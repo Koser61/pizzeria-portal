@@ -31,6 +31,12 @@ class ReservationTimePicker extends React.Component {
       <LocalizationProvider dateAdapter={DateAdapter}>
         <TimePicker
           ampm={false}
+          minTime={DateTime.fromISO('12:00')}
+          maxTime={DateTime.fromISO('23:00')}
+          minutesStep={30}
+          shouldDisableTime={(timeValue, clockType) => {
+            return clockType === 'minutes' && (timeValue !== 0 && timeValue !== 30);
+          }}
           label='Hour'
           value={hour}
           onChange={(newHour) => {
