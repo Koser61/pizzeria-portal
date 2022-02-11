@@ -14,7 +14,7 @@ import ReservationRepeatSelect from '../../common/ReservationRepeatSelect/Reserv
 import ReservationDurationAmount from '../../common/ReservationDurationAmount/ReservationDurationAmountContainer';
 import ReservationPeopleAmount from '../../common/ReservationPeopleAmount/ReservationPeopleAmountContainer';
 import ReservationStartersCheckboxes from '../../common/ReservationStartersCheckboxes/ReservationStartersCheckboxesContainer';
-import ReservationSubmitButton from '../../common/ReservationSubmitButton/ReservationSubmitButton';
+import ReservationSubmitButton from '../../common/ReservationSubmitButton/ReservationSubmitButtonContainer';
 
 const Reservation = ({ type, id }) => {
   return (

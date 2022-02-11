@@ -178,10 +178,9 @@ const initialState = {
     saveDataChanges: {
       active: false,
       error: false,
-      dataHasChanged: false,
     },
-    date: '',
-    hour: '',
+    date: {},
+    hour: {},
     table: 1,
     repeat: '',
     duration: 1,

@@ -12,14 +12,14 @@ class ReservationDatePicker extends React.Component {
     type: PropTypes.oneOf(['event', 'booking']).isRequired,
     id: PropTypes.number.isRequired,
     initialDate: PropTypes.string.isRequired,
-    date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    date: PropTypes.object,
     changeDate: PropTypes.func,
   }
 
   componentDidMount() {
     const { initialDate, changeDate } = this.props;
 
-    changeDate(initialDate);
+    changeDate(DateTime.fromISO(initialDate));
   }
 
   render() {

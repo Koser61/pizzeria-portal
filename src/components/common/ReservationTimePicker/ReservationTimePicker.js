@@ -12,7 +12,7 @@ class ReservationTimePicker extends React.Component {
     type: PropTypes.oneOf(['event', 'booking']).isRequired,
     id: PropTypes.number.isRequired,
     initialHour: PropTypes.string.isRequired,
-    hour: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    hour: PropTypes.object,
     changeHour: PropTypes.func,
   }
 
