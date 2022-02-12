@@ -44,12 +44,20 @@ export const saveDataChangesSuccess = payload => ({ payload, type: SAVE_DATA_CHA
 export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANGES_ERROR });
 
 /* thunk creators */
-export const saveDataChangesToAPI = (type, id, changedData) => {
+export const saveDataChangesInAPI = (type, id, changedData) => {
   return (dispatch) => {
     dispatch(saveDataChangesStarted());
 
+    let reservationURL = '';
+
+    if(type === 'booking') {
+      reservationURL = api.bookings;
+    } else if(type === 'event') {
+      reservationURL = api.events;
+    }
+    
     Axios
-      .put(`${api.url}/api/${type}s/${id}`, changedData)
+      .put(`${api.url}/api/${reservationURL}/${id}`, changedData)
       .then(() => {
         dispatch(saveDataChangesSuccess());
       })

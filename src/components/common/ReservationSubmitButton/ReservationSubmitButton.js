@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 import SaveIcon from '@mui/icons-material/Save';
 
-const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl, breadStarter, lemonWaterStarter }) => {
+const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl, breadStarter, lemonWaterStarter, saveDataChanges }) => {
   const prepareDataObject = () => {
     const parseDate = () => {
       return DateTime.fromISO(date).toISODate();
@@ -44,13 +44,15 @@ const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl,
       starters: parseStarters(),
     };
 
-    console.log('dataObject', dataObject);
+    return dataObject;
   };
 
   const handleClick = (event) => {
     event.preventDefault();
 
-    prepareDataObject();
+    const changedData = prepareDataObject();
+
+    saveDataChanges(changedData);
   };
 
   return (
@@ -76,6 +78,7 @@ ReservationSubmitButton.propTypes = {
   ppl: PropTypes.number,
   breadStarter: PropTypes.bool,
   lemonWaterStarter: PropTypes.bool,
+  saveDataChanges: PropTypes.func,
 };
 
 export default ReservationSubmitButton;

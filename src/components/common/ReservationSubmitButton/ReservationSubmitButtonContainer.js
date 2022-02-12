@@ -9,6 +9,7 @@ import {
   getPeople,
   getBreadStarter,
   getLemonWaterStarter,
+  saveDataChangesInAPI
 } from '../../../redux/reservationRedux';
 
 const mapStateToProps = (state) => ({
@@ -22,4 +23,8 @@ const mapStateToProps = (state) => ({
   lemonWaterStarter: getLemonWaterStarter(state),
 });
 
-export default connect(mapStateToProps)(ReservationSubmitButton);
+const mapDispatchToProps = (dispatch, { type, id }) => ({
+  saveDataChanges: (changedData) => dispatch(saveDataChangesInAPI(type, id, changedData)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReservationSubmitButton);
