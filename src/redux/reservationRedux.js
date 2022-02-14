@@ -25,6 +25,10 @@ const CHANGE_PEOPLE = createActionName('CHANGE_PEOPLE');
 const CHANGE_BREAD_STARTER = createActionName('CHANGE_BREAD_STARTER');
 const CHANGE_LEMON_WATER_STARTER = createActionName('CHANGE_LEMON_WATER_STARTER');
 
+const FETCH_NO_REPEAT_TABLE_RESERVATIONS_START = createActionName('FETCH_NO_REPEAT_TABLE_RESERVATIONS_START');
+const FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS');
+const FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR');
+
 const SAVE_DATA_CHANGES_START = createActionName('SAVE_DATA_CHANGES_START');
 const SAVE_DATA_CHANGES_SUCCESS = createActionName('SAVE_DATA_CHANGES_SUCCESS');
 const SAVE_DATA_CHANGES_ERROR = createActionName('SAVE_DATA_CHANGES_ERROR');
@@ -39,11 +43,48 @@ export const changePeople = payload => ({ payload, type: CHANGE_PEOPLE });
 export const changeBreadStarter = payload => ({ payload, type: CHANGE_BREAD_STARTER });
 export const changeLemonWaterStarter = payload => ({ payload, type: CHANGE_LEMON_WATER_STARTER });
 
+export const fetchNoRepeatTableReservationsStarted = payload => ({ payload, type: FETCH_NO_REPEAT_TABLE_RESERVATIONS_START });
+export const fetchNoRepeatTableReservationsSuccess = payload => ({ payload, type: FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS });
+export const fetchNoRepeatTableReservationsError = payload => ({ payload, type: FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR });
+
 export const saveDataChangesStarted = payload => ({ payload, type: SAVE_DATA_CHANGES_START });
 export const saveDataChangesSuccess = payload => ({ payload, type: SAVE_DATA_CHANGES_SUCCESS });
 export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANGES_ERROR });
 
 /* thunk creators */
+export const fetchNoRepeatTableReservationsFromAPI = (type, id, table, date) => {
+  return (dispatch) => {
+    dispatch(fetchNoRepeatTableReservationsStarted());
+    
+    const tableMatchParam = `${api.tableEqualParamKey}${table}`;
+    const dateMatchParam = `${api.dateEqualParamKey}${date}`;
+
+    let eventsIdParam = '';
+    let bookingsIdParam = '';
+
+    if(type === 'event') {
+      eventsIdParam = `${api.idNotEqualParamKey}${id}`;
+    } else if(type === 'booking') {
+      bookingsIdParam = `${api.idNotEqualParamKey}${id}`;
+    }
+
+    const urls = [
+      `${api.url}/api/${api.events}?${eventsIdParam}&${tableMatchParam}&${api.notRepeatParam}&${dateMatchParam}`,
+      `${api.url}/api/${api.bookings}?${bookingsIdParam}&${tableMatchParam}&${dateMatchParam}`
+    ];
+
+    Promise.all(urls.map((url) => Axios.get(url)))
+      .then(([{data: events}, {data: bookings}]) => {
+        const dataArray = [...events, ...bookings];
+
+        dispatch(fetchNoRepeatTableReservationsSuccess(dataArray));
+      }
+      ).catch((err) => {
+        dispatch(fetchNoRepeatTableReservationsError(err.message || true));
+      });
+  }
+};
+
 export const saveDataChangesInAPI = (type, id, changedData) => {
   return (dispatch) => {
     dispatch(saveDataChangesStarted());
@@ -124,11 +165,46 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
+    case FETCH_NO_REPEAT_TABLE_RESERVATIONS_START: {
+      return {
+        ...statePart,
+        noRepeatTableReservations: {
+          ...statePart.noRepeatTableReservations,
+          loading: {
+            active: true,
+            error: false,
+          },
+        },
+      }
+    }
+    case FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS: {
+      return {
+        ...statePart,
+        noRepeatTableReservations: {
+          loading: {
+            active: false,
+            error: false,
+          },
+          data: action.payload,
+        },
+      }
+    }
+    case FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR: {
+      return {
+        ...statePart,
+        noRepeatTableReservations: {
+          ...statePart.noRepeatTableReservations,
+          loading: {
+            active: true,
+            error: action.payload,
+          },
+        },
+      }
+    }
     case SAVE_DATA_CHANGES_START: {
       return {
         ...statePart,
         saveDataChanges: {
-          ...statePart.saveDataChanges,
           active: true,
           error: false,
         },
@@ -138,7 +214,6 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         saveDataChanges: {
-          ...statePart.saveDataChanges,
           active: false,
           error: false,
         },
@@ -148,7 +223,6 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         saveDataChanges: {
-          ...statePart.saveDataChanges,
           active: true,
           error: action.payload,
         },

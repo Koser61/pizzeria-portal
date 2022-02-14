@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 import SaveIcon from '@mui/icons-material/Save';
 
-const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl, breadStarter, lemonWaterStarter, saveDataChanges }) => {
+const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl, breadStarter, lemonWaterStarter, fetchNoRepeatTableReservations, saveDataChanges }) => {
   const prepareDataObject = () => {
     const parseDate = () => {
       return DateTime.fromISO(date).toISODate();
@@ -47,12 +47,20 @@ const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl,
     return dataObject;
   };
 
+  const dataIsValid = (dataObject) => {
+    fetchNoRepeatTableReservations(dataObject.table, dataObject.date);
+  };
+
   const handleClick = (event) => {
     event.preventDefault();
 
-    const changedData = prepareDataObject();
+    const dataObject = prepareDataObject();
 
-    saveDataChanges(changedData);
+    dataIsValid(dataObject); // fetchNoRepeat test
+
+    /*if(dataIsValid(dataObject)) {
+      saveDataChanges(dataObject);
+    }*/
   };
 
   return (
@@ -78,6 +86,7 @@ ReservationSubmitButton.propTypes = {
   ppl: PropTypes.number,
   breadStarter: PropTypes.bool,
   lemonWaterStarter: PropTypes.bool,
+  fetchNoRepeatTableReservations: PropTypes.func,
   saveDataChanges: PropTypes.func,
 };
 

@@ -16,6 +16,8 @@ export const api = {
   orders: 'orders',
   bookings: 'bookings',
   events: 'events',
+  idNotEqualParamKey: 'id_ne=',
+  dateEqualParamKey: 'date=',
   dateStartParamKey: 'date_gte',
   dateEndParamKey: 'date_lte',
   notRepeatParam: 'repeat=false',
@@ -23,6 +25,7 @@ export const api = {
   notDoneParam: 'status_ne=done',
   notCancelledParam: 'status_ne=cancelled',
   statusOrderedParam: 'status=ordered',
+  tableEqualParamKey: 'table=',
   sortByOrderTimeParam: '_sort=orderTime',
 };
 

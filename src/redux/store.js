@@ -175,6 +175,13 @@ const initialState = {
     data: [],
   },
   reservation: {
+    noRepeatTableReservations: {
+      loading: {
+        active: false,
+        error: false,
+      },
+      data: [],
+    },
     saveDataChanges: {
       active: false,
       error: false,
