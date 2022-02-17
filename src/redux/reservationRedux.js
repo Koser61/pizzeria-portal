@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { api } from '../settings';
+import { DateTime } from 'luxon';
 
 /* selectors */
 export const getDate = ({reservation}) => reservation.date;
@@ -25,9 +26,9 @@ const CHANGE_PEOPLE = createActionName('CHANGE_PEOPLE');
 const CHANGE_BREAD_STARTER = createActionName('CHANGE_BREAD_STARTER');
 const CHANGE_LEMON_WATER_STARTER = createActionName('CHANGE_LEMON_WATER_STARTER');
 
-const FETCH_NO_REPEAT_TABLE_RESERVATIONS_START = createActionName('FETCH_NO_REPEAT_TABLE_RESERVATIONS_START');
-const FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS');
-const FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR');
+const FETCH_TABLE_RESERVATIONS_START = createActionName('FETCH_TABLE_RESERVATIONS_START');
+const FETCH_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_TABLE_RESERVATIONS_SUCCESS');
+const FETCH_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_TABLE_RESERVATIONS_ERROR');
 
 const SAVE_DATA_CHANGES_START = createActionName('SAVE_DATA_CHANGES_START');
 const SAVE_DATA_CHANGES_SUCCESS = createActionName('SAVE_DATA_CHANGES_SUCCESS');
@@ -43,44 +44,58 @@ export const changePeople = payload => ({ payload, type: CHANGE_PEOPLE });
 export const changeBreadStarter = payload => ({ payload, type: CHANGE_BREAD_STARTER });
 export const changeLemonWaterStarter = payload => ({ payload, type: CHANGE_LEMON_WATER_STARTER });
 
-export const fetchNoRepeatTableReservationsStarted = payload => ({ payload, type: FETCH_NO_REPEAT_TABLE_RESERVATIONS_START });
-export const fetchNoRepeatTableReservationsSuccess = payload => ({ payload, type: FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS });
-export const fetchNoRepeatTableReservationsError = payload => ({ payload, type: FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR });
+export const fetchTableReservationsStarted = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_START });
+export const fetchTableReservationsSuccess = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_SUCCESS });
+export const fetchTableReservationsError = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_ERROR });
 
 export const saveDataChangesStarted = payload => ({ payload, type: SAVE_DATA_CHANGES_START });
 export const saveDataChangesSuccess = payload => ({ payload, type: SAVE_DATA_CHANGES_SUCCESS });
 export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANGES_ERROR });
 
 /* thunk creators */
-export const fetchNoRepeatTableReservationsFromAPI = (type, id, table, date) => {
+export const fetchTableReservationsFromAPI = (type, id, table, date, initialRepeat) => {
+  /* 
+    NEED TO CHANGE FUNC: 
+    TO LOAD ALL TABLES RESERVATIONS FROM SELECTED DATE 
+    FOR LATER ALERT SHOWING USER WHICH TABLES ARE AVAILABLE AT WHICH TIME -
+    - (IF SELECTED TABLE IS NOT AVAILABLE)
+  */
   return (dispatch) => {
-    dispatch(fetchNoRepeatTableReservationsStarted());
+    dispatch(fetchTableReservationsStarted());
     
-    const tableMatchParam = `${api.tableEqualParamKey}${table}`;
+    const excludeIdParam = `${api.idNotEqualParamKey}${id}`;
     const dateMatchParam = `${api.dateEqualParamKey}${date}`;
+    const today = DateTime.now().toISODate();
 
-    let eventsIdParam = '';
+    let eventsRepeatIdParam = '';
+    let eventsCurrentIdParam = '';
     let bookingsIdParam = '';
 
-    if(type === 'event') {
-      eventsIdParam = `${api.idNotEqualParamKey}${id}`;
-    } else if(type === 'booking') {
-      bookingsIdParam = `${api.idNotEqualParamKey}${id}`;
+    if(date === today) {
+      if(type === 'event') {
+        eventsRepeatIdParam = excludeIdParam;
+        eventsCurrentIdParam = excludeIdParam;
+      } else if(type === 'booking') {
+        bookingsIdParam = excludeIdParam;
+      }
+    } else if(type === 'event' && initialRepeat === 'daily') {
+      eventsRepeatIdParam = excludeIdParam;
     }
 
     const urls = [
-      `${api.url}/api/${api.events}?${eventsIdParam}&${tableMatchParam}&${api.notRepeatParam}&${dateMatchParam}`,
-      `${api.url}/api/${api.bookings}?${bookingsIdParam}&${tableMatchParam}&${dateMatchParam}`
+      `${api.url}/api/${api.events}?${api.repeatParam}&${eventsRepeatIdParam}`,
+      `${api.url}/api/${api.events}?${api.notRepeatParam}&${dateMatchParam}&${eventsCurrentIdParam}`,
+      `${api.url}/api/${api.bookings}?${dateMatchParam}&${bookingsIdParam}`
     ];
 
     Promise.all(urls.map((url) => Axios.get(url)))
-      .then(([{data: events}, {data: bookings}]) => {
-        const dataArray = [...events, ...bookings];
+      .then(([{data: eventsRepeat}, {data: eventsCurrent}, {data: bookings}]) => {
+        const dataArray = [...eventsRepeat, ...eventsCurrent, ...bookings];
 
-        dispatch(fetchNoRepeatTableReservationsSuccess(dataArray));
+        dispatch(fetchTableReservationsSuccess(dataArray));
       }
       ).catch((err) => {
-        dispatch(fetchNoRepeatTableReservationsError(err.message || true));
+        dispatch(fetchTableReservationsError(err.message || true));
       });
   }
 };
@@ -165,11 +180,11 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_NO_REPEAT_TABLE_RESERVATIONS_START: {
+    case FETCH_TABLE_RESERVATIONS_START: {
       return {
         ...statePart,
-        noRepeatTableReservations: {
-          ...statePart.noRepeatTableReservations,
+        tableReservations: {
+          ...statePart.tableReservations,
           loading: {
             active: true,
             error: false,
@@ -177,23 +192,24 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_NO_REPEAT_TABLE_RESERVATIONS_SUCCESS: {
+    case FETCH_TABLE_RESERVATIONS_SUCCESS: {
       return {
         ...statePart,
-        noRepeatTableReservations: {
+        tableReservations: {
           loading: {
             active: false,
             error: false,
           },
+          loaded: true,
           data: action.payload,
         },
       }
     }
-    case FETCH_NO_REPEAT_TABLE_RESERVATIONS_ERROR: {
+    case FETCH_TABLE_RESERVATIONS_ERROR: {
       return {
         ...statePart,
-        noRepeatTableReservations: {
-          ...statePart.noRepeatTableReservations,
+        tableReservations: {
+          ...statePart.tableReservations,
           loading: {
             active: true,
             error: action.payload,

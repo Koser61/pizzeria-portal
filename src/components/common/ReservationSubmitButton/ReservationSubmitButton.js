@@ -6,7 +6,20 @@ import Button from '@mui/material/Button';
 
 import SaveIcon from '@mui/icons-material/Save';
 
-const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl, breadStarter, lemonWaterStarter, fetchNoRepeatTableReservations, saveDataChanges }) => {
+const ReservationSubmitButton = ({
+  id,
+  date,
+  hour,
+  table,
+  repeat,
+  duration,
+  ppl,
+  breadStarter,
+  lemonWaterStarter,
+  initialRepeat,
+  fetchTableReservations,
+  saveDataChanges
+}) => {
   const prepareDataObject = () => {
     const parseDate = () => {
       return DateTime.fromISO(date).toISODate();
@@ -48,7 +61,9 @@ const ReservationSubmitButton = ({ id, date, hour, table, repeat, duration, ppl,
   };
 
   const dataIsValid = (dataObject) => {
-    fetchNoRepeatTableReservations(dataObject.table, dataObject.date);
+    /*  */
+    fetchTableReservations(dataObject.table, dataObject.date, initialRepeat);
+    /* NEED TO FIND A WAY TO JOIN ARRAYS AFTER THIS FUNC COMPLETES */
   };
 
   const handleClick = (event) => {
@@ -86,7 +101,8 @@ ReservationSubmitButton.propTypes = {
   ppl: PropTypes.number,
   breadStarter: PropTypes.bool,
   lemonWaterStarter: PropTypes.bool,
-  fetchNoRepeatTableReservations: PropTypes.func,
+  initialRepeat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  fetchTableReservations: PropTypes.func,
   saveDataChanges: PropTypes.func,
 };
 

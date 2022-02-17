@@ -16,6 +16,8 @@ export const getEventDurationById = ({events}, id) => events.data.find(event => 
 export const getEventPplById = ({events}, id) => events.data.find(event => event.id === id).ppl;
 export const getEventStartersById = ({events}, id) => events.data.find(event => event.id === id).starters;
 
+export const getRepeatTableEvents = ({events}, table, id) => events.data.find(event => event.table === table && event.id === id);
+
 /* action name creator */
 const reducerName = 'events';
 const createActionName = name => `app/${reducerName}/${name}`;

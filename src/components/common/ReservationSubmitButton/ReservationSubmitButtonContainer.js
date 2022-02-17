@@ -9,11 +9,12 @@ import {
   getPeople,
   getBreadStarter,
   getLemonWaterStarter,
-  fetchNoRepeatTableReservationsFromAPI,
+  fetchTableReservationsFromAPI,
   saveDataChangesInAPI
 } from '../../../redux/reservationRedux';
+import { getEventRepeatById } from '../../../redux/eventsRedux';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { id }) => ({
   date: getDate(state),
   hour: getHour(state),
   table: getTable(state),
@@ -22,10 +23,11 @@ const mapStateToProps = (state) => ({
   ppl: getPeople(state),
   breadStarter: getBreadStarter(state),
   lemonWaterStarter: getLemonWaterStarter(state),
+  initialRepeat: getEventRepeatById(state, id),
 });
 
 const mapDispatchToProps = (dispatch, { type, id }) => ({
-  fetchNoRepeatTableReservations: (table, date) => dispatch(fetchNoRepeatTableReservationsFromAPI(type, id, table, date)),
+  fetchTableReservations: (table, date, initialRepeat) => dispatch(fetchTableReservationsFromAPI(type, id, table, date, initialRepeat)),
   saveDataChanges: (changedData) => dispatch(saveDataChangesInAPI(type, id, changedData)),
 });
 
