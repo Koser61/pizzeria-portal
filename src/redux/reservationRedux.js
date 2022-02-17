@@ -63,7 +63,7 @@ export const fetchTableReservationsFromAPI = (type, id, table, date, initialRepe
   return (dispatch) => {
     dispatch(fetchTableReservationsStarted());
     
-    const excludeIdParam = `${api.idNotEqualParamKey}${id}`;
+    const excludeIdParam = `&${api.idNotEqualParamKey}${id}`;
     const dateMatchParam = `${api.dateEqualParamKey}${date}`;
     const today = DateTime.now().toISODate();
 
@@ -83,9 +83,9 @@ export const fetchTableReservationsFromAPI = (type, id, table, date, initialRepe
     }
 
     const urls = [
-      `${api.url}/api/${api.events}?${api.repeatParam}&${eventsRepeatIdParam}`,
-      `${api.url}/api/${api.events}?${api.notRepeatParam}&${dateMatchParam}&${eventsCurrentIdParam}`,
-      `${api.url}/api/${api.bookings}?${dateMatchParam}&${bookingsIdParam}`
+      `${api.url}/api/${api.events}?${api.repeatParam}${eventsRepeatIdParam}`,
+      `${api.url}/api/${api.events}?${api.notRepeatParam}&${dateMatchParam}${eventsCurrentIdParam}`,
+      `${api.url}/api/${api.bookings}?${dateMatchParam}${bookingsIdParam}`
     ];
 
     Promise.all(urls.map((url) => Axios.get(url)))
