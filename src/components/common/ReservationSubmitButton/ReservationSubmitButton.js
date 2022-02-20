@@ -17,8 +17,7 @@ const ReservationSubmitButton = ({
   breadStarter,
   lemonWaterStarter,
   initialRepeat,
-  fetchTableReservations,
-  saveDataChanges
+  handleDataChange,
 }) => {
   const prepareDataObject = () => {
     const parseDate = () => {
@@ -60,22 +59,12 @@ const ReservationSubmitButton = ({
     return dataObject;
   };
 
-  const dataIsValid = (dataObject) => {
-    /*  */
-    fetchTableReservations(dataObject.table, dataObject.date, initialRepeat);
-    /* NEED TO FIND A WAY TO JOIN ARRAYS AFTER THIS FUNC COMPLETES */
-  };
-
   const handleClick = (event) => {
     event.preventDefault();
 
     const dataObject = prepareDataObject();
 
-    dataIsValid(dataObject); // fetchNoRepeat test
-
-    /*if(dataIsValid(dataObject)) {
-      saveDataChanges(dataObject);
-    }*/
+    handleDataChange(dataObject, initialRepeat);
   };
 
   return (
@@ -102,8 +91,7 @@ ReservationSubmitButton.propTypes = {
   breadStarter: PropTypes.bool,
   lemonWaterStarter: PropTypes.bool,
   initialRepeat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  fetchTableReservations: PropTypes.func,
-  saveDataChanges: PropTypes.func,
+  handleDataChange: PropTypes.func,
 };
 
 export default ReservationSubmitButton;

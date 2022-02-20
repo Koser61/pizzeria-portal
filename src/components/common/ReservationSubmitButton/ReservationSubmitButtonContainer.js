@@ -9,8 +9,7 @@ import {
   getPeople,
   getBreadStarter,
   getLemonWaterStarter,
-  fetchTableReservationsFromAPI,
-  saveDataChangesInAPI
+  handleDataChangeInAPI,
 } from '../../../redux/reservationRedux';
 import { getEventRepeatById } from '../../../redux/eventsRedux';
 
@@ -27,8 +26,7 @@ const mapStateToProps = (state, { id }) => ({
 });
 
 const mapDispatchToProps = (dispatch, { type, id }) => ({
-  fetchTableReservations: (table, date, initialRepeat) => dispatch(fetchTableReservationsFromAPI(type, id, table, date, initialRepeat)),
-  saveDataChanges: (changedData) => dispatch(saveDataChangesInAPI(type, id, changedData)),
+  handleDataChange: (changedData, initialRepeat) => dispatch(handleDataChangeInAPI(type, id, changedData, initialRepeat)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationSubmitButton);

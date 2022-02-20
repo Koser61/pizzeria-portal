@@ -26,9 +26,9 @@ const CHANGE_PEOPLE = createActionName('CHANGE_PEOPLE');
 const CHANGE_BREAD_STARTER = createActionName('CHANGE_BREAD_STARTER');
 const CHANGE_LEMON_WATER_STARTER = createActionName('CHANGE_LEMON_WATER_STARTER');
 
-const FETCH_TABLE_RESERVATIONS_START = createActionName('FETCH_TABLE_RESERVATIONS_START');
-const FETCH_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_TABLE_RESERVATIONS_SUCCESS');
-const FETCH_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_TABLE_RESERVATIONS_ERROR');
+const FETCH_SELECTED_DATE_RESERVATIONS_START = createActionName('FETCH_SELECTED_DATE_RESERVATIONS_START');
+const FETCH_SELECTED_DATE_RESERVATIONS_SUCCESS = createActionName('FETCH_SELECTED_DATE_RESERVATIONS_SUCCESS');
+const FETCH_SELECTED_DATE_RESERVATIONS_ERROR = createActionName('FETCH_SELECTED_DATE_RESERVATIONS_ERROR');
 
 const SAVE_DATA_CHANGES_START = createActionName('SAVE_DATA_CHANGES_START');
 const SAVE_DATA_CHANGES_SUCCESS = createActionName('SAVE_DATA_CHANGES_SUCCESS');
@@ -44,37 +44,35 @@ export const changePeople = payload => ({ payload, type: CHANGE_PEOPLE });
 export const changeBreadStarter = payload => ({ payload, type: CHANGE_BREAD_STARTER });
 export const changeLemonWaterStarter = payload => ({ payload, type: CHANGE_LEMON_WATER_STARTER });
 
-export const fetchTableReservationsStarted = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_START });
-export const fetchTableReservationsSuccess = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_SUCCESS });
-export const fetchTableReservationsError = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_ERROR });
+export const fetchSelectedDateReservationsStarted = payload => ({ payload, type: FETCH_SELECTED_DATE_RESERVATIONS_START });
+export const fetchSelectedDateReservationsSuccess = payload => ({ payload, type: FETCH_SELECTED_DATE_RESERVATIONS_SUCCESS });
+export const fetchSelectedDateReservationsError = payload => ({ payload, type: FETCH_SELECTED_DATE_RESERVATIONS_ERROR });
 
 export const saveDataChangesStarted = payload => ({ payload, type: SAVE_DATA_CHANGES_START });
 export const saveDataChangesSuccess = payload => ({ payload, type: SAVE_DATA_CHANGES_SUCCESS });
 export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANGES_ERROR });
 
 /* thunk creators */
-export const fetchTableReservationsFromAPI = (type, id, table, date, initialRepeat) => {
-  /* 
-    NEED TO CHANGE FUNC: 
-    TO LOAD ALL TABLES RESERVATIONS FROM SELECTED DATE 
-    FOR LATER ALERT SHOWING USER WHICH TABLES ARE AVAILABLE AT WHICH TIME -
-    - (IF SELECTED TABLE IS NOT AVAILABLE)
-  */
-  return (dispatch) => {
-    dispatch(fetchTableReservationsStarted());
-    
+export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
+  return (dispatch, getState) => {
+    /* 
+    FUNC LOADS ALL TABLES RESERVATIONS FROM SELECTED DATE AND SAVES TO STATE FOR LATER ALERT
+    - SHOWING USER WHICH TABLES ARE AVAILABLE AT WHICH TIME (IF SELECTED TABLE IS NOT AVAILABLE)
+    */
+    dispatch(fetchSelectedDateReservationsStarted());
+
     const excludeIdParam = `&${api.idNotEqualParamKey}${id}`;
-    const dateMatchParam = `${api.dateEqualParamKey}${date}`;
+    const dateMatchParam = `${api.dateEqualParamKey}${changedData.date}`;
     const today = DateTime.now().toISODate();
 
     let eventsRepeatIdParam = '';
     let eventsCurrentIdParam = '';
     let bookingsIdParam = '';
 
-    if(date === today) {
+    if(changedData.date === today) {
       if(type === 'event') {
-        eventsRepeatIdParam = excludeIdParam;
-        eventsCurrentIdParam = excludeIdParam;
+        initialRepeat === 'daily' ? eventsRepeatIdParam = excludeIdParam
+                                  : eventsCurrentIdParam = excludeIdParam
       } else if(type === 'booking') {
         bookingsIdParam = excludeIdParam;
       }
@@ -92,10 +90,55 @@ export const fetchTableReservationsFromAPI = (type, id, table, date, initialRepe
       .then(([{data: eventsRepeat}, {data: eventsCurrent}, {data: bookings}]) => {
         const dataArray = [...eventsRepeat, ...eventsCurrent, ...bookings];
 
-        dispatch(fetchTableReservationsSuccess(dataArray));
-      }
-      ).catch((err) => {
-        dispatch(fetchTableReservationsError(err.message || true));
+        dispatch(fetchSelectedDateReservationsSuccess(dataArray));
+      })
+      .then(() => {
+        const checkTableAvailability = () => {
+          const selectedDateReservations = getState().reservation.selectedDateReservations.data;
+          const selectedTableReservations = selectedDateReservations.filter((reservation) => reservation.table === changedData.table);
+  
+          const hourToNumber = (hourString) => {
+            const parts = hourString.split(':');
+          
+            return parseInt(parts[0]) + parseInt(parts[1])/60;
+          };
+  
+          const tableBooked = {};
+  
+          for(let reservation of selectedTableReservations) {
+            const startHour = hourToNumber(reservation.hour);
+  
+            for(let hourBlock = startHour; hourBlock < startHour + reservation.duration; hourBlock += 0.5) {
+              tableBooked[hourBlock] = true;
+            }
+          }
+  
+          const startHour = hourToNumber(changedData.hour);
+          let tableIsAvailable = true;
+  
+          for(let hourBlock = startHour; hourBlock < startHour + changedData.duration; hourBlock += 0.5) {
+            if(typeof tableBooked[hourBlock] === 'undefined'){
+              continue;
+            } else if(tableBooked[hourBlock] === true) {
+              tableIsAvailable = false;
+              break;
+            }
+          }
+
+          return tableIsAvailable;
+        }
+
+        const tableIsAvailable = checkTableAvailability();
+
+        if(!tableIsAvailable) {
+          /* [TO DO] calculate available time periods for every table and save results to state */
+          console.log('Table is not available at selected time period');
+        } else if(tableIsAvailable) {
+          dispatch(saveDataChangesInAPI(type, id, changedData));
+        }
+      })
+      .catch((err) => {
+        dispatch(fetchSelectedDateReservationsError(err.message || true));
       });
   }
 };
@@ -180,11 +223,11 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_TABLE_RESERVATIONS_START: {
+    case FETCH_SELECTED_DATE_RESERVATIONS_START: {
       return {
         ...statePart,
-        tableReservations: {
-          ...statePart.tableReservations,
+        selectedDateReservations: {
+          ...statePart.selectedDateReservations,
           loading: {
             active: true,
             error: false,
@@ -192,24 +235,23 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case FETCH_TABLE_RESERVATIONS_SUCCESS: {
+    case FETCH_SELECTED_DATE_RESERVATIONS_SUCCESS: {
       return {
         ...statePart,
-        tableReservations: {
+        selectedDateReservations: {
           loading: {
             active: false,
             error: false,
           },
-          loaded: true,
           data: action.payload,
         },
       }
     }
-    case FETCH_TABLE_RESERVATIONS_ERROR: {
+    case FETCH_SELECTED_DATE_RESERVATIONS_ERROR: {
       return {
         ...statePart,
-        tableReservations: {
-          ...statePart.tableReservations,
+        selectedDateReservations: {
+          ...statePart.selectedDateReservations,
           loading: {
             active: true,
             error: action.payload,
