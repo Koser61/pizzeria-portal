@@ -175,7 +175,7 @@ const initialState = {
     data: [],
   },
   reservation: {
-    selectedDateReservations: {
+    tableReservations: {
       loading: {
         active: false,
         error: false,
