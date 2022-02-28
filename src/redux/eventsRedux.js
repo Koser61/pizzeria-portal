@@ -37,25 +37,18 @@ export const fetchEventsFromAPI = () => {
   return (dispatch) => {
     dispatch(fetchEventsStarted());
 
-    Axios
-      .get(`${api.url}/api/${api.events}`)
-      .then(res => {
-        const currentDate = DateTime.now().toISODate();
-        let todayEvents = [];
+    const currentDate = DateTime.now().toISODate();
 
-        for(let responseEvent of res.data) {
-          if (responseEvent.repeat === false) {
-            const orderDate = responseEvent.date;
+    const urls = [
+      `${api.url}/api/${api.events}?${api.notRepeatParam}&${api.dateEqualParamKey}${currentDate}`,
+      `${api.url}/api/${api.events}?${api.repeatParam}`
+    ];
 
-            if(orderDate === currentDate) {
-              todayEvents.push(responseEvent);
-            }
-          } else if (responseEvent.repeat === 'daily') {
-            todayEvents.push(responseEvent);
-          }
-        }
+    Promise.all(urls.map((url) => Axios.get(url)))
+      .then(([{data: eventsCurrent}, {data: eventsRepeat}]) => {
+        const dataArray = [...eventsRepeat, ...eventsCurrent];
 
-        dispatch(fetchEventsSuccess(todayEvents));
+        dispatch(fetchEventsSuccess(dataArray));
       })
       .catch(err => {
         dispatch(fetchEventsError(err.message || true));

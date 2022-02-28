@@ -35,21 +35,12 @@ export const fetchBookingsFromAPI = () => {
   return (dispatch) => {
     dispatch(fetchBookingsStarted());
 
+    const currentDate = DateTime.now().toISODate();
+
     Axios
-      .get(`${api.url}/api/${api.bookings}`)
+      .get(`${api.url}/api/${api.bookings}?${api.dateEqualParamKey}${currentDate}`)
       .then(res => {
-        const currentDate = DateTime.now().toISODate();
-
-        let todayBookings = [];
-
-        for(let responseBooking of res.data) {
-          const orderDate = responseBooking.date
-
-          if(orderDate === currentDate) {
-            todayBookings.push(responseBooking);
-          }
-        }
-        dispatch(fetchBookingsSuccess(todayBookings));
+        dispatch(fetchBookingsSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchBookingsError(err.message || true));
