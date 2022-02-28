@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { api } from '../settings';
-import { DateTime, Duration, Interval } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 
 /* selectors */
 export const getDate = ({reservation}) => reservation.date;
@@ -55,12 +55,6 @@ export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANG
 /* thunk creators */
 export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
   return (dispatch, getState) => {
-    /*
-      CHANGES NEEDED:
-      - load ONLY selected TABLE reservations,
-      - if table is not available at given time, 
-        func should calculate when it's available and save info to state
-    */
     dispatch(fetchTableReservationsStarted());
 
     const tableMatchParam = `${api.tableEqualParamKey}${changedData.table}`
@@ -103,17 +97,15 @@ export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
             return parseInt(parts[0]) + parseInt(parts[1])/60;
           };
 
-          // create tableBooked object
           const openHour = 12;
           const closeHour = 24;
-
+          
           const tableBooked = {};
 
           for(let hourBlock = openHour; hourBlock < closeHour; hourBlock += 0.5) {
             tableBooked[hourBlock] = false;
           }
 
-          // determine when table is booked
           const tableReservations = getState().reservation.tableReservations.data;
 
           for(let reservation of tableReservations) {
@@ -124,7 +116,6 @@ export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
             }
           }
 
-          // check if table is available at given time period
           const selectedHour = hourToNumber(changedData.hour);
           let tableIsAvailable = true;
 
@@ -143,19 +134,51 @@ export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
         const tableIsAvailable = checkTableAvailability();
 
         if(!tableIsAvailable) {
-          /* [TO DO] CHECK WHEN TABLE IS AVAILABLE */ 
-          // try using luxon library's Duration and Interval objects for this !
+          const calculateAvailablePeriods = () => {
+            const openTime = DateTime.fromISO(changedData.date).set({hour: 12});
+            const closeTime = DateTime.fromISO(changedData.date).set({hour: 24});
+            const workingDayInterval = Interval.fromDateTimes(openTime, closeTime);
+            const tableReservations = getState().reservation.tableReservations.data;
 
-          const openHour = DateTime.fromString('12:00', DateTime.TIME_24_SIMPLE);
-          console.log('openHour', openHour);
-          const closeHour = DateTime.fromString('00:00', DateTime.TIME_24_SIMPLE);
-          console.log('closeHour', closeHour);
-          
-          const workingDayInterval = Interval.fromDateTimes(openHour, closeHour);
-          const workingDayLenght = workingDayInterval.toDuration('hour');
+            const tableReservationIntervals = [];
 
-          console.log(`Restaurant is open for ${workingDayLenght} hours`);
+            for(let reservation of tableReservations) {
+              const hourParts = reservation.hour.split(':');
+              const reservationTime = {
+                hour: parseInt(hourParts[0]),
+                minute: parseInt(hourParts[1]),
+              };
+              const durationObject = {hour: reservation.duration};
+
+              const reservationStart = DateTime.fromISO(changedData.date).set(reservationTime);
+              const reservationInterval = Interval.after(reservationStart, durationObject);
+
+              tableReservationIntervals.push(reservationInterval);
+            }
+
+            const intervalsDifference = workingDayInterval.difference(...tableReservationIntervals);
+            const tableAvailabilityIntervals = intervalsDifference.filter((interval) => interval.length('hours') >= 1);
+
+            const availablePeriods = [];
+
+            for(let interval of tableAvailabilityIntervals) {
+              const intervalStart = interval.start.toLocaleString(DateTime.TIME_24_SIMPLE);
+              const intervalEnd = interval.end.toLocaleString(DateTime.TIME_24_SIMPLE);
+
+              const availablePeriod = `${intervalStart} - ${intervalEnd}`
+
+              availablePeriods.push(availablePeriod);
+            }
+
+            return availablePeriods;
+          };
+
+          const availablePeriods = calculateAvailablePeriods();
           
+          console.log('availablePeriods', availablePeriods);
+
+          /* [TO DO] SAVE AVAILABLE PERIODS TO STATE */
+
         } else if(tableIsAvailable) {
           dispatch(saveDataChangesInAPI(type, id, changedData));
         }
