@@ -176,8 +176,10 @@ const initialState = {
   },
   reservation: {
     handleDataChange: {
-      active: false,
-      error: false,
+      state: {
+        active: false,
+        error: false,
+      },
       availablePeriods: [],
     },
     tableReservations: {

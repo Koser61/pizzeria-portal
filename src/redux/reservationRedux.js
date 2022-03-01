@@ -12,6 +12,9 @@ export const getPeople = ({reservation}) => reservation.ppl;
 export const getBreadStarter = ({reservation}) => reservation.starters.bread;
 export const getLemonWaterStarter = ({reservation}) => reservation.starters.lemonWater;
 
+export const getHandleDataChangeState = ({reservation}) => reservation.handleDataChange.state;
+export const getAvailablePeriods = ({reservation}) => reservation.handleDataChange.availablePeriods;
+
 /* action name creator */
 const reducerName = 'reservation';
 const createActionName = name => `app/${reducerName}/${name}`;
@@ -29,8 +32,6 @@ const CHANGE_LEMON_WATER_STARTER = createActionName('CHANGE_LEMON_WATER_STARTER'
 const HANDLE_DATA_CHANGE_START = createActionName('HANDLE_DATA_CHANGE_START');
 const HANDLE_DATA_CHANGE_SUCCESS = createActionName('HANDLE_DATA_CHANGE_SUCCESS');
 const HANDLE_DATA_CHANGE_ERROR = createActionName('HANDLE_DATA_CHANGE_ERROR');
-
-const SET_AVAILABLE_PERIODS = createActionName('SET_AVAILABLE_PERIODS');
 
 const FETCH_TABLE_RESERVATIONS_START = createActionName('FETCH_TABLE_RESERVATIONS_START');
 const FETCH_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_TABLE_RESERVATIONS_SUCCESS');
@@ -283,8 +284,10 @@ export default function reducer(statePart = {}, action = {}) {
         ...statePart,
         handleDataChange: {
           ...statePart.handleDataChange,
-          active: true,
-          error: false,
+          state: {
+            active: true,
+            error: false,
+          },
         },
       }
     }
@@ -293,8 +296,10 @@ export default function reducer(statePart = {}, action = {}) {
         ...statePart,
         handleDataChange: {
           ...statePart.handleDataChange,
-          active: false,
-          error: false,
+          state: {
+            active: false,
+            error: false,
+          },
         },
       }
     }
@@ -302,8 +307,10 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         handleDataChange: {
-          active: false,
-          error: true,
+          state: {
+            active: false,
+            error: true,
+          },
           availablePeriods: action.payload,
         },
       }
