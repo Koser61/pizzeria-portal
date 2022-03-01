@@ -10,6 +10,7 @@ import {
   getBreadStarter,
   getLemonWaterStarter,
   handleDataChangeInAPI,
+  getHandleDataChangeState,
 } from '../../../redux/reservationRedux';
 import { getEventRepeatById } from '../../../redux/eventsRedux';
 
@@ -23,6 +24,7 @@ const mapStateToProps = (state, { id }) => ({
   breadStarter: getBreadStarter(state),
   lemonWaterStarter: getLemonWaterStarter(state),
   initialRepeat: getEventRepeatById(state, id),
+  handleDataChangeState: getHandleDataChangeState(state),
 });
 
 const mapDispatchToProps = (dispatch, { type, id }) => ({

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -18,6 +19,7 @@ const ReservationSubmitButton = ({
   lemonWaterStarter,
   initialRepeat,
   handleDataChange,
+  handleDataChangeState
 }) => {
   const prepareDataObject = () => {
     const parseDate = () => {
@@ -67,16 +69,38 @@ const ReservationSubmitButton = ({
     handleDataChange(dataObject, initialRepeat);
   };
 
-  return (
-    <Button
-      sx={{mb: 1, mr: 1}}
-      variant='contained'
-      endIcon={<SaveIcon />}
-      onClick={handleClick}
-    >
-      Save Changes
-    </Button>
-  );
+  const { active, error } = handleDataChangeState;
+
+  if (error) {
+    return (
+      <Button
+        sx={{mb: 1, mr: 1}}
+        variant='contained'
+        endIcon={
+          active ? <CircularProgress size='1.25rem' sx={{color: 'white'}} />
+                 : <SaveIcon />
+        }
+        onClick={handleClick}
+        color='error'
+      >
+        Save Changes
+      </Button>
+    );
+  } else {
+    return (
+      <Button
+        sx={{mb: 1, mr: 1}}
+        variant='contained'
+        endIcon={
+          active ? <CircularProgress size='1.25rem' sx={{color: 'white'}} />
+                 : <SaveIcon />
+        }
+        onClick={handleClick}
+      >
+        Save Changes
+      </Button>
+    );
+  }
 };
 
 ReservationSubmitButton.propTypes = {
@@ -92,6 +116,10 @@ ReservationSubmitButton.propTypes = {
   lemonWaterStarter: PropTypes.bool,
   initialRepeat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   handleDataChange: PropTypes.func,
+  handleDataChangeState: PropTypes.shape({
+    active: PropTypes.bool,
+    error: PropTypes.bool,
+  }),
 };
 
 export default ReservationSubmitButton;
