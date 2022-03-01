@@ -26,6 +26,12 @@ const CHANGE_PEOPLE = createActionName('CHANGE_PEOPLE');
 const CHANGE_BREAD_STARTER = createActionName('CHANGE_BREAD_STARTER');
 const CHANGE_LEMON_WATER_STARTER = createActionName('CHANGE_LEMON_WATER_STARTER');
 
+const HANDLE_DATA_CHANGE_START = createActionName('HANDLE_DATA_CHANGE_START');
+const HANDLE_DATA_CHANGE_SUCCESS = createActionName('HANDLE_DATA_CHANGE_SUCCESS');
+const HANDLE_DATA_CHANGE_ERROR = createActionName('HANDLE_DATA_CHANGE_ERROR');
+
+const SET_AVAILABLE_PERIODS = createActionName('SET_AVAILABLE_PERIODS');
+
 const FETCH_TABLE_RESERVATIONS_START = createActionName('FETCH_TABLE_RESERVATIONS_START');
 const FETCH_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_TABLE_RESERVATIONS_SUCCESS');
 const FETCH_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_TABLE_RESERVATIONS_ERROR');
@@ -44,6 +50,10 @@ export const changePeople = payload => ({ payload, type: CHANGE_PEOPLE });
 export const changeBreadStarter = payload => ({ payload, type: CHANGE_BREAD_STARTER });
 export const changeLemonWaterStarter = payload => ({ payload, type: CHANGE_LEMON_WATER_STARTER });
 
+export const handleDataChangeStarted = payload => ({ payload, type: HANDLE_DATA_CHANGE_START });
+export const handleDataChangeSuccess = payload => ({ payload, type: HANDLE_DATA_CHANGE_SUCCESS });
+export const handleDataChangeError = payload => ({ payload, type: HANDLE_DATA_CHANGE_ERROR });
+
 export const fetchTableReservationsStarted = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_START });
 export const fetchTableReservationsSuccess = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_SUCCESS });
 export const fetchTableReservationsError = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_ERROR });
@@ -55,6 +65,7 @@ export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANG
 /* thunk creators */
 export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
   return (dispatch, getState) => {
+    dispatch(handleDataChangeStarted());
     dispatch(fetchTableReservationsStarted());
 
     const tableMatchParam = `${api.tableEqualParamKey}${changedData.table}`
@@ -175,10 +186,7 @@ export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
 
           const availablePeriods = calculateAvailablePeriods();
           
-          console.log('availablePeriods', availablePeriods);
-
-          /* [TO DO] SAVE AVAILABLE PERIODS TO STATE */
-
+          dispatch(handleDataChangeError(availablePeriods));
         } else if(tableIsAvailable) {
           dispatch(saveDataChangesInAPI(type, id, changedData));
         }
@@ -205,6 +213,7 @@ const saveDataChangesInAPI = (type, id, changedData) => {
       .put(`${api.url}/api/${reservationURL}/${id}`, changedData)
       .then(() => {
         dispatch(saveDataChangesSuccess());
+        dispatch(handleDataChangeSuccess());
       })
       .catch((err) => {
         dispatch(saveDataChangesError(err.message || true));
@@ -266,6 +275,36 @@ export default function reducer(statePart = {}, action = {}) {
         starters: {
           ...statePart.starters,
           lemonWater: action.payload,
+        },
+      }
+    }
+    case HANDLE_DATA_CHANGE_START: {
+      return {
+        ...statePart,
+        handleDataChange: {
+          ...statePart.handleDataChange,
+          active: true,
+          error: false,
+        },
+      }
+    }
+    case HANDLE_DATA_CHANGE_SUCCESS: {
+      return {
+        ...statePart,
+        handleDataChange: {
+          ...statePart.handleDataChange,
+          active: false,
+          error: false,
+        },
+      }
+    }
+    case HANDLE_DATA_CHANGE_ERROR: {
+      return {
+        ...statePart,
+        handleDataChange: {
+          active: false,
+          error: true,
+          availablePeriods: action.payload,
         },
       }
     }
