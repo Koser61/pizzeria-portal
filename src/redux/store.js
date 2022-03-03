@@ -180,6 +180,7 @@ const initialState = {
         active: false,
         error: false,
       },
+      showPeriods: false,
       availablePeriods: [],
     },
     tableReservations: {
@@ -192,6 +193,7 @@ const initialState = {
     saveDataChanges: {
       active: false,
       error: false,
+      alertSuccess: false,
     },
     date: {},
     hour: {},

@@ -13,7 +13,11 @@ export const getBreadStarter = ({reservation}) => reservation.starters.bread;
 export const getLemonWaterStarter = ({reservation}) => reservation.starters.lemonWater;
 
 export const getHandleDataChangeState = ({reservation}) => reservation.handleDataChange.state;
+
+export const getShowPeriods = ({reservation}) => reservation.handleDataChange.showPeriods;
 export const getAvailablePeriods = ({reservation}) => reservation.handleDataChange.availablePeriods;
+
+export const getAlertSuccess = ({reservation}) => reservation.saveDataChanges.alertSuccess;
 
 /* action name creator */
 const reducerName = 'reservation';
@@ -33,6 +37,8 @@ const HANDLE_DATA_CHANGE_START = createActionName('HANDLE_DATA_CHANGE_START');
 const HANDLE_DATA_CHANGE_SUCCESS = createActionName('HANDLE_DATA_CHANGE_SUCCESS');
 const HANDLE_DATA_CHANGE_ERROR = createActionName('HANDLE_DATA_CHANGE_ERROR');
 
+const SET_SHOW_PERIODS = createActionName('SET_SHOW_PERIODS');
+
 const FETCH_TABLE_RESERVATIONS_START = createActionName('FETCH_TABLE_RESERVATIONS_START');
 const FETCH_TABLE_RESERVATIONS_SUCCESS = createActionName('FETCH_TABLE_RESERVATIONS_SUCCESS');
 const FETCH_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_TABLE_RESERVATIONS_ERROR');
@@ -40,6 +46,8 @@ const FETCH_TABLE_RESERVATIONS_ERROR = createActionName('FETCH_TABLE_RESERVATION
 const SAVE_DATA_CHANGES_START = createActionName('SAVE_DATA_CHANGES_START');
 const SAVE_DATA_CHANGES_SUCCESS = createActionName('SAVE_DATA_CHANGES_SUCCESS');
 const SAVE_DATA_CHANGES_ERROR = createActionName('SAVE_DATA_CHANGES_ERROR');
+
+const SET_ALERT_SUCCESS = createActionName('SET_ALERT_SUCCESS');
 
 /* action creators */
 export const changeDate = payload => ({ payload, type: CHANGE_DATE });
@@ -55,6 +63,8 @@ export const handleDataChangeStarted = payload => ({ payload, type: HANDLE_DATA_
 export const handleDataChangeSuccess = payload => ({ payload, type: HANDLE_DATA_CHANGE_SUCCESS });
 export const handleDataChangeError = payload => ({ payload, type: HANDLE_DATA_CHANGE_ERROR });
 
+export const setShowPeriods = payload => ({ payload, type: SET_SHOW_PERIODS });
+
 export const fetchTableReservationsStarted = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_START });
 export const fetchTableReservationsSuccess = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_SUCCESS });
 export const fetchTableReservationsError = payload => ({ payload, type: FETCH_TABLE_RESERVATIONS_ERROR });
@@ -62,6 +72,8 @@ export const fetchTableReservationsError = payload => ({ payload, type: FETCH_TA
 export const saveDataChangesStarted = payload => ({ payload, type: SAVE_DATA_CHANGES_START });
 export const saveDataChangesSuccess = payload => ({ payload, type: SAVE_DATA_CHANGES_SUCCESS });
 export const saveDataChangesError = payload => ({ payload, type: SAVE_DATA_CHANGES_ERROR });
+
+export const setAlertSuccess = payload => ({ payload, type: SET_ALERT_SUCCESS });
 
 /* thunk creators */
 export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
@@ -188,8 +200,10 @@ export const handleDataChangeInAPI = (type, id, changedData, initialRepeat) => {
           const availablePeriods = calculateAvailablePeriods();
           
           dispatch(handleDataChangeError(availablePeriods));
+          dispatch(setShowPeriods(true));
         } else if(tableIsAvailable) {
           dispatch(saveDataChangesInAPI(type, id, changedData));
+          dispatch(setAlertSuccess(true));
         }
       })
       .catch((err) => {
@@ -307,11 +321,21 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         handleDataChange: {
+          ...statePart.handleDataChange,
           state: {
             active: false,
             error: true,
           },
           availablePeriods: action.payload,
+        },
+      }
+    }
+    case SET_SHOW_PERIODS: {
+      return {
+        ...statePart,
+        handleDataChange: {
+          ...statePart.handleDataChange,
+          showPeriods: action.payload,
         },
       }
     }
@@ -345,7 +369,7 @@ export default function reducer(statePart = {}, action = {}) {
         tableReservations: {
           ...statePart.tableReservations,
           loading: {
-            active: true,
+            active: false,
             error: action.payload,
           },
         },
@@ -355,6 +379,7 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         saveDataChanges: {
+          ...statePart.saveDataChanges,
           active: true,
           error: false,
         },
@@ -364,6 +389,7 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         saveDataChanges: {
+          ...statePart.saveDataChanges,
           active: false,
           error: false,
         },
@@ -373,8 +399,18 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         saveDataChanges: {
-          active: true,
+          ...statePart.saveDataChanges,
+          active: false,
           error: action.payload,
+        },
+      }
+    }
+    case SET_ALERT_SUCCESS: {
+      return {
+        ...statePart,
+        saveDataChanges: {
+          ...statePart.saveDataChanges,
+          alertSuccess: action.payload,
         },
       }
     }

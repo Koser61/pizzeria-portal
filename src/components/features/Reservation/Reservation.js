@@ -16,9 +16,12 @@ import ReservationPeopleAmount from '../../common/ReservationPeopleAmount/Reserv
 import ReservationStartersCheckboxes from '../../common/ReservationStartersCheckboxes/ReservationStartersCheckboxesContainer';
 import ReservationSubmitButton from '../../common/ReservationSubmitButton/ReservationSubmitButtonContainer';
 
+import ReservationAlerts from '../ReservationAlerts/ReservationAlertsContainer';
+
 const Reservation = ({ type, id }) => {
   return (
     <Container sx={{ my: 2 }}>
+      <ReservationAlerts />
       <Box maxWidth={900} mx='auto'>
         <Card elevation={6} sx={{ p: 1 }}>
           <Card variant='outlined' sx={{ p: 2 }}>
