@@ -12,11 +12,6 @@ const ReservationAlerts = ({
   setShowPeriods,
   availablePeriods,
 }) => {
-  /*
-    - validation error is autoHiding
-    - validation error is open and user can close it
-  */
-
   return (
     <>
       <Snackbar
