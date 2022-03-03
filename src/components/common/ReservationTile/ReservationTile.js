@@ -48,7 +48,7 @@ const ReservationTile = ({ cellHeight, timeInterval, id, duration, variant, repe
           top: 0,
           left: '1px',
           bgcolor: getBgColor(),
-          height: reservationTileHeight,
+          height: reservationTileHeight - 8,
           width: { xs: '90%', sm: '94%' },
           color: 'white',
           borderRadius: 2,
