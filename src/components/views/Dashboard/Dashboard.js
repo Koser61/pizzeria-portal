@@ -1,61 +1,51 @@
 import React from 'react';
 
 import Container from '@mui/material/Container';
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 
-import LocalShippingIcon from '@mui/icons-material/LocalShipping'; // delivery order
-//import MenuBookIcon from '@mui/icons-material/MenuBook'; // local order
+import DashboardTile from '../../common/DashboardTile/DashboardTile';
 
-import TableRestaurantIcon from '@mui/icons-material/TableRestaurant'; // booking
-//import EventIcon from '@mui/icons-material/Event'; // event
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
+import EventIcon from '@mui/icons-material/Event';
 
 const Dashboard = () => (
   <Container>
-    {/* DONE / TOTAL */}
-    <Card sx={{ my: 2, py: 2, px: 4, bgcolor: 'black', color: 'white' }}>
-      <Typography
-        fontSize={18}
-        sx={{ textTransform: 'uppercase' }}
-        mb={0.75}
-      >
-        Delivery orders
-      </Typography>
-      <Box
-        display='flex'
-        justifyContent='space-between'
-        alignItems='center'
-      >
-        <Typography fontSize={36} fontWeight='bold'>
-          67 / 70
-        </Typography>
-        <LocalShippingIcon fontSize='large' />
-      </Box>
-      <Typography variant='caption' fontSize={14}>
-        done / total
-      </Typography>
-    </Card>
-    {/* SINGLE */}
-    <Card sx={{ my: 2, py: 2, px: 4, bgcolor: 'black', color: 'white' }}>
-      <Typography
-        fontSize={18}
-        sx={{ textTransform: 'uppercase' }}
-        mb={0.75}
-      >
-        Bookings
-      </Typography>
-      <Box
-        display='flex'
-        justifyContent='space-between'
-        alignItems='center'
-      >
-        <Typography fontSize={36} fontWeight='bold'>
-          16
-        </Typography>
-        <TableRestaurantIcon fontSize='large' />
-      </Box>
-    </Card>
+    <Stack spacing={2} my={2}>
+      <DashboardTile
+        showCaption
+        title='Delivery orders'
+        icon={<LocalShippingIcon fontSize='large' />}
+        bgColor='black'
+        firstValue={24}
+        firstValueCaption='done'
+        secondValue={28}
+        secondValueCaption='total'
+      />
+      <DashboardTile
+        showCaption
+        title='Local orders'
+        icon={<MenuBookIcon fontSize='large' />}
+        bgColor='black'
+        firstValue={18}
+        firstValueCaption='done'
+        secondValue={20}
+        secondValueCaption='total'
+      />
+      <DashboardTile
+        title='Bookings'
+        icon={<TableRestaurantIcon fontSize='large' />}
+        bgColor='black'
+        firstValue={1}
+      />
+      <DashboardTile
+        title='Events'
+        icon={<EventIcon fontSize='large' />}
+        bgColor='black'
+        firstValue={8}
+      />
+    </Stack>
   </Container>
 );
 
