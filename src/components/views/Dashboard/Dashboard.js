@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-import DashboardSummary from '../../features/DashboardSummary/DashboardSummary';
+import DashboardSummary from '../../features/DashboardSummary/DashboardSummaryContainer';
 
 class Dashboard extends React.Component {
   static propTypes = {

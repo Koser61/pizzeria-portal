@@ -6,6 +6,8 @@ import { DateTime } from 'luxon';
 export const getAllBookings = ({bookings}) => bookings.data;
 export const getBookingsLoadingState = ({bookings}) => bookings.loading;
 
+export const getBookingsAmount = ({bookings}) => bookings.data.length;
+
 export const getMatchingBooking = ({bookings}, table, cellHour) => bookings.data.find(booking => booking.table === table.nr && booking.hour === cellHour);
 
 export const getBookingDateById = ({bookings}, id) => bookings.data.find(booking => booking.id === id).date;

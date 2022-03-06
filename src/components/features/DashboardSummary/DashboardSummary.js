@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 
@@ -10,16 +10,23 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import EventIcon from '@mui/icons-material/Event';
 
-const DashboardSummary = () => (
+const DashboardSummary = ({
+  doneDeliveryOrders,
+  totalDeliveryOrders,
+  doneLocalOrders,
+  totalLocalOrders,
+  bookings,
+  events
+}) => (
   <Stack spacing={2} my={2}>
     <DashboardTile
       showCaption
       title='Delivery orders'
       icon={<LocalShippingIcon fontSize='large' />}
       bgColor='black'
-      firstValue={24}
+      firstValue={doneDeliveryOrders}
       firstValueCaption='done'
-      secondValue={28}
+      secondValue={totalDeliveryOrders}
       secondValueCaption='total'
     />
     <DashboardTile
@@ -27,28 +34,33 @@ const DashboardSummary = () => (
       title='Local orders'
       icon={<MenuBookIcon fontSize='large' />}
       bgColor='black'
-      firstValue={18}
+      firstValue={doneLocalOrders}
       firstValueCaption='done'
-      secondValue={20}
+      secondValue={totalLocalOrders}
       secondValueCaption='total'
     />
     <DashboardTile
       title='Bookings'
       icon={<TableRestaurantIcon fontSize='large' />}
       bgColor='black'
-      firstValue={1}
+      firstValue={bookings}
     />
     <DashboardTile
       title='Events'
       icon={<EventIcon fontSize='large' />}
       bgColor='black'
-      firstValue={8}
+      firstValue={events}
     />
   </Stack>
 );
 
 DashboardSummary.propTypes = {
-
+  doneDeliveryOrders: PropTypes.number.isRequired,
+  totalDeliveryOrders: PropTypes.number.isRequired,
+  doneLocalOrders: PropTypes.number.isRequired,
+  totalLocalOrders: PropTypes.number.isRequired,
+  bookings: PropTypes.number.isRequired,
+  events: PropTypes.number.isRequired
 };
 
 export default DashboardSummary;

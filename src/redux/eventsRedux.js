@@ -6,6 +6,8 @@ import { DateTime } from 'luxon';
 export const getAllEvents = ({events}) => events.data;
 export const getEventsLoadingState = ({events}) => events.loading;
 
+export const getEventsAmount = ({events}) => events.data.length;
+
 export const getMatchingEvent = ({events}, table, cellHour) => events.data.find(event => event.table === table.nr && event.hour === cellHour);
 
 export const getEventDateById = ({events}, id) => events.data.find(event => event.id === id).date;
@@ -72,7 +74,7 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         loading: {
-          active: true,
+          active: false,
           error: false,
         },
         data: action.payload,
