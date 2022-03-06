@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
 
-import Dashboard from './components/views/Dashboard/Dashboard';
+import Dashboard from './components/views/Dashboard/DashboardContainer';
 import Login from './components/views/Login/Login';
 import Ordering from './components/views/Ordering/OrderingContainer';
 import Tables from './components/views/Tables/TablesContainer';
