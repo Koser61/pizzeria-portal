@@ -15,7 +15,15 @@ const DashboardTile = ({
   firstValueCaption,
   secondValueCaption
 }) => (
-  <Card sx={{ py: 2, px: 4, bgcolor: bgColor, color: 'white' }}>             
+  <Card
+    sx={{
+      py: 2,
+      px: {xs: 3, sm: 4},
+      height: '100%',
+      bgcolor: bgColor,
+      color: 'white'
+    }}
+  >
     <Typography fontSize={18} sx={{ textTransform: 'uppercase' }}>
       {title}
     </Typography>

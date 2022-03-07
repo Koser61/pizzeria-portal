@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 import DashboardTile from '../../common/DashboardTile/DashboardTile';
 
@@ -18,40 +19,54 @@ const DashboardSummary = ({
   bookings,
   events
 }) => (
-  <Stack spacing={2} my={2}>
-    <DashboardTile
-      showCaption
-      title='Delivery orders'
-      icon={<LocalShippingIcon fontSize='large' />}
-      bgColor='black'
-      firstValue={doneDeliveryOrders}
-      firstValueCaption='done'
-      secondValue={totalDeliveryOrders}
-      secondValueCaption='total'
-    />
-    <DashboardTile
-      showCaption
-      title='Local orders'
-      icon={<MenuBookIcon fontSize='large' />}
-      bgColor='black'
-      firstValue={doneLocalOrders}
-      firstValueCaption='done'
-      secondValue={totalLocalOrders}
-      secondValueCaption='total'
-    />
-    <DashboardTile
-      title='Bookings'
-      icon={<TableRestaurantIcon fontSize='large' />}
-      bgColor='black'
-      firstValue={bookings}
-    />
-    <DashboardTile
-      title='Events'
-      icon={<EventIcon fontSize='large' />}
-      bgColor='black'
-      firstValue={events}
-    />
-  </Stack>
+  <Box maxWidth={900} my={{xs: 2, sm: 3, md: 6}} mx='auto'>
+    <Grid container spacing={1}>
+      <Grid container item xs={12} sm={8} rowSpacing={1}>
+        <Grid item xs={12}>
+          <DashboardTile
+            showCaption
+            title='Delivery orders'
+            icon={<LocalShippingIcon fontSize='large' />}
+            bgColor='black'
+            firstValue={78}
+            firstValueCaption='done'
+            secondValue={80}
+            secondValueCaption='total'
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <DashboardTile
+            showCaption
+            title='Local orders'
+            icon={<MenuBookIcon fontSize='large' />}
+            bgColor='black'
+            firstValue={56}
+            firstValueCaption='done'
+            secondValue={60}
+            secondValueCaption='total'
+          />
+        </Grid>
+      </Grid>
+      <Grid container item xs={12} sm={4} spacing={1}>
+        <Grid item xs={6} sm={12}>
+          <DashboardTile
+            title='Bookings'
+            icon={<TableRestaurantIcon fontSize='large' />}
+            bgColor='black'
+            firstValue={58}
+          />
+        </Grid>
+        <Grid item xs={6} sm={12}>
+          <DashboardTile
+            title='Events'
+            icon={<EventIcon fontSize='large' />}
+            bgColor='black'
+            firstValue={14}
+          />
+        </Grid>
+      </Grid>
+    </Grid>
+  </Box>
 );
 
 DashboardSummary.propTypes = {
