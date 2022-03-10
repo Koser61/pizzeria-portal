@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import { DateTime } from 'luxon';
+
 import { statusStyle } from '../../../settings';
 
 import Grid from '@mui/material/Grid';
@@ -15,7 +15,7 @@ import DoneIcon from '@mui/icons-material/Done';
 
 const OrderSummary = ({ id, status, totalPrice, orderTime, changeOrderStatusInAPI, orderData }) => {
   const DateTimeISO = DateTime.fromISO(orderTime);
-  const DateTimeLocaleString = DateTimeISO.toLocaleString(DateTime.DATETIME_MED);
+  const DateTimeLocaleString = DateTimeISO.toLocaleString(DateTime.DATETIME_SHORT);
   
   const statusColor = statusStyle[status].color;
   const statusIcon = statusStyle[status].icon;
@@ -72,11 +72,11 @@ const OrderSummary = ({ id, status, totalPrice, orderTime, changeOrderStatusInAP
           </Grid>
           <Grid
             container item
-            xs={2} sm={1} lg={2}
+            xs={1} sm={1} lg={2}
             justifyContent='center'
             alignItems='center'
           >
-            {status === 'ready' ?
+            {status === 'ready' &&
               <Grid item>
                 <IconButton
                   onClick={(event) => handleChangeDelivered(event)}
@@ -84,8 +84,6 @@ const OrderSummary = ({ id, status, totalPrice, orderTime, changeOrderStatusInAP
                   <DoneIcon />
                 </IconButton>
               </Grid>
-              :
-              <Grid item></Grid>
             }
           </Grid>
         </Grid>

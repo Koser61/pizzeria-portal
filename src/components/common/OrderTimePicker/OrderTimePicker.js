@@ -43,6 +43,7 @@ class OrderTimePicker extends React.Component {
             changeOrderTime(newOrderTime);
           }}
           readOnly={readOnly}
+          ampm={false}
         />
       </LocalizationProvider>
     );
