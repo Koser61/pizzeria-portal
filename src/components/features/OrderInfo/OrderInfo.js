@@ -38,16 +38,12 @@ class OrderInfo extends React.Component {
     } else {
       return (
         <Container>
-          <Grid container spacing='0.5rem' mb={2}>
-            <Grid item container xs={12} md={7} spacing='0.5rem'>
-              <Grid item width={1/1}>
-                <OrderOptions readOnly id={id} />
-              </Grid>
-              <Grid item width={1/1}>
-                <OrderMenu readOnly id={id} />
-              </Grid>
+          <Grid container spacing={1} mb={2}>
+            <Grid item xs={12} md={7}>
+              <OrderOptions readOnly id={id} />
+              <OrderMenu readOnly id={id} />
             </Grid>
-            <Grid item container xs={12} md={5} spacing='1rem'>
+            <Grid item container xs={12} md={5} spacing={2}>
               <Grid item width={1/1} marginLeft={{md: '0.5rem'}}>
                 <OrderCart readOnly id={id} />
               </Grid>

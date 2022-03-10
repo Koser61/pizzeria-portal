@@ -9,7 +9,7 @@ import OrderTimePicker from '../../common/OrderTimePicker/OrderTimePickerContain
 
 const OrderOptions = ({ readOnly, tableMatch, orderTable, id }) => {
   return (
-    <Card elevation={6} sx={{p: '0.5rem', pb: '1rem'}}>
+    <Card elevation={6} sx={{p: '0.5rem', pb: '1rem', mb: 1}}>
       <Grid container>
         <Grid container item xs={12} sm={6} justifyContent='center'>
           <Grid item marginTop={{xs: '0.5rem'}}>
