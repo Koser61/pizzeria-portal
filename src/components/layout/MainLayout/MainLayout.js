@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Box from '@mui/material/Box';
+
 import NavBar from '../NavBar/NavBarContainer';
 
 const MainLayout = ({children}) => {
   return (
-    <main>
+    <>
       <NavBar />
-      <section>
+      <Box component='section' mt={{xs: '70px', sm: '80px'}}>
         {children}
-      </section>
-    </main>
+      </Box>
+    </>
   );
 };
 

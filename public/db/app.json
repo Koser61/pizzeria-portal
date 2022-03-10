@@ -109,7 +109,7 @@
           }
         },
         "crust": {
-          "label": "pizza crust",
+          "label": "Pizza crust",
           "type": "select",
           "options": {
             "standard": {

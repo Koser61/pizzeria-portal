@@ -73,8 +73,8 @@ class Tables extends React.Component {
       const cellHeight = 45;
 
       return (
-        <Container>
-          <Box justifyContent='center' sx={{ my: {xs: 2, sm: 3, md: 4} }}>
+        <Container sx={{ my: {xs: 2, sm: 3, md: 4} }}>
+          <Box justifyContent='center' >
             <Grid container marginX='auto' maxWidth='700px'>
               <TableHourColumn
                 tableRows={tableRows}
