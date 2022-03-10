@@ -6,8 +6,6 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
@@ -15,13 +13,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const Login = () => {
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container maxWidth='xs'>
       <Box
         display='flex'
         flexDirection='column'
         justifyContent='center'
         alignItems='center'
-        marginTop='2rem'
+        paddingY={3}
       >
         <Avatar>
           <LockOutlinedIcon />
@@ -38,7 +36,7 @@ const Login = () => {
             id='username'
             label='Username'
             name='username'
-            autoComplete='username'
+            autoComplete='false'
             autoFocus
           />
           <TextField
@@ -50,11 +48,7 @@ const Login = () => {
             label='Password'
             type='password'
             id='password'
-            autoComplete='current-password'
-          />
-          <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
+            autoComplete='false'
           />
           <RouterLink to={process.env.PUBLIC_URL + '/dashboard'}>
             <Button
@@ -62,6 +56,7 @@ const Login = () => {
               fullWidth
               variant='contained'
               color='primary'
+              sx={{mt: 2, mb: 1}}
             >
               Login
             </Button>
