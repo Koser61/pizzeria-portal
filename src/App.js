@@ -18,13 +18,13 @@ import Order from './components/views/Order/OrderContainer';
 import Event from './components/views/Event/Event';
 import Booking from './components/views/Booking/Booking';
 
-import './styles/global.scss'
+import './App.scss';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <CssBaseline />
       <BrowserRouter>
+        <CssBaseline />
         <MainLayout>
           <Switch>
             <Route exact path={process.env.PUBLIC_URL + '/'} component={Login} />

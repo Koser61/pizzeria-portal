@@ -1,1 +1,0 @@
-changeView(vievTitle) on component mount
