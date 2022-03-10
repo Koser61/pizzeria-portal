@@ -53,7 +53,7 @@ class Ordering extends React.Component {
     } else {
       return (
         <Container>
-          <Grid container mt={0.5} spacing={2}>
+          <Grid container my={1} spacing={2}>
             {tables.map((table) => {
               return (
                 <TableOrders

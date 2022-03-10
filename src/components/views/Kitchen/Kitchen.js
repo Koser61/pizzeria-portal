@@ -53,7 +53,7 @@ class Kitchen extends React.Component {
     } else {
       return (
         <Container>
-          <Grid container my={0.5} spacing={2}>
+          <Grid container mb={2} spacing={2}>
             <Grid item xs={12} sm={6}>
               <KitchenOrders title='Local Orders' />
             </Grid>
