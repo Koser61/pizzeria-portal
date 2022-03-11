@@ -22,7 +22,7 @@ import './App.scss';
 
 const App = () => (
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename='/panel'>
       <CssBaseline />
       <MainLayout>
         <Switch>
