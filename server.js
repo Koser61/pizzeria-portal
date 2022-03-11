@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-redeclare
 /* global require, process */
 const fs = require('fs');
 const path = require('path');
@@ -7,12 +6,12 @@ const server = jsonServer.create();
 const router = jsonServer.router('build/db/app.json');
 const middlewares = jsonServer.defaults({
   static: './',
-  noCors: false,
+  noCors: true
 });
 const port = process.env.PORT || 3131;
 
-server.get(/^\/panel.*/, (req,res) => {
-  if(req.url === '/panel'){
+server.get(/\/panel.*/, (req,res) =>{
+  if(req.url == '/panel'){
     req.url += '/';
   }
   const filePath = __dirname+req.url.replace('/panel', '/build');
@@ -31,7 +30,6 @@ server.use(function(req, res, next) {
   } else {
     req.url = '/build/front' + req.url;
   }
-
   next();
 });
 
