@@ -20,31 +20,28 @@ import Booking from './components/views/Booking/BookingContainer';
 
 import './App.scss';
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <CssBaseline />
-        <MainLayout>
-          <Switch>
-            <Route exact path={process.env.PUBLIC_URL + '/'} component={Login} />
+const App = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <CssBaseline />
+      <MainLayout>
+        <Switch>
+          <Route exact path={process.env.PUBLIC_URL + '/'} component={Login} />
+          <Route exact path={process.env.PUBLIC_URL + '/dashboard'} component={Dashboard} />
 
-            <Route exact path={process.env.PUBLIC_URL + '/dashboard'} component={Dashboard} />
+          <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
+          <Route path={process.env.PUBLIC_URL + '/ordering/new/:table'} component={NewOrder} />
+          <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Order} />
 
-            <Route exact path={process.env.PUBLIC_URL + '/ordering'} component={Ordering} />
-            <Route path={process.env.PUBLIC_URL + '/ordering/new/:table'} component={NewOrder} />
-            <Route path={process.env.PUBLIC_URL + '/ordering/order/:id'} component={Order} />
+          <Route exact path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
+          <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
+          <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
 
-            <Route exact path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
-            <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
-            <Route path={process.env.PUBLIC_URL + '/tables/event/:id'} component={Event} />
-
-            <Route path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
-          </Switch>
-        </MainLayout>
-      </BrowserRouter>
-    </Provider>
-  );
-}
+          <Route path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
+        </Switch>
+      </MainLayout>
+    </BrowserRouter>
+  </Provider>
+);
 
 export default App;
