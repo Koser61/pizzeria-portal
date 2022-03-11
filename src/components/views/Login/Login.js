@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -11,7 +12,9 @@ import Typography from '@mui/material/Typography';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-const Login = () => {
+const Login = ({ changeView }) => {
+  useEffect(() => changeView('Login'), [changeView])
+
   return (
     <Container maxWidth='xs'>
       <Box
@@ -68,6 +71,10 @@ const Login = () => {
       </Box>
     </Container>
   );
+};
+
+Login.propTypes = {
+  changeView: PropTypes.func.isRequired,
 };
 
 export default Login;

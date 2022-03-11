@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import OrderInfo from '../../features/OrderInfo/OrderInfoContainer';
 
-const Order = ({ match: { params: { id } } }) => {
+const Order = ({ match: { params: { id } }, changeView }) => {
+  useEffect(() => changeView('Order'), [changeView])
+  
   return (
     <React.Fragment>
       <OrderInfo id={id} />
@@ -17,6 +19,7 @@ Order.propTypes = {
       id: PropTypes.string,
     }),
   }),
+  changeView: PropTypes.func,
 };
 
 export default Order;

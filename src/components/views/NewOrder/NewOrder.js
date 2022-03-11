@@ -21,11 +21,13 @@ class NewOrder extends React.Component {
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
+    changeView: PropTypes.func,
   }
 
   componentDidMount(){
-    const { fetchProducts, changeOrderWasSent } = this.props;
+    const { changeView, fetchProducts, changeOrderWasSent } = this.props;
     
+    changeView('New Order');
     fetchProducts();
     changeOrderWasSent(false);
   }

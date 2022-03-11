@@ -19,11 +19,13 @@ class Kitchen extends React.Component {
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
+    changeView: PropTypes.func,
   }
 
   componentDidMount() {
-    const { fetchOrders, changeStatusHasChanged } = this.props;
+    const { changeView, fetchOrders, changeStatusHasChanged } = this.props;
     
+    changeView('Kitchen');
     fetchOrders();
     changeStatusHasChanged(false);
   }

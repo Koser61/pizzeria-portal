@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
@@ -10,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import NavDrawer from '../NavDrawer/NavDrawerContainer';
 
-const NavBar = ({currentView, drawerOpen, toggleDrawer}) => {
+const NavBar = ({ currentView, drawerOpen, toggleDrawer }) => {
   const handleClick = (drawerOpen, toggleDrawer) => {
     if(!drawerOpen){
       toggleDrawer(true);
@@ -23,19 +24,21 @@ const NavBar = ({currentView, drawerOpen, toggleDrawer}) => {
 
   return (
     <nav>
-      <AppBar position='fixed' sx={{top: 0, bgcolor: 'primary.dark'}}>
+      <AppBar position='fixed' sx={{ top: 0, bgcolor: 'primary.dark' }}>
         <Toolbar>
           <IconButton
             edge='start'
             color='inherit'
             aria-label='menu'
             onClick={() => handleClick(drawerOpen, toggleDrawer)}
-            size="large">
+            size='large'>
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6'>
-            {currentView}
-          </Typography>
+          <Box width={1/1} display='flex' justifyContent='center'>
+            <Typography variant='h6'>
+              {currentView}
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <NavDrawer />

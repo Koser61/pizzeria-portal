@@ -26,11 +26,13 @@ class Tables extends React.Component {
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
     fetchBookings: PropTypes.func,
+    changeView: PropTypes.func,
   }
 
   componentDidMount() {
-    const { fetchEvents, fetchBookings } = this.props;
+    const { changeView, fetchEvents, fetchBookings } = this.props;
 
+    changeView('Tables');
     fetchEvents();
     fetchBookings();
   }

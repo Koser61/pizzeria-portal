@@ -20,11 +20,13 @@ class Ordering extends React.Component {
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
+    changeView: PropTypes.func,
   };
 
   componentDidMount() {
-    const { fetchOrders } = this.props;
+    const { changeView, fetchOrders } = this.props;
     
+    changeView('Ordering');
     fetchOrders();
   }
 

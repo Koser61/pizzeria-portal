@@ -27,11 +27,13 @@ class Dashboard extends React.Component {
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
+    changeView: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    const { fetchOrders, fetchEvents, fetchBookings } = this.props;
+    const { changeView, fetchOrders, fetchEvents, fetchBookings } = this.props;
 
+    changeView('Dashboard');
     fetchOrders();
     fetchEvents();
     fetchBookings();
