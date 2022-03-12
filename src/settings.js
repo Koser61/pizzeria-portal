@@ -20,6 +20,7 @@ export const api = {
   dateEqualParamKey: 'date=',
   dateStartParamKey: 'date_gte',
   dateEndParamKey: 'date_lte',
+  orderTimeMatchParamKey: 'orderTime_like=',
   notRepeatParam: 'repeat=false',
   repeatParam: 'repeat_ne=false',
   notDoneParam: 'status_ne=done',
