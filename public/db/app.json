@@ -623,26 +623,6 @@
       "duration": 2,
       "ppl": 3,
       "starters": ["lemonWater"]
-    },
-    {
-      "id": 6,
-      "date": "2022-03-12",
-      "hour": "14:00",
-      "table": 2,
-      "repeat": false,
-      "duration": 3,
-      "ppl": 3,
-      "starters": ["lemonWater"]
-    },
-    {
-      "id": 7,
-      "date": "2022-03-12",
-      "hour": "18:00",
-      "table": 1,
-      "repeat": false,
-      "duration": 4,
-      "ppl": 4,
-      "starters": ["bread", "lemonWater"]
     }
   ],
   "bookings": [
@@ -655,16 +635,6 @@
       "duration": 3,
       "ppl": 2,
       "starters": []
-    },
-    {
-      "id": 2,
-      "date": "2022-03-12",
-      "hour": "22:00",
-      "table": 3,
-      "repeat": false,
-      "duration": 1,
-      "ppl": 2,
-      "starters": ["lemonWater"]
     }
   ]
 }
