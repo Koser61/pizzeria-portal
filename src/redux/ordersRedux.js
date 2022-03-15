@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { api } from '../settings';
+import { DateTime } from 'luxon';
 
 /* selectors */
 export const getAllOrders = ({orders}) => orders.data;
@@ -74,10 +75,18 @@ export const fetchOrdersFromAPI = () => {
     if(ordersEmpty || statusWasChangedByKitchen) {
       dispatch(fetchOrdersStarted());
 
+      const currentDate = DateTime.now();
+      const minDate = currentDate.toISODate();
+      const maxDate = currentDate.plus({ days: 14 }).toISODate();
+
+      const minOrderTimeParam = `${api.orderTimeStartParamKey}${minDate}`;
+      const maxOrderTimeParam = `${api.orderTimeEndParamKey}${maxDate}`;
+      const dateBetweenParams = `${minOrderTimeParam}&${maxOrderTimeParam}`;
+
       const notDoneOrCancelledParams = `${api.notDoneParam},${api.notCancelledParam}`;
 
       Axios
-        .get(`${api.url}/api/${api.orders}?${notDoneOrCancelledParams}&${api.sortByOrderTimeParam}`)
+        .get(`${api.url}/api/${api.orders}?${dateBetweenParams}&${notDoneOrCancelledParams}&${api.sortByOrderTimeParam}`)
         .then(res => {
           dispatch(fetchOrdersSuccess(res.data));
         })

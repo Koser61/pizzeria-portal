@@ -21,6 +21,8 @@ export const api = {
   dateStartParamKey: 'date_gte',
   dateEndParamKey: 'date_lte',
   orderTimeMatchParamKey: 'orderTime_like=',
+  orderTimeStartParamKey: 'orderTime_gte=',
+  orderTimeEndParamKey: 'orderTime_lte=',
   notRepeatParam: 'repeat=false',
   repeatParam: 'repeat_ne=false',
   notDoneParam: 'status_ne=done',
