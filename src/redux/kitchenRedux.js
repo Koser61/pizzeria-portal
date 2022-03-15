@@ -6,24 +6,16 @@ import { DateTime } from 'luxon';
 export const getLocalOrders = ({kitchen}) => kitchen.localOrders.data;
 export const getDeliveryOrders = ({kitchen}) => kitchen.deliveryOrders.data;
 
-// add selectors for orders with status ordered (instead of deleting from state)
-
 export const getLocalOrdersLoadingState = ({kitchen}) => kitchen.localOrders.loading;
 export const getDeliveryOrdersLoadingState = ({kitchen}) => kitchen.deliveryOrders.loading;
 
 export const getChangingOrderStatus = ({kitchen}) => kitchen.changeOrderStatus;
 
-export const getLocalOrderTimeById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).orderTime;
-export const getDeliveryOrderTimeById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).orderTime;
+export const getLocalOrdersWithOrderedStatus = ({kitchen}) => kitchen.localOrders.data.filter(order => order.status === 'ordered');
+export const getDeliveryOrdersWithOrderedStatus = ({kitchen}) => kitchen.deliveryOrders.data.filter(order => order.status === 'ordered');
 
-export const getLocalOrderProductsById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).products;
-export const getDeliveryOrderProductsById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).products;
-
-export const getOrderTableById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).table;
-export const getOrderNotesById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id).notes;
-
-export const getOrderAddressById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).address;
-export const getOrderPhoneById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).phone;
+export const getLocalOrderDataById = ({kitchen}, id) => kitchen.localOrders.data.find(order => order.id === id);
+export const getDeliveryOrderDataById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id);
 
 export const getDoneDeliveryOrdersAmount = ({kitchen}) => kitchen.deliveryOrders.data.filter(order => order.status === 'done').length;
 export const getTotalDeliveryOrdersAmount = ({kitchen}) => kitchen.deliveryOrders.data.length;
@@ -50,6 +42,9 @@ const CHANGE_ORDER_STATUS_ERROR = createActionName('CHANGE_ORDER_STATUS_ERROR');
 
 const CHANGE_STATUS_HAS_CHANGED = createActionName('CHANGE_STATUS_HAS_CHANGED');
 
+const CHANGE_LOCAL_ORDER_STATUS = createActionName('CHANGE_LOCAL_ORDER_STATUS');
+const CHANGE_DELIVERY_ORDER_STATUS = createActionName('CHANGE_DELIVERY_ORDER_STATUS');
+
 const DELETE_LOCAL_ORDER_FROM_STATE = createActionName('DELETE_LOCAL_ORDER_FROM_STATE');
 const DELETE_DELIVERY_ORDER_FROM_STATE = createActionName('DELETE_DELIVERY_ORDER_FROM_STATE');
 
@@ -67,6 +62,9 @@ export const changeOrderStatusSuccess = payload => ({ payload, type: CHANGE_ORDE
 export const changeOrderStatusError = payload => ({ payload, type: CHANGE_ORDER_STATUS_ERROR });
 
 export const changeStatusHasChanged = payload => ({ payload, type: CHANGE_STATUS_HAS_CHANGED });
+
+export const changeLocalOrderStatus = (payload, index) => ({ payload, index, type: CHANGE_LOCAL_ORDER_STATUS });
+export const changeDeliveryOrderStatus = (payload, index) => ({ payload, index, type: CHANGE_DELIVERY_ORDER_STATUS });
 
 export const deleteLocalOrderFromState = payload => ({ payload, type: DELETE_LOCAL_ORDER_FROM_STATE });
 export const deleteDeliveryOrderFromState = payload => ({ payload, type: DELETE_DELIVERY_ORDER_FROM_STATE });
@@ -125,7 +123,7 @@ export const fetchDeliveryOrdersFromAPI = () => {
   };
 };
 
-export const changeOrderStatusInAPI = (payload, delivery, id, orderData, localIndex) => {
+export const changeOrderStatusInAPI = (payload, id, orderData, delivery, index) => {
   const orderDataChanged = { ...orderData, status: payload };
   
   return (dispatch) => {
@@ -134,8 +132,8 @@ export const changeOrderStatusInAPI = (payload, delivery, id, orderData, localIn
     Axios
       .put(`${api.url}/api/${api.orders}/${id}`, orderDataChanged)
       .then(() => {
-        delivery ? dispatch(deleteDeliveryOrderFromState(localIndex))
-                 : dispatch(deleteLocalOrderFromState(localIndex))
+        delivery ? dispatch(changeDeliveryOrderStatus('inDelivery', index))
+                 : dispatch(changeLocalOrderStatus('ready', index))
       })
       .then(() => {
         dispatch(changeOrderStatusSuccess());
@@ -174,7 +172,7 @@ export default function reducer(statePart = {}, action = {}) {
           },
           data: action.payload,
         },
-      };
+      }
     }
     case FETCH_LOCAL_ORDERS_ERROR: {
       return {
@@ -186,7 +184,7 @@ export default function reducer(statePart = {}, action = {}) {
             error: action.payload,
           },
         },
-      };
+      }
     }
     case FETCH_DELIVERY_ORDERS_START: {
       return {
@@ -198,7 +196,7 @@ export default function reducer(statePart = {}, action = {}) {
             error: false,
           },
         },
-      };
+      }
     }
     case FETCH_DELIVERY_ORDERS_SUCCESS: {
       return {
@@ -210,7 +208,7 @@ export default function reducer(statePart = {}, action = {}) {
           },
           data: action.payload,
         },
-      };
+      }
     }
     case FETCH_DELIVERY_ORDERS_ERROR: {
       return {
@@ -222,7 +220,7 @@ export default function reducer(statePart = {}, action = {}) {
             error: action.payload,
           },
         },
-      };
+      }
     }
     case CHANGE_ORDER_STATUS_START: {
       return {
@@ -254,27 +252,27 @@ export default function reducer(statePart = {}, action = {}) {
         },
       }
     }
-    case DELETE_LOCAL_ORDER_FROM_STATE: {
+    case CHANGE_LOCAL_ORDER_STATUS: {
       return {
         ...statePart,
         localOrders: {
           ...statePart.localOrders,
-          data: [
-            ...statePart.localOrders.data.slice(0, action.payload), 
-            ...statePart.localOrders.data.slice(action.payload + 1),
-          ],
+          data: statePart.localOrders.data.map(
+            (orderData, i) => i === action.index ? { ...orderData, status: action.payload }
+                                                 : orderData
+          ),
         },
       }
     }
-    case DELETE_DELIVERY_ORDER_FROM_STATE: {
+    case CHANGE_DELIVERY_ORDER_STATUS: {
       return {
         ...statePart,
         deliveryOrders: {
           ...statePart.deliveryOrders,
-          data: [
-            ...statePart.deliveryOrders.data.slice(0, action.payload), 
-            ...statePart.deliveryOrders.data.slice(action.payload + 1),
-          ],
+          data: statePart.deliveryOrders.data.map(
+            (orderData, i) => i === action.index ? { ...orderData, status: action.payload }
+                                                 : orderData
+          ),
         },
       }
     }

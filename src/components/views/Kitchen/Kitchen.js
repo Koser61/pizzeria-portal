@@ -13,43 +13,60 @@ import KitchenOrders from '../../features/KitchenOrders/KitchenOrdersContainer';
 
 class Kitchen extends React.Component {
   static propTypes = {
-    fetchOrders: PropTypes.func,
-    changeStatusHasChanged: PropTypes.func,
-    loading: PropTypes.shape({
+    fetchLocalOrders: PropTypes.func,
+    localOrdersLoading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
+    fetchDeliveryOrders: PropTypes.func,
+    deliveryOrdersLoading: PropTypes.shape({
+      active: PropTypes.bool,
+      error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    }),
+    changeStatusHasChanged: PropTypes.func,
     changeView: PropTypes.func,
   }
 
   componentDidMount() {
-    const { changeView, fetchOrders, changeStatusHasChanged } = this.props;
+    const { changeView, fetchLocalOrders, fetchDeliveryOrders, changeStatusHasChanged } = this.props;
     
     changeView('Kitchen');
-    fetchOrders();
+    fetchLocalOrders();
+    fetchDeliveryOrders();
     changeStatusHasChanged(false);
   }
 
   render() {
-    const { loading: { active, error }, allOrders } = this.props;
+    const { localOrdersLoading, deliveryOrdersLoading } = this.props;
 
-    if(active || !allOrders.length){
+    const dataLoadingActive = localOrdersLoading.active && deliveryOrdersLoading.active;
+    const dataLoadingError = localOrdersLoading.error || deliveryOrdersLoading.error;
+
+    if(dataLoadingActive){
       return (
         <Container>
-          <Backdrop open={active || !allOrders.length}>
+          <Backdrop open={dataLoadingActive}>
             <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>
       );
-    } else if(error) {
+    } else if(dataLoadingError) {
       return (
         <Container>
-          <Box width={1/1} py='1rem'>
-            <Alert severity='error' mt='2rem'>
-              <AlertTitle>Error!</AlertTitle>
-              {error}
-            </Alert>
-          </Box>
+          {localOrdersLoading.error &&
+            <Box width={1/1} py='1rem'>
+              <Alert severity='error' mt='2rem'>
+                <AlertTitle>Error!</AlertTitle>
+                {localOrdersLoading.error}
+              </Alert>
+            </Box>}
+          {deliveryOrdersLoading.error &&
+            <Box width={1/1} py='1rem'>
+              <Alert severity='error' mt='2rem'>
+                <AlertTitle>Error!</AlertTitle>
+                {deliveryOrdersLoading.error}
+              </Alert>
+            </Box>}
         </Container>
       );
     } else {

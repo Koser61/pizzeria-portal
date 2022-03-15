@@ -22,14 +22,8 @@ import { tables } from '../../../settings';
 
 const KitchenOrder = ({
   delivery,
-  localIndex,
-  orderTime,
-  address,
-  phone,
-  table,
-  notes,
-  products,
   orderData,
+  index,
   changeOrderStatusInAPI,
 }) => {
 
@@ -70,11 +64,13 @@ const KitchenOrder = ({
     event.preventDefault();
 
     if(delivery) {
-      changeOrderStatusInAPI('inDelivery', orderData);
+      changeOrderStatusInAPI('inDelivery', orderData, index);
     } else {
-      changeOrderStatusInAPI('ready', orderData);
+      changeOrderStatusInAPI('ready', orderData, index);
     }
   };
+
+  const { orderTime, address, phone, table, notes, products } = orderData;
 
   return (
     <Card elevation={4} sx={{ p: '0.5rem' }}>
@@ -142,15 +138,13 @@ const KitchenOrder = ({
         )}
       </Grid>
       <Stack spacing='0.5rem'>
-        {notes ?
+        {notes &&
           <Card
             variant='outlined'
             sx={{p: '0.5rem', borderWidth: '2px', borderColor: 'primary.main'}}
           >
             <Typography variant='body2'>{notes}</Typography>
-          </Card>
-          : ''
-        }
+          </Card>}
         {products.map((product, i) => {
           return (
             <OrderProduct
@@ -168,13 +162,9 @@ const KitchenOrder = ({
 
 KitchenOrder.propTypes = {
   delivery: PropTypes.bool,
-  index: PropTypes.number,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  orderTime: PropTypes.string,
-  products: PropTypes.array,
-  address: PropTypes.string,
-  phone: PropTypes.string,
-  table: PropTypes.string,
+  orderData: PropTypes.object,
+  index: PropTypes.number,
   changeOrderStatusInAPI: PropTypes.func,
 };
 
