@@ -66,27 +66,19 @@ export const deleteDeliveryOrderFromState = payload => ({ payload, type: DELETE_
 /* thunk creators */
 export const fetchLocalOrdersFromAPI = () => {
   return (dispatch, getState) => {
-    const localOrdersEmpty = getState().kitchen.localOrders.data.length === 0
+    const localOrdersEmpty = getState().kitchen.localOrders.data.length === 0;
     const orderWasSent = getState().orders.sendOrder.orderWasSent;
     
     if(localOrdersEmpty || orderWasSent) {
       dispatch(fetchLocalOrdersStarted());
 
-      Axios.get(`${api.url}/api/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
+      const currentDate = DateTime.now().toISODate();
+      const currentDateParam = `${api.orderTimeMatchParamKey}${currentDate}`;
+
+      Axios
+        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${api.hasTableParam}&${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
         .then((res) => {
-          const currentDate = DateTime.now().toISODate();
-
-          let localOrders = [];
-
-          for(let responseOrder of res.data) {
-            const orderDate = DateTime.fromISO(responseOrder.orderTime).toISODate();
-
-            if(orderDate === currentDate && responseOrder.table) {
-              localOrders.push(responseOrder);
-            }
-          }
-
-          dispatch(fetchLocalOrdersSuccess(localOrders));
+          dispatch(fetchLocalOrdersSuccess(res.data));
         })
         .catch((err) => {
           dispatch(fetchLocalOrdersError(err.message || true));
@@ -96,27 +88,32 @@ export const fetchLocalOrdersFromAPI = () => {
 };
 
 export const fetchDeliveryOrdersFromAPI = () => {
-  return (dispatch) => {
-    dispatch(fetchDeliveryOrdersStarted());
+  return (dispatch, getState) => {
+    const deliveryOrdersEmpty = getState().kitchen.deliveryOrders.data.length === 0;
 
-    Axios.get(`${api.url}/api/${api.orders}?${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
-      .then((res) => {
-        const currentDate = DateTime.now().toISODate();
+    if(deliveryOrdersEmpty) {
+      dispatch(fetchDeliveryOrdersStarted());
 
-        let deliveryOrders = [];
+      const currentDate = DateTime.now().toISODate();
+      const currentDateParam = `${api.orderTimeMatchParamKey}${currentDate}`;
 
-        for(let responseOrder of res.data) {
-          const orderDate = DateTime.fromISO(responseOrder.orderTime).toISODate();
-          if(orderDate === currentDate && responseOrder.address && responseOrder.phone) {
-            deliveryOrders.push(responseOrder);
+      Axios
+        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
+        .then((res) => {
+          let deliveryOrders = [];
+  
+          for(let responseOrder of res.data) {
+            if(responseOrder.address && responseOrder.phone) {
+              deliveryOrders.push(responseOrder);
+            }
           }
-        }
-
-        dispatch(fetchDeliveryOrdersSuccess(deliveryOrders));
-      })
-      .catch((err) => {
-        dispatch(fetchDeliveryOrdersError(err.message || true));
-      });
+  
+          dispatch(fetchDeliveryOrdersSuccess(deliveryOrders));
+        })
+        .catch((err) => {
+          dispatch(fetchDeliveryOrdersError(err.message || true));
+        });
+    }
   };
 };
 

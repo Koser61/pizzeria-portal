@@ -28,6 +28,9 @@ export const api = {
   statusOrderedParam: 'status=ordered',
   tableEqualParamKey: 'table=',
   sortByOrderTimeParam: '_sort=orderTime',
+  hasTableParam: 'table_like=table',
+  addressMatchParamKey: 'address_like=',
+  phoneMatchParamKey: 'phone_like=',
 };
 
 export const tables = [
