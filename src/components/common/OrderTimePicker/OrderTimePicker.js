@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DateTime } from 'luxon';
 
 import TextField from '@mui/material/TextField';
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import DateAdapter from '@mui/lab/AdapterLuxon';
-
-import { DateTime } from 'luxon';
 
 class OrderTimePicker extends React.Component {
   static propTypes = {
@@ -33,20 +32,41 @@ class OrderTimePicker extends React.Component {
   render() {
     const { readOnly, orderTime, changeOrderTime } = this.props;
 
-    return (
-      <LocalizationProvider dateAdapter={DateAdapter}>
-        <DateTimePicker
-          renderInput={(props) => <TextField {...props} />}
-          label='Order Time'
-          value={orderTime}
-          onChange={(newOrderTime) => {
-            changeOrderTime(newOrderTime);
-          }}
-          readOnly={readOnly}
-          ampm={false}
-        />
-      </LocalizationProvider>
-    );
+    if(readOnly) {
+      return (
+        <LocalizationProvider dateAdapter={DateAdapter}>
+          <DateTimePicker
+            renderInput={(props) => <TextField {...props} />}
+            label='Order Time'
+            value={orderTime}
+            onChange={(newOrderTime) => {
+              changeOrderTime(newOrderTime);
+            }}
+            ampm={false}
+            readOnly
+          />
+        </LocalizationProvider>
+      );
+    } else {
+      const minDate = DateTime.now();
+      const maxDate = minDate.plus({ days: 14 });
+
+      return (
+        <LocalizationProvider dateAdapter={DateAdapter}>
+          <DateTimePicker
+            renderInput={(props) => <TextField {...props} />}
+            label='Order Time'
+            value={orderTime}
+            onChange={(newOrderTime) => {
+              changeOrderTime(newOrderTime);
+            }}
+            ampm={false}
+            minDate={minDate}
+            maxDate={maxDate}
+          />
+        </LocalizationProvider>
+      );
+    }
   }
 }
 
