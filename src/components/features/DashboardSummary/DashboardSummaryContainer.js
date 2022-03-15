@@ -5,7 +5,7 @@ import {
   getTotalDeliveryOrdersAmount,
   getDoneLocalOrdersAmount,
   getTotalLocalOrdersAmount
-} from '../../../redux/ordersRedux';
+} from '../../../redux/kitchenRedux';
 import { getBookingsAmount } from '../../../redux/bookingsRedux';
 import { getEventsAmount } from '../../../redux/eventsRedux';
 

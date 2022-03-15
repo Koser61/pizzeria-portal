@@ -1,18 +1,25 @@
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
-import { getOrdersLoadingState, fetchOrdersFromAPI } from '../../../redux/ordersRedux';
+import {
+  getLocalOrdersLoadingState,
+  getDeliveryOrdersLoadingState,
+  fetchLocalOrdersFromAPI,
+  fetchDeliveryOrdersFromAPI
+} from '../../../redux/kitchenRedux';
 import { getEventsLoadingState, fetchEventsFromAPI } from '../../../redux/eventsRedux';
 import { getBookingsLoadingState, fetchBookingsFromAPI } from '../../../redux/bookingsRedux';
 import { changeView } from '../../../redux/navRedux';
 
 const mapStateToProps = (state) => ({
-  ordersLoading: getOrdersLoadingState(state),
+  localOrdersLoading: getLocalOrdersLoadingState(state),
+  deliveryOrdersLoading: getDeliveryOrdersLoadingState(state),
   eventsLoading: getEventsLoadingState(state),
   bookingsLoading: getBookingsLoadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchOrders: () => dispatch(fetchOrdersFromAPI()),
+  fetchLocalOrders: () => dispatch(fetchLocalOrdersFromAPI()),
+  fetchDeliveryOrders: () => dispatch(fetchDeliveryOrdersFromAPI()),
   fetchEvents: () => dispatch(fetchEventsFromAPI()),
   fetchBookings: () => dispatch(fetchBookingsFromAPI()),
   changeView: (viewTitle) => dispatch(changeView(viewTitle)),

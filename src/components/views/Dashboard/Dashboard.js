@@ -12,8 +12,13 @@ import DashboardSummary from '../../features/DashboardSummary/DashboardSummaryCo
 
 class Dashboard extends React.Component {
   static propTypes = {
-    fetchOrders: PropTypes.func,
-    ordersLoading: PropTypes.shape({
+    fetchLocalOrders: PropTypes.func,
+    localOrdersLoading: PropTypes.shape({
+      active: PropTypes.bool,
+      error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    }),
+    fetchDeliveryOrders: PropTypes.func,
+    deliveryOrdersLoading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
@@ -31,33 +36,46 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    const { changeView, fetchOrders, fetchEvents, fetchBookings } = this.props;
+    const { changeView, fetchLocalOrders, fetchDeliveryOrders, fetchEvents, fetchBookings } = this.props;
 
     changeView('Dashboard');
-    fetchOrders();
+    fetchLocalOrders();
+    fetchDeliveryOrders();
     fetchEvents();
     fetchBookings();
   }
 
   render() {
-    const { ordersLoading, eventsLoading, bookingsLoading } = this.props;
+    const { localOrdersLoading, deliveryOrdersLoading, eventsLoading, bookingsLoading } = this.props;
+
+    const dataLoadingActive = localOrdersLoading.active && deliveryOrdersLoading.active &&
+                                   eventsLoading.active && bookingsLoading.active;
+    const dataLoadingError = localOrdersLoading.error || deliveryOrdersLoading.error ||
+                                  eventsLoading.error || bookingsLoading.error;
     
-    if(ordersLoading.active && eventsLoading.active && bookingsLoading.active) {
+    if(dataLoadingActive) {
       return (
         <Container>
-          <Backdrop open={ordersLoading.active && eventsLoading.active && bookingsLoading.active}>
+          <Backdrop open={dataLoadingActive}>
             <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>
       );
-    } else if(ordersLoading.error || eventsLoading.error || bookingsLoading.error) {
+    } else if(dataLoadingError) {
       return (
         <Container>
-          {ordersLoading.error &&
+          {localOrdersLoading.error &&
             <Box width={1/1} py='1rem'>
               <Alert severity='error' mt='2rem'>
                 <AlertTitle>Error!</AlertTitle>
-                {ordersLoading.error}
+                {localOrdersLoading.error}
+              </Alert>
+            </Box>}
+          {deliveryOrdersLoading.error &&
+            <Box width={1/1} py='1rem'>
+              <Alert severity='error' mt='2rem'>
+                <AlertTitle>Error!</AlertTitle>
+                {deliveryOrdersLoading.error}
               </Alert>
             </Box>}
           {eventsLoading.error &&

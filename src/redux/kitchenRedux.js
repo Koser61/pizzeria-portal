@@ -6,6 +6,8 @@ import { DateTime } from 'luxon';
 export const getLocalOrders = ({kitchen}) => kitchen.localOrders.data;
 export const getDeliveryOrders = ({kitchen}) => kitchen.deliveryOrders.data;
 
+// add selectors for orders with status ordered (instead of deleting from state)
+
 export const getLocalOrdersLoadingState = ({kitchen}) => kitchen.localOrders.loading;
 export const getDeliveryOrdersLoadingState = ({kitchen}) => kitchen.deliveryOrders.loading;
 
@@ -22,6 +24,12 @@ export const getOrderNotesById = ({kitchen}, id) => kitchen.localOrders.data.fin
 
 export const getOrderAddressById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).address;
 export const getOrderPhoneById = ({kitchen}, id) => kitchen.deliveryOrders.data.find(order => order.id === id).phone;
+
+export const getDoneDeliveryOrdersAmount = ({kitchen}) => kitchen.deliveryOrders.data.filter(order => order.status === 'done').length;
+export const getTotalDeliveryOrdersAmount = ({kitchen}) => kitchen.deliveryOrders.data.length;
+
+export const getDoneLocalOrdersAmount = ({kitchen}) => kitchen.localOrders.data.filter(order => order.status === 'done').length;
+export const getTotalLocalOrdersAmount = ({kitchen}) => kitchen.localOrders.data.length;
 
 /* action name creator */
 const reducerName = 'kitchen';
@@ -76,7 +84,7 @@ export const fetchLocalOrdersFromAPI = () => {
       const currentDateParam = `${api.orderTimeMatchParamKey}${currentDate}`;
 
       Axios
-        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${api.hasTableParam}&${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
+        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${api.hasTableParam}&${api.sortByOrderTimeParam}`)
         .then((res) => {
           dispatch(fetchLocalOrdersSuccess(res.data));
         })
@@ -98,7 +106,7 @@ export const fetchDeliveryOrdersFromAPI = () => {
       const currentDateParam = `${api.orderTimeMatchParamKey}${currentDate}`;
 
       Axios
-        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${api.statusOrderedParam}&${api.sortByOrderTimeParam}`)
+        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${api.sortByOrderTimeParam}`)
         .then((res) => {
           let deliveryOrders = [];
   
@@ -148,8 +156,8 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         localOrders: {
+          ...statePart.localOrders,
           loading: {
-            ...statePart.localOrders.loading,
             active: true,
             error: false,
           },
@@ -161,7 +169,6 @@ export default function reducer(statePart = {}, action = {}) {
         ...statePart,
         localOrders: {
           loading: {
-            ...statePart.localOrders.loading,
             active: false,
             error: false,
           },
@@ -173,8 +180,8 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         localOrders: {
+          ...statePart.localOrders,
           loading: {
-            ...statePart.localOrders.loading,
             active: true,
             error: action.payload,
           },
@@ -185,6 +192,7 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         deliveryOrders: {
+          ...statePart.deliveryOrders,
           loading: {
             active: true,
             error: false,
@@ -208,6 +216,7 @@ export default function reducer(statePart = {}, action = {}) {
       return {
         ...statePart,
         deliveryOrders: {
+          ...statePart.deliveryOrders,
           loading: {
             active: true,
             error: action.payload,

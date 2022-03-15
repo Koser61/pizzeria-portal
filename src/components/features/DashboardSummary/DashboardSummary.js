@@ -77,7 +77,7 @@ DashboardSummary.propTypes = {
   doneLocalOrders: PropTypes.number.isRequired,
   totalLocalOrders: PropTypes.number.isRequired,
   bookings: PropTypes.number.isRequired,
-  events: PropTypes.number.isRequired
+  events: PropTypes.number.isRequired,
 };
 
 export default DashboardSummary;

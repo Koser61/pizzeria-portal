@@ -5,11 +5,6 @@ import { api } from '../settings';
 export const getAllOrders = ({orders}) => orders.data;
 export const getOrdersLoadingState = ({orders}) => orders.loading;
 
-export const getDoneDeliveryOrdersAmount = ({orders}) => orders.data.filter(order => order.address && order.phone && order.status === 'done').length;
-export const getTotalDeliveryOrdersAmount = ({orders}) => orders.data.filter(order => order.address && order.phone).length;
-export const getDoneLocalOrdersAmount = ({orders}) => orders.data.filter(order => order.table && order.status === 'done').length;
-export const getTotalLocalOrdersAmount = ({orders}) => orders.data.filter(order => order.table).length;
-
 export const getSendOrderLoadingState = ({orders}) => orders.sendOrder;
 export const getOrderWasSentState = ({orders}) => orders.sendOrder.orderWasSent;
 export const getChangeOrderStatusState = ({orders}) => orders.changeOrderStatus;
