@@ -1,6 +1,5 @@
 import Axios from 'axios';
 import { api } from '../settings';
-import { DateTime } from 'luxon';
 
 /* selectors */
 export const getAllOrders = ({orders}) => orders.data;
@@ -80,13 +79,10 @@ export const fetchOrdersFromAPI = () => {
     if(ordersEmpty || statusWasChangedByKitchen) {
       dispatch(fetchOrdersStarted());
 
-      const currentDate = DateTime.now().toISODate();
-
-      const currentDateParam = `${api.orderTimeMatchParamKey}${currentDate}`;
       const notDoneOrCancelledParams = `${api.notDoneParam},${api.notCancelledParam}`;
 
       Axios
-        .get(`${api.url}/api/${api.orders}?${currentDateParam}&${notDoneOrCancelledParams}&${api.sortByOrderTimeParam}`)
+        .get(`${api.url}/api/${api.orders}?${notDoneOrCancelledParams}&${api.sortByOrderTimeParam}`)
         .then(res => {
           dispatch(fetchOrdersSuccess(res.data));
         })

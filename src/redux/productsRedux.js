@@ -22,7 +22,7 @@ export const fetchProductsError = payload => ({ payload, type: FETCH_ALL_ERROR }
 /* thunk creators */
 export const fetchProductsFromAPI = () => {
   return (dispatch, getState) => {
-    if(getState().products.data.length == 0){ //eslint-disable-line eqeqeq
+    if(getState().products.data.length === 0){
       dispatch(fetchProductsStarted());
 
       Axios
