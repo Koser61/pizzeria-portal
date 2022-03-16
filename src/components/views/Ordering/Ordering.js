@@ -31,12 +31,12 @@ class Ordering extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, orders } = this.props;
+    const { loading: { active, error } } = this.props;
 
-    if(active || !orders.length) {
+    if(active) {
       return (
         <Container>
-          <Backdrop open={active || !orders.length}>
+          <Backdrop open={active}>
             <CircularProgress sx={{color: 'white'}} />
           </Backdrop>
         </Container>
