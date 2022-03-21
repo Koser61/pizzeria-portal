@@ -261,7 +261,7 @@ class Booking {
       .then(
         thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table),
         thisBooking.updateDOM()
-      )
+      );
   }
 }
 

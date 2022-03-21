@@ -267,10 +267,10 @@
       {
           "id": 1,
           "date": "2021-06-05",
-          "hour": "19:00",
+          "hour": "12:00",
           "table": 1,
           "repeat": false,
-          "duration": 3,
+          "duration": 4,
           "ppl": 3,
           "starters": []
       }
