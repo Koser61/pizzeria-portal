@@ -18,7 +18,7 @@ import Order from './components/views/Order/OrderContainer';
 import Event from './components/views/Event/EventContainer';
 import Booking from './components/views/Booking/BookingContainer';
 
-import './App.scss';
+import './App.css';
 
 const App = () => (
   <Provider store={store}>
