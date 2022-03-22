@@ -1,6 +1,7 @@
 # pizzeria-portal
 
-This project is a *frontend react implementation of **pizzeria restaurant web app***.  
+This project is a ***pizzeria restaurant web app***.
+
 It uses [_project-pizzeria_](https://github.com/Koser61/project-pizzeria.git) client page and **json-server** API to communicate between websites.
   
 
@@ -69,6 +70,7 @@ Install project dependencies using **yarn** package manager CLI command:
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
   
 
+
 ### Available Scripts:
 
 Start local server:
@@ -77,6 +79,7 @@ Start local server:
 Create production build:
 >  `yarn build`
   
+
 
 ### Available URLs:
 
