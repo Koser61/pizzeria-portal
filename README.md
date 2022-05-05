@@ -33,6 +33,7 @@ It was made as final project after the end of Kodilla's frontend bootcamp.
 - React Router
 - Redux
 - Redux Thunk
+- Material UI
   
 
 ## Features
